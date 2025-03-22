@@ -3,6 +3,7 @@ import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/Forgot";
 import AuthLayout from "./pages/auth/Layout";
 import { Route, Routes } from "react-router-dom";
+import Instruction from "./pages/games/instructions/instruction";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
       </Route>
+      <Route path="/instructions" element={<Instruction />} />
     </Routes>
   );
 }
