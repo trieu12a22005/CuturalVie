@@ -1,12 +1,12 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
-import "tailwindcss";
 import { useNavigate } from "react-router-dom";
+import { useAudio } from "../../../components/AudioContext";
+import InteractUser from "../../../components/InteractUser";
+
 const text =
   "Chào cậu! Mình là Miu, hướng dẫn viên của VietCultural. Mình sẽ là người bạn đồng hành cùng cậu trong hành trình khám phá di sản văn hóa ở Việt Nam.";
-
-const listItems = [];
 
 const textVariants = {
   hidden: { opacity: 0 },
@@ -16,25 +16,18 @@ const textVariants = {
   }),
 };
 
-// List animation (Slower fade-in)
-const listItemVariants = {
-  hidden: { opacity: 0, x: -10 },
-  visible: (i) => ({
-    opacity: 1,
-    x: 0,
-    transition: { delay: i * 0.7, duration: 0.8 },
-  }),
-};
 function Instruction_1() {
-  const textDuration = text.split(" ").length * 0.1 + 2.5; // Calculate total duration of paragraph
+  const { setIsPlaying } = useAudio();
   const navigate = useNavigate();
+
   return (
     <div>
+      <InteractUser setIsPlaying={setIsPlaying} />
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-white rounded-lg  shadow-lg w-[664px] h-[640px]  relative"
+        className="bg-white rounded-lg shadow-lg w-[664px] h-[640px] relative"
       >
         <motion.button
           whileHover={{ scale: 1.1, rotate: 10 }}
@@ -42,9 +35,10 @@ function Instruction_1() {
         >
           <AiOutlineClose size={21} className="text-white" />
         </motion.button>
-        <h2 className="pt-4 font-bold text-3xl ml-35 r w-[401px] text-center">
-          Chào mừng bạn đến với VietCutural
+        <h2 className="pt-4 font-bold text-3xl text-center">
+          Chào mừng bạn đến với VietCultural
         </h2>
+
         <motion.div
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -91,11 +85,13 @@ function Instruction_1() {
           src="bird_2.png"
           alt="Bird"
         />
+
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 3.5 }} // Delay 2 giây
-          className="absolute bottom-[190px] right-[60px] w-[330px] h-[50px] bg-green-300 rounded-[20px]" onClick={() => navigate("/instructions_2")}
+          transition={{ duration: 0.5, delay: 3.5 }}
+          className="absolute bottom-[190px] right-[60px] w-[330px] h-[50px] bg-green-300 rounded-[20px]"
+          onClick={() => navigate("/instructions_2")}
         >
           <span className="font-semibold text-1xl cursor-pointer ">
             Được rồi đi thôi
@@ -104,8 +100,9 @@ function Instruction_1() {
         <motion.button
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, delay: 3.5 }} // Delay 2 giây
-          className="absolute bottom-[120px] right-[60px] w-[330px] h-[50px] bg-green-300 rounded-[20px]" onClick={() => navigate("/intructions_2")}
+          transition={{ duration: 0.5, delay: 3.5 }}
+          className="absolute bottom-[120px] right-[60px] w-[330px] h-[50px] bg-green-300 rounded-[20px]"
+          onClick={() => navigate("/instructions_2")}
         >
           <span className="font-semibold text-1xl cursor-pointer ">
             Ok đi thôi

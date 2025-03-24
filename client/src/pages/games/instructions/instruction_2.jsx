@@ -1,6 +1,8 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
+import { useAudio } from "../../../components/AudioContext";
+import InteractUser from "../../../components/InteractUser";
 
 const text =
   "Ở Việt Nam được chia thành 6 vùng miền văn hóa khác nhau với những nét đặc trưng khác nhau, từ đó làm đa dạng văn hóa Việt. Miu giới thiệu cho bạn 6 vùng đó nhé:";
@@ -34,9 +36,10 @@ const listItemVariants = {
 
 function Instruction_2() {
   const textDuration = text.split(" ").length * 0.1 + 2.5; // Calculate total duration of paragraph
-
+  const { setIsPlaying } = useAudio();
   return (
     <div>
+    <InteractUser setIsPlaying={setIsPlaying} />
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}

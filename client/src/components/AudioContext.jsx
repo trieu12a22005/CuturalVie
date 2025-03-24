@@ -10,7 +10,7 @@ export function AudioProvider({ children }) {
 
   // Khởi tạo audio khi component mount
   useEffect(() => {
-    audioRef.current = new Audio("test1.mp3");
+    audioRef.current = new Audio("nhac_nen_1.mp3");
     audioRef.current.loop = true; // Lặp lại nhạc
 
     return () => {
