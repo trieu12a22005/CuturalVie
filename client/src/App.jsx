@@ -27,8 +27,7 @@ function App() {
     <Routes>
       <Route element={<Layout bgImage={backgroundImage} />}>
         <Route path="start" element={<Start />} />
-        <Route path="begin" element = {<Begin />} />
-        <Route path="/" element={<Layout />} />
+        <Route path="/" element = {<Begin />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
