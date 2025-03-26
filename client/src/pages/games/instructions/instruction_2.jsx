@@ -1,8 +1,9 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { useAudio } from "../../../components/AudioContext";
+import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
+import Layout from "./Layout";
 
 
 const text =

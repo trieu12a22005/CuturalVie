@@ -3,7 +3,6 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import QuizHeader from "../../../components/quizzGame/headerGame";
 import Question from "../../../components/quizzGame/Question";
 import QuizAnswer from "../../../components/quizzGame/QuizAnswer";
-import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../components/loading";
 import { questions } from "../../../utils/quizz";
 import { useDispatch, useSelector} from "react-redux";

@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import Rule from "./Rule";
 import Game from "./Game";
-import Layout from "../../../components/Layout";
 function Index() {
   let [active, setActive] = useState(false);
   if (!active) return <Rule setActive={setActive} />;

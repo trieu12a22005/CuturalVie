@@ -8,9 +8,10 @@ import Instruction_1 from "./pages/games/instructions/instruction_1";
 import Begin from "./pages/auth/Begin";
 import { useEffect } from "react";
 import Start from "./pages/games/instructions/start";
-
+import Select from "./pages/games/instructions/select";
+import Game from './pages/games/quizz/Index'
 function App() {
-  const backgroundImage = "Background.png";
+  const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       event.preventDefault();

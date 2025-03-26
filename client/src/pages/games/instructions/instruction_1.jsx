@@ -2,7 +2,7 @@ import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useAudio } from "../../../components/AudioContext";
+import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 
 const text =

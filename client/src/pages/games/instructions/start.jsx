@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "tailwindcss";
-import { useAudio } from "../../../components/AudioContext";
+import { useAudio } from "../../../context/AudioContext";
 function Start() {
   const { setIsPlaying } = useAudio();
   const navigate = useNavigate();

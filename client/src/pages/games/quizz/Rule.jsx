@@ -45,9 +45,9 @@ const Rule = ({ setActive }) => {
     listItems.length * 0.5 +
     calculateTextDuration(lastParagraphText) +
     0.3;
-
+  console.log('object');
   return (
-    <Layout url={"/bg/bg3.png"}>
+    <Layout bgImage={"/bg/bg3.png"}>
       <div className="relative w-fit">
         <img
           className="min-h-[100%]"
@@ -71,8 +71,8 @@ const Rule = ({ setActive }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   delay:
-                    firstParaDuration + secondParaDuration + 0.5 + index * 0.5,
-                  duration: 1.0,
+                    firstParaDuration + secondParaDuration + 0.5 + index * 0.7,
+                  duration: 1.5,
                   ease: "easeOut",
                 }}
               >
