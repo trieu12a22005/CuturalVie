@@ -1,11 +1,11 @@
 import React, { Children } from "react";
 import { Outlet } from "react-router-dom";
-
+import MyLayout from '../../components/Layout'
 function Layout() {
   return (
-    <div className="relative h-screen bg-[url('Background.png')] bg-cover bg-center  w-full flex items-center justify-center">
+    <MyLayout url={"/bg/bg1.png"}>
       <Outlet />
-    </div>
+    </MyLayout>
   );
 }
 

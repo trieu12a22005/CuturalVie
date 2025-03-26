@@ -1,1 +1,53 @@
 @import "tailwindcss";
+
+
+.img2 {
+    top: 57px; 
+    left: 705px;
+   
+  }
+  
+  .img1 {
+    top: 129px;
+    left: 720px;
+    z-index: 10;
+  }
+  
+  .img3 {
+    top: 71px;
+    left: 601px;
+  }
+  
+  .img4 {
+    top: 181px;
+    left: 690px;
+    z-index: 10;
+  }
+  
+  .img5 {
+    top: 420px;
+    left: 821px;
+    z-index: 9;
+  }
+  .img5:hover ~ .img4 {
+  
+    transform: scale(1.1);
+  }
+  
+  .img6 {
+    top: 514px;
+    left: 692px;
+  }
+  .img {
+    left: 810px;
+    top: 397px;
+    z-index: 11;
+  }
+  .img8 {
+    left:960px;
+    top: 592px;
+  }
+  .img9 {
+    left:1028px;
+    top: 316px;
+  }

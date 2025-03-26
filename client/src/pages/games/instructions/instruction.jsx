@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
+import Layout from "./Layout";
 
 const text =
   "Ở Việt Nam được chia thành 6 vùng miền văn hóa khác nhau với những nét đặc trưng khác nhau, từ đó làm đa dạng văn hóa Việt. Miu giới thiệu cho bạn 6 vùng đó nhé:";
@@ -33,16 +34,10 @@ const listItemVariants = {
 };
 
 function Instruction() {
-  const textDuration = text.split(" ").length * 0.1 + 2.5; // Calculate total duration of paragraph
+  const textDuration = text.split(" ").length * 0.1 + 2.5; 
 
   return (
-    <div className="relative h-screen bg-[url('Background.png')] bg-cover bg-center w-full flex items-center justify-center overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="bg-white rounded-lg shadow-lg w-[90vw] h-[90vh] relative"
-      >
+    <Layout>
         <motion.button
           whileHover={{ scale: 1.1, rotate: 10 }}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-3 py-2 rounded-md"
@@ -116,8 +111,7 @@ function Instruction() {
           src="bird.png"
           alt="Bird"
         />
-      </motion.div>
-    </div>
+     </Layout>
   );
 }
 
