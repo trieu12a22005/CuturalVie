@@ -1,7 +1,9 @@
 import React from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
-import Layout from "./Layout";
+import { useAudio } from "../../../components/AudioContext";
+import InteractUser from "../../../components/InteractUser";
+
 
 const text =
   "Ở Việt Nam được chia thành 6 vùng miền văn hóa khác nhau với những nét đặc trưng khác nhau, từ đó làm đa dạng văn hóa Việt. Miu giới thiệu cho bạn 6 vùng đó nhé:";
@@ -33,11 +35,18 @@ const listItemVariants = {
   }),
 };
 
-function Instruction() {
-  const textDuration = text.split(" ").length * 0.1 + 2.5; 
-
+function Instruction_2() {
+  const textDuration = text.split(" ").length * 0.1 + 2.5; // Calculate total duration of paragraph
+  const { setIsPlaying } = useAudio();
   return (
-    <Layout>
+    <div>
+    <InteractUser setIsPlaying={setIsPlaying} />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className="bg-white rounded-lg shadow-lg w-[90vw] h-[90vh] relative"
+      >
         <motion.button
           whileHover={{ scale: 1.1, rotate: 10 }}
           className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-3 py-2 rounded-md"
@@ -111,8 +120,10 @@ function Instruction() {
           src="bird.png"
           alt="Bird"
         />
-     </Layout>
+    
+     </motion.div>
+  </div>
   );
 }
 
-export default Instruction;
+export default Instruction_2;
