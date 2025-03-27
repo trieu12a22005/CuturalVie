@@ -8,6 +8,9 @@ import { FiMail, FiLock } from "react-icons/fi";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 import { isValidEmail } from "../../utils/validate";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import axiosInstance from "../../api/axios";
+import { notifyError, notifySuccess } from "../../utils/notify";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -48,7 +51,7 @@ export default function Login() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {
       email: formData.email.trim()
@@ -64,7 +67,16 @@ export default function Login() {
     };
     setErrors(newErrors);
     if (newErrors.email || newErrors.password) return;
-    console.log(formData);
+    //handle login
+    try {
+       let {data}= await axiosInstance.post("/auth/login",formData)
+       notifySuccess("Đăng nhập thành công")
+       localStorage.setItem("accessToken",data.accessToken)
+    } catch (error) {
+      console.log(error);
+       notifyError(error.response.data.message)
+    }
+    
   };
 
   return (

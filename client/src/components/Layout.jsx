@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header/Header";
 
-function Layout({ bgImage,children }) {
+function Layout({ bgImage,children}) {
   const location = useLocation();
   const showHeaderOnPaths = ["/start"];
   const shouldShowHeader = showHeaderOnPaths.includes(location.pathname);

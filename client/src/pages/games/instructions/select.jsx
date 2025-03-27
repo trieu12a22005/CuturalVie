@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "./Layout";
 import { getClassname, images, text } from "../../../utils/select";
 import {  motion } from "framer-motion";
+import axiosInstance from "../../../api/axios";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -10,6 +11,12 @@ const textVariants = {
   }),
 };
 function Select() {
+
+  useEffect(()=>{
+     axiosInstance.get("/users/profile").then(res=>{
+        console.log(res.data);
+     }).catch(err=>console.log(err))
+  },[])
   return (
     <Layout>
       {images.map((src, index) => (

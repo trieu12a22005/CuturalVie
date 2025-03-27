@@ -20,7 +20,7 @@ const quizzSlice = createSlice({
       state.selected = action.payload == state.selected ? null : action.payload;
     },
     submitAns(state) {
-      let audio=document.querySelector(".notify");
+      let audio=new Audio();
       if (state.questions[state.current].correctAnswer == state.selected) {
         state.modal = "correct";
         audio.src = "/sound/correct.mp3";

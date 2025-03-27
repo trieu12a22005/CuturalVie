@@ -7,6 +7,8 @@ import {
 } from "react-icons/ai";
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import axiosInstance from "../../api/axios";
+import { notifyError } from "../../utils/notify";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -48,19 +50,28 @@ export default function Register() {
     if (errors[name]) {
       validateField(name, value);
     }
+
   };
 
-  const handleGetOtp = () => {
+  const handleGetOtp =async  () => {
     const emailError = validateField("email", formData.email);
     if (emailError.email) {
       if (formData.email == "") toast.error("Vui lòng nhập email");
       else toast.error(emailError.email);
       return;
     }
-    setOtpSent(true);
+    setOtpSent(true)
+    try {
+      let {data}= await axiosInstance.post("/auth/send-verification-email",{email: formData.email})
+      console.log(data);
+   } catch (error) {
+     console.log(error);
+      notifyError(error.response.data.message)
+   }
+    
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let newErrors = {};
     Object.keys(formData).forEach((field) => {
@@ -69,6 +80,13 @@ export default function Register() {
     console.log(newErrors);
     if (Object.values(newErrors).some((error) => error)) return;
     console.log(formData);
+  //   try {
+  //     let {data}= await axiosInstance.post("/auth/register",formData)
+  //     console.log(data);
+  //  } catch (error) {
+  //    console.log(error);
+  //     notifyError(error.response.data.message)
+  //  }
   };
 
   return (

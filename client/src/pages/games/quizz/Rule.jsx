@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import { calculateTextDuration, firstParaDuration, firstParagraphText, lastParagraphText, listItems, secondParaDuration, secondParagraphText } from "../../../utils/quizz";
 
@@ -37,7 +37,8 @@ const AnimatedText = ({ text, delay = 0 }) => {
   );
 };
 
-const Rule = ({ setActive }) => {
+const Rule = () => {
+  
   const totalDuration =
     firstParaDuration+
     secondParaDuration +
@@ -99,9 +100,8 @@ const Rule = ({ setActive }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: totalDuration + 0.5 }}
-          onClick={() => setActive(true)}
         >
-          Bắt đầu
+         <Link to={"/game1/play"}>Start</Link>
         </motion.button>
       </div>
 
