@@ -2,8 +2,8 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
-const QuizHeader = () => {
-  const {progress} =  useSelector(state=>state.quizz);
+const QuizHeader = ({ísFinish}) => {
+  const {progress,current} =  useSelector(state=>state.quizz);
   
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md relative">
@@ -29,7 +29,7 @@ const QuizHeader = () => {
 
         {/* Question Label */}
         <span className="bg-green-200 text-green-900 px-4 py-2 rounded-full font-bold text-base absolute left-1/2 -translate-x-1/2">
-          Câu 1
+          Câu {current+1}
         </span>
      
 
@@ -39,7 +39,6 @@ const QuizHeader = () => {
         <FaVolumeUp />
         <FaHome />
       </div>
-      <audio className="notify" ></audio>
     </div>
   );
 };

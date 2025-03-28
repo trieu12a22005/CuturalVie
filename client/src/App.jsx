@@ -9,7 +9,10 @@ import Begin from "./pages/auth/Begin";
 import { useEffect } from "react";
 import Start from "./pages/games/instructions/start";
 import Select from "./pages/games/instructions/select";
-import Game from './pages/games/quizz/Index'
+import Rule from "./pages/games/quizz/Rule";
+import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
+import QuizzLayout from "./components/QuizzLayout";
+import QuizGame from "./pages/games/quizz/Game";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -28,15 +31,53 @@ function App() {
     <Routes>
       <Route element={<Layout bgImage={backgroundImage} />}>
         <Route path="start" element={<Start />} />
-        <Route path="/" element = {<Begin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Begin />} />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <PublicRoute>
+              <Register />
+            </PublicRoute>
+          }
+        />
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/instructions_2" element={<Instruction_2 />} />
-        <Route path="/instructions_1" element={<Instruction_1 />} />
+        <Route
+          path="/instructions_2"
+          element={
+            <ProtectedRoute>
+              <Instruction_2 />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/instructions_1"
+          element={
+            <ProtectedRoute>
+              <Instruction_1 />
+            </ProtectedRoute>
+          }
+        />
       </Route>
       <Route path="/select" element={<Select />} />
-      <Route path="/game" element={<Game />} />
+      <Route
+        path="/game1"
+        element={
+          <ProtectedRoute>
+            <QuizzLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="rule" element={<Rule />} />
+        <Route path="play" element={<QuizGame />} />
+      </Route>
     </Routes>
   );
 }

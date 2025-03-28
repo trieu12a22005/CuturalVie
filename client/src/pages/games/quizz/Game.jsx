@@ -5,7 +5,7 @@ import Question from "../../../components/quizzGame/Question";
 import QuizAnswer from "../../../components/quizzGame/QuizAnswer";
 import Loader from "../../../components/loading";
 import { questions } from "../../../utils/quizz";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 import { getQuizz } from "../../../store/quizz";
 import InteractUser from "../../../components/InteractUser";
 import { useAudio } from "../../../context/AudioContext";

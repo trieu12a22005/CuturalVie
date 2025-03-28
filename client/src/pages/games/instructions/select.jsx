@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import { getClassname, images, text } from "../../../utils/select";
 import {  motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
+import axiosInstance from "../../../api/axios";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -18,9 +19,15 @@ function Select() {
   const handleClickImg = (index) =>{
     if (index==0)
     {
-      navigate("/game")
+      navigate("/game1")
     }
   }
+
+  useEffect(()=>{
+     axiosInstance.get("/users/profile").then(res=>{
+        console.log(res.data);
+     }).catch(err=>console.log(err))
+  },[])
   return (
     <Layout>
     <InteractUser setIsPlaying={setIsPlaying} />
