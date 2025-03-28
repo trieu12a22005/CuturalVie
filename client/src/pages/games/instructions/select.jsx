@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "./Layout";
 import { getClassname, images, text } from "../../../utils/select";
 import {  motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useAudio } from "../../../context/AudioContext";
+import InteractUser from "../../../components/InteractUser";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -10,8 +13,17 @@ const textVariants = {
   }),
 };
 function Select() {
+   const { setIsPlaying } = useAudio();
+  const navigate = useNavigate();
+  const handleClickImg = (index) =>{
+    if (index==0)
+    {
+      navigate("/game")
+    }
+  }
   return (
     <Layout>
+    <InteractUser setIsPlaying={setIsPlaying} />
       {images.map((src, index) => (
         <img
           className={
@@ -20,7 +32,7 @@ function Select() {
           }
           key={index}
           src={src}
-         
+          onClick={() => handleClickImg(index)}
         />
       ))}
 

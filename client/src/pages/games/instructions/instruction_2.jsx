@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 import Layout from "./Layout";
+import { useNavigate } from "react-router-dom";
 
 
 const text =
@@ -37,8 +38,18 @@ const listItemVariants = {
 };
 
 function Instruction_2() {
-  const textDuration = text.split(" ").length * 0.1 + 2.5; // Calculate total duration of paragraph
+  const navigate = useNavigate();
+  const textDuration = text.split(" ").length * 0.1 + 2.5;
   const { setIsPlaying } = useAudio();
+  useEffect(() => {
+    const handleClick = () => {
+      navigate("/select")
+    };
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
   return (
     <div>
     <InteractUser setIsPlaying={setIsPlaying} />

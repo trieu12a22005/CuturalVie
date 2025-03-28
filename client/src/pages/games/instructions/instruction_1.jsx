@@ -74,7 +74,7 @@ function Instruction_1() {
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="absolute bottom-[-35px] left-[-200px]"
-          src="/character/Character2.png"
+          src="/character/character2.png"
           alt="Character"
         />
         <motion.img
