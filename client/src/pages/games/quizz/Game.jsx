@@ -7,13 +7,15 @@ import Loader from "../../../components/loading";
 import { questions } from "../../../utils/quizz";
 import { useDispatch} from "react-redux";
 import { getQuizz } from "../../../store/quizz";
+import InteractUser from "../../../components/InteractUser";
+import { useAudio } from "../../../context/AudioContext";
 
 const QuizGame = () => {
- 
+  const {setIsPlaying} = useAudio()
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  <InteractUser setIsPlaying={setIsPlaying} />
   useEffect(() => {
     const fetchFakeData = async () => {
       try {

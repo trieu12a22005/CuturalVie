@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 import { Link, } from "react-router-dom";
 import Layout from "../../../components/Layout";
 import { calculateTextDuration, firstParaDuration, firstParagraphText, lastParagraphText, listItems, secondParaDuration, secondParagraphText } from "../../../utils/quizz";
-
-
-
+import InteractUser from "../../../components/InteractUser";
+import { useAudio } from "../../../context/AudioContext";
 const letterVariants = {
   hidden: { opacity: 0, y: 10 },
   visible: (i) => ({
@@ -14,8 +13,6 @@ const letterVariants = {
     transition: { delay: i * 0.03, duration: 0.2 },
   }),
 };
-
-
 const AnimatedText = ({ text, delay = 0 }) => {
   return (
     <motion.p
@@ -46,9 +43,12 @@ const Rule = () => {
     listItems.length * 0.5 +
     calculateTextDuration(lastParagraphText) +
     0.3;
+    const { setIsPlaying } = useAudio();
   console.log('object');
   return (
+    
     <Layout bgImage={"/bg/bg3.png"}>
+    <InteractUser setIsPlaying={setIsPlaying} />
       <div className="relative w-fit">
         <img
           className="min-h-[100%]"
