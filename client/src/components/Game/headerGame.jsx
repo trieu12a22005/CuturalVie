@@ -2,7 +2,7 @@ import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
-const QuizHeader = ({ísFinish}) => {
+const QuizHeader = ({isFinish}) => {
   const {progress,current} =  useSelector(state=>state.quizz);
   
   return (
@@ -29,7 +29,7 @@ const QuizHeader = ({ísFinish}) => {
 
         {/* Question Label */}
         <span className="bg-green-200 text-green-900 px-4 py-2 rounded-full font-bold text-base absolute left-1/2 -translate-x-1/2">
-          Câu {current+1}
+          {isFinish ? 'Tổng Kết' : `Câu ${current+1}`}
         </span>
      
 

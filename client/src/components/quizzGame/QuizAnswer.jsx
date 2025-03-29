@@ -30,7 +30,7 @@ export default function QuizAnswer() {
     return () => clearTimeout(timer);
   }, [second]);
   return (
-    <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden  shadow-md">
+    <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden  shadow-md mt-auto">
       <div className="bg-[#009951] text-white p-3  flex justify-between items-center">
         <span className="bg-green-300 text-black px-4 py-1 rounded-full font-semibold">
           Hãy chọn đáp án đúng

@@ -3,7 +3,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 let initialState = {
   current: 0,
   selected: null,
-  progress: [],
+  progress: [undefined,undefined,undefined],
   questions: [],
   modal: "",
 };

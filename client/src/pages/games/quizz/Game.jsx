@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
-import QuizHeader from "../../../components/quizzGame/headerGame";
+import QuizHeader from "../../../components/Game/headerGame";
 import Question from "../../../components/quizzGame/Question";
 import QuizAnswer from "../../../components/quizzGame/QuizAnswer";
 import Loader from "../../../components/loading";

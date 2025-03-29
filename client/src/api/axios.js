@@ -25,7 +25,7 @@ const refreshAccessToken = async () => {
   try {
   
     const response = await axios.post(`${baseURL}/auth/refresh-token`);
-
+    console.log(response);
     const { accessToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
     return accessToken;
@@ -43,6 +43,7 @@ axiosInstance.interceptors.request.use(
 
     if (accessToken && isTokenExpired(accessToken)) {
       try {
+        
         accessToken = await refreshAccessToken();
       } catch {
         return Promise.reject('đã hết phiên đăng nhập,vui lòng đăng nhập lại');
