@@ -16,6 +16,8 @@ import QuizGame from "./pages/games/quizz/Game";
 import Learning from "./pages/games/quizz/Learning";
 import PuzzleQuizz from './components/puzzleGame/Index'
 import Finish from "./components/Game/Finish";
+import PuzzleRule from './pages/games/puzzle/Rule'
+import Cardgame from "./pages/games/cardFlip/Game";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -92,7 +94,18 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="puzzle" element={<PuzzleQuizz/>} />
+        <Route path="play" element={<PuzzleQuizz/>} />
+        <Route path="rule" element={<PuzzleRule/>} />
+      </Route>
+      <Route
+        path="/game3"
+        element={
+          <ProtectedRoute>
+            <QuizzLayout />
+          </ProtectedRoute>
+        }
+      >
+        <Route path="play" element={<Cardgame/>} />
       </Route>
     </Routes>
   );
