@@ -15,7 +15,6 @@ const QuizGame = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  <InteractUser setIsPlaying={setIsPlaying} />
   useEffect(() => {
     const fetchFakeData = async () => {
       try {
@@ -37,9 +36,9 @@ const QuizGame = () => {
   if (loading) return <Loader/>;
   
   return <>
+    <InteractUser setIsPlaying={setIsPlaying} />
     <QuizHeader/>
     <Question/>
-    <QuizAnswer/>
   </>
 };
 

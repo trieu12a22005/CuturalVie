@@ -13,6 +13,8 @@ import Rule from "./pages/games/quizz/Rule";
 import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
 import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
+import Infomation from "./pages/games/quizz/Information";
+import Instruction_3 from "./pages/games/instructions/instruction_3";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -67,17 +69,29 @@ function App() {
         />
       </Route>
       <Route path="/select" element={<Select />} />
+      <Route element={<QuizzLayout/>}>
+      <Route path="/rule" element={
+        <ProtectedRoute>
+          <Rule />
+        </ProtectedRoute>
+      } />
       <Route
-        path="/game1"
-        element={
-          <ProtectedRoute>
-            <QuizzLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="rule" element={<Rule />} />
-        <Route path="play" element={<QuizGame />} />
+          path="/instructions_3"
+          element={
+            <ProtectedRoute>
+              <Instruction_3 />
+            </ProtectedRoute>
+          }
+        />
+      <Route path="/game_1" element={<ProtectedRoute>
+        <QuizGame />
+      </ProtectedRoute>} />
+      <Route path="/information" element={<ProtectedRoute>
+        <Infomation />
+      </ProtectedRoute>} />
       </Route>
+      
+      
     </Routes>
   );
 }
