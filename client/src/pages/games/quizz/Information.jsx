@@ -1,43 +1,53 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "./styles.css";
-import { Navigation } from "swiper/modules";
-import img1 from "/public/information_1/image1.png";
-import img2 from "/public/information_1/image2.png";
-import img3 from "/public/information_1/image3.png";
+import React, { useEffect } from "react";
+import VanMieuInfo from "../../../components/quizzGame/Info";
+import QuizHeader from "../../../components/quizzGame/headerGame";
+import ImageSlider from "../../../components/quizzGame/slider";
+import { useDispatch, useSelector } from "react-redux";
+import { increase } from "../../../store/countSlice";
+import { useNavigate } from "react-router-dom";
 
-function Infomation() {
-  const images = [img1, img2, img3];
-
+function Information() {
+  const count = useSelector((state) => state.count.value);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    fetch("http://localhost:3000/information")
+    .then((res) =>res.json())
+  })
+  const handleClick = () =>{
+    dispatch(increase());
+    console.log(count)
+    navigate("/game_4")
+  }
   return (
     <>
-      <div className="relative w-[80vw] mx-auto mt-[60px] h-[800px]">
-  <img src="/frame/Frame 2-1.png" alt="Khung hình" className="w-full h-full" />
-
-  {/* Chữ nằm trên ảnh */}
-  <p className="absolute top-[40px] left-1/2 -translate-x-1/2 font-bold text-[16px] text-center">
-    Vượt đỉnh tri thức
-  </p>
-  
-  <div className="relative">
-  <Swiper navigation={true} modules={[Navigation]} className="mySwiper z-[90] absolute bottom-[20vh] left-[17vw]">
-        <SwiperSlide>Slide 1</SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
-      </Swiper>
-  </div>
-</div>
-
+      <QuizHeader />
+      <div className=" w-[90%] left-1/2  p-6  -translate-x-1/2 bg-[#EBFFEB] rounded-2xl fixed top-20 h-[82%]">
+        <h2 className="text-xl font-semibold bg-purple-200 px-4 py-2 rounded-2xl w-fit mx-auto">
+          Khơi nguồn tri thức
+        </h2>
+        <img
+          className=" absolute -bottom-3 -left-3"
+          src="/information_1/Character.png"
+        />
+        <div className=" flex  mt-3 items-center">
+          <ImageSlider />
+          <VanMieuInfo />
+        </div>
+        <button
+              className="mt-6 ml-[1200px] block disabled:opacity-50 disabled:cursor-not-allowed"
+              onClick={handleClick}
+            >
+              <span
+                className=" px-[20px] py-[15px] font-bold rounded-md"
+                style={{ backgroundColor: "#14AE5C" }}
+              > 
+                Câu hỏi tiếp
+              </span>
+            </button>
+      </div>
     </>
   );
 }
 
-export default Infomation;
+export default Information;

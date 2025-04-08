@@ -1,10 +1,9 @@
-import { configureStore } from '@reduxjs/toolkit';
-import quizzReducer from './quizz';
+import { configureStore } from "@reduxjs/toolkit";
+import countReducer from "./countSlice";
 
 const store = configureStore({
   reducer: {
-    quizz: quizzReducer,
-  },
+     count: countReducer
+  }
 });
-
-export default store;
+export default store

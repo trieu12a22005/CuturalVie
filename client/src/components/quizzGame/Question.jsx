@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Modal from "./Modal";
+import {useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Question() {
   const [question, setQuestions] = useState([]);
@@ -9,8 +11,9 @@ function Question() {
   const [second, setSecond] = useState(10);
   const [modal, setModal] = useState(null); // null = chưa hiện modal, true = đúng, false = sai
   const [display, setDisplay] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
-    fetch("http://localhost:3001/question")
+    fetch("http://localhost:3000/question")
       .then((res) => res.json())
       .then((data) => {
         setQuestions(data);
@@ -19,13 +22,13 @@ function Question() {
         console.error("Lỗi khi fetch:", error);
       });
   }, []);
-
-  const currentQues = question[1];
+  const count = useSelector((state) => state.count.value);
+  const currentQues = question[count];
 
   useEffect(() => {
     if (submitted) return;
     if (second <= 0) {
-      const auto = selected || "A";
+      const auto = selected || "E";
       setSelected(auto);
       setSubmitted(true);
       setModal(auto === currentQues?.correctAnswer); // mở modal dựa trên kết quả
@@ -55,11 +58,14 @@ function Question() {
       audio.play();
     }
   };
-
+  const handleInfo = () => {
+    navigate("/information");
+  
+    setCount((prev) => prev + 1);
+  };
   const formatTime = (sec) => {
     return `00:${sec.toString().padStart(2, "0")}`;
   };
-
   return (
     <>
       {/* Hiển thị modal kết quả nếu đã chọn và nộp */}
@@ -74,7 +80,7 @@ function Question() {
           className="bg-green-100 p-10 rounded-3xl shadow-md w-full max-w-[552px] min-h-[290px] mx-auto mt-10"
         >
           <div className="bg-green-300 px-4 py-1 rounded-full w-fit mx-auto">
-            <h2 className="text-black font-bold">Câu hỏi 2</h2>
+            <h2 className="text-black font-bold">{`Câu hỏi ${count}`}</h2>
           </div>
 
           <p className="text-center text-lg font-semibold text-black mt-6">
@@ -130,16 +136,29 @@ function Question() {
                 </div>
               ))}
           </div>
-
-          <button
-            onClick={handleSubmit}
-            disabled={!selected || submitted}
-            className="mt-10 text-center mx-auto block disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span className="bg-red-300 text-red-700 px-4 py-2 rounded-full font-semibold">
-              Nếu chắc chắn hãy chọn tôi
-            </span>
-          </button>
+          {submitted ? (
+            <button
+              onClick={handleInfo}
+              className="mt-6 ml-[1350px] block disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span
+                className=" px-[35px] py-[15px] font-bold rounded-md"
+                style={{ backgroundColor: "#14AE5C" }}
+              >
+                Tiếp tục
+              </span>
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              disabled={!selected || submitted}
+              className="mt-10 text-center mx-auto block disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              <span className="bg-red-300 text-red-700 px-4 py-2 rounded-full font-semibold">
+                Nếu chắc chắn hãy chọn tôi
+              </span>
+            </button>
+          )}
         </div>
       </div>
     </>

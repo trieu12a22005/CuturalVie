@@ -15,6 +15,7 @@ import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
 import Infomation from "./pages/games/quizz/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
+import WordGame from "./pages/games/word/Game";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -89,7 +90,11 @@ function App() {
       <Route path="/information" element={<ProtectedRoute>
         <Infomation />
       </ProtectedRoute>} />
+      <Route path="/game_4" element={<ProtectedRoute>
+        <WordGame />
+      </ProtectedRoute>} />
       </Route>
+      
       
       
     </Routes>

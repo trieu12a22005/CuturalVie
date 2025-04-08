@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { selectAns, submitAns } from "../../store/quizz";
+import { selectAns, submitAns } from "../../store/countSlice";
 import { formatTime, handleClassName } from "../../utils/quizz";
 import { useEffect, useState } from "react";
 
