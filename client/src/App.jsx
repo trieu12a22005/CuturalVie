@@ -15,11 +15,11 @@ import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
 import Learning from "./components/Game/learning/Learning";
 import Finish from "./components/Game/Finish/Finish";
-import PuzzleRule from './pages/games/puzzle/Rule'
+import PuzzleRule from "./pages/games/puzzle/Rule";
 import Cardgame from "./pages/games/cardFlip/Index";
 import PuzzleQuizz from "./pages/games/puzzle/Game";
 import StartPuzzzle from "./pages/games/puzzle/Start";
-import Infomation from "./pages/games/quizz/Information";
+import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
 function App() {
@@ -76,13 +76,16 @@ function App() {
         />
       </Route>
       <Route path="/select" element={<Select />} />
-      <Route element={<QuizzLayout/>}>
-      <Route path="/rule" element={
-        <ProtectedRoute>
-          <Rule />
-        </ProtectedRoute>
-      } />
-      <Route
+      <Route element={<QuizzLayout />}>
+        <Route
+          path="/rule"
+          element={
+            <ProtectedRoute>
+              <Rule />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/instructions_3"
           element={
             <ProtectedRoute>
@@ -90,16 +93,32 @@ function App() {
             </ProtectedRoute>
           }
         />
-      <Route path="/game_1" element={<ProtectedRoute>
-        <QuizGame />
-      </ProtectedRoute>} />
-      <Route path="/information" element={<ProtectedRoute>
-        <Infomation />
-      </ProtectedRoute>} />
-      <Route path="/game_4" element={<ProtectedRoute>
-        <WordGame />
-      </ProtectedRoute>} />
+        <Route
+          path="/game_1"
+          element={
+            <ProtectedRoute>
+              <QuizGame />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/information/:game_type"
+          element={
+            <ProtectedRoute>
+              <Infomation />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/game_4"
+          element={
+            <ProtectedRoute>
+              <WordGame />
+            </ProtectedRoute>
+          }
+        />
       </Route>
+
       <Route
         path="/game2"
         element={
@@ -108,10 +127,9 @@ function App() {
           </ProtectedRoute>
         }
       >
-        
-        <Route path="play" element={<PuzzleQuizz/>} />
-        <Route index path="start" element={<StartPuzzzle/>} />
-        <Route path="rule" element={<PuzzleRule/>} />
+        <Route path="play" element={<PuzzleQuizz />} />
+        <Route index path="start" element={<StartPuzzzle />} />
+        <Route path="rule" element={<PuzzleRule />} />
       </Route>
       <Route
         path="/game3"
@@ -121,7 +139,7 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="play" element={<Cardgame/>} />
+        <Route path="play" element={<Cardgame />} />
       </Route>
     </Routes>
   );

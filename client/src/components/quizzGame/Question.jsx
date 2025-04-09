@@ -59,9 +59,7 @@ function Question() {
     }
   };
   const handleInfo = () => {
-    navigate("/information");
-  
-    setCount((prev) => prev + 1);
+    navigate(`/information/game_1`);
   };
   const formatTime = (sec) => {
     return `00:${sec.toString().padStart(2, "0")}`;
@@ -139,7 +137,7 @@ function Question() {
           {submitted ? (
             <button
               onClick={handleInfo}
-              className="mt-6 ml-[1350px] block disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-6 ml-[1200px] block disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span
                 className=" px-[35px] py-[15px] font-bold rounded-md"

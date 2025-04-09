@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import QuizHeader from "../../../components/quizzGame/headerGame";
 import Question from "../../../components/quizzGame/Question";
 import InteractUser from "../../../components/InteractUser";
 import { useAudio } from "../../../context/AudioContext";
+import QuizHeader from "../../../components/Game/headerGame";
 
 const QuizGame = () => {
   const {setIsPlaying} = useAudio()
