@@ -1,0 +1,105 @@
+import store from "../store/store";
+export const questions = [
+  {
+    id: 1,
+    question:
+      "Bia tiến sĩ được công nhận là di sản tư liệu thế giới hiện nay được đặt tại đâu ở nước ta?",
+    options: {
+      A: "Hoàng thành Thăng Long",
+      B: "Văn miếu Quốc Tử Giám",
+      C: "Bắc Ninh",
+      D: "Chùa Một Cột",
+    },
+    correctAnswer: "B",
+  },
+  {
+    id: 2,
+    question: "Ai là người lãnh đạo cuộc khởi nghĩa Lam Sơn chống quân Minh?",
+    options: {
+      A: "Trần Hưng Đạo",
+      B: "Ngô Quyền",
+      C: "Lê Lợi",
+      D: "Quang Trung",
+    },
+    correctAnswer: "C",
+  },
+  {
+    id: 3,
+    question: "Vịnh Hạ Long thuộc tỉnh nào của Việt Nam?",
+    options: {
+      A: "Hải Phòng",
+      B: "Quảng Ninh",
+      C: "Thanh Hóa",
+      D: "Nghệ An",
+    },
+    correctAnswer: "B",
+  },
+  {
+    id: 4,
+    question: "Động Phong Nha thuộc tỉnh nào của Việt Nam?",
+    options: {
+      A: "Quảng Bình",
+      B: "Quảng Trị",
+      C: "Huế",
+      D: "Đà Nẵng",
+    },
+    correctAnswer: "A",
+  },
+  {
+    id: 5,
+    question: "Thành phố nào được mệnh danh là ‘thành phố ngàn hoa’?",
+    options: {
+      A: "Hà Nội",
+      B: "Đà Lạt",
+      C: "Huế",
+      D: "Cần Thơ",
+    },
+    correctAnswer: "B",
+  },
+];
+
+export function handleClassName(letter) {
+  const state = store.getState();
+  let { questions, current, selected, modal } = state.quizz;
+  if (modal == "correct") {
+    if (letter == selected) return "bg-green-400";
+    else return "bg-green-200";
+  } else if (modal == "wrong") {
+    if (letter == selected) return "bg-red-400";
+    else if (letter == questions[current].correctAnswer) return "bg-green-400";
+    else return "bg-green-200";
+  }
+  return letter == selected ? "bg-yellow-400" : "bg-green-200";
+}
+//format time
+export function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+}
+const calculateTextDuration = (text) => text.length * 0.03;
+const firstParagraphText =
+  "Chào mừng bạn đến với 'Vượt Đỉnh Tri Thức'! Đây là hành trình khám phá những nét văn hóa đặc sắc! Bạn sẽ trải qua 10 câu hỏi với 4 lựa chọn A, B, C, D, mỗi câu hỏi đều liên quan đến lịch sử và các di tích lịch sử. Sau mỗi câu hỏi, bạn sẽ được cung cấp thêm thông tin bổ ích để mở rộng kiến thức.";
+const secondParagraphText = "Cách Chơi:";
+const lastParagraphText =
+  "Chúc bạn may mắn và thành công trên hành trình chinh phục tri thức này!";
+
+const firstParaDuration = calculateTextDuration(firstParagraphText);
+const secondParaDuration = calculateTextDuration(secondParagraphText);
+
+// List items
+const listItems = [
+  "Mỗi câu hỏi có 30 giây để trả lời. Hãy nhanh chóng và chính xác!",
+  "Sau khi trả lời, bạn sẽ nhận thêm thông tin về câu hỏi để hiểu rõ hơn về kiến thức.",
+  "Bạn có thể hỏi AI về bất kỳ nội dung nào còn thắc mắc từ phần cung cấp kiến thức.",
+  "Để giành được 1 sao đầu tiên trong hành trình, bạn cần trả lời đúng ít nhất 6/10 câu.",
+];
+export {
+  firstParagraphText,
+  secondParaDuration,
+  secondParagraphText,
+  listItems,
+  firstParaDuration,
+  lastParagraphText,
+  calculateTextDuration,
+};

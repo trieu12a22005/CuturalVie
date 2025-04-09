@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+*{
+    font-family: "Lora", serif;
+}
+.ant-menu-item-selected {
+    color: #02542D !important;
+}
+.ant-menu-item-selected::after {
+    border-bottom-color: #02542D !important;
+}
+.ant-menu-item-active::after {
+    border-bottom-color: #02542D !important;
+}
+.layout__menu{
+    display: flex;
+    &-img{
+        margin-top: -2px !important ;
+        margin-left: 20px;
+        height: 80px;
+        width: 130px;
+        margin-right: 50px;
+    }
+    &-tool{
+        display: flex;
+        font-size: 20px;
+        margin-right: 50px;
+        gap: 30px;
+        margin-top: 20px;
+        &-not{
+            div{
+                font-size: 20px;
+            }
+        }
+    }
+}
