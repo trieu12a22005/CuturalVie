@@ -1,0 +1,72 @@
+#app {
+  height: 100%;
+}
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.custom_2 {
+  width: 50%;
+  height: 100%;
+  margin-top:20px;
+  margin-right: 100px;
+}
+.custom_1{
+  width: 400px;
+  height: auto;
+  margin-left: 300px;
+  margin-top: 150px;
+}
+  .background {
+    font-size: 18px;
+    background-image: url("frame/Frame 2-1.png");
+    background-repeat: no-repeat;
+    margin-top: 50px;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+  }
+  .custom_1 .swiper-button-next, .custom_1 .swiper-button-prev{
+    top: 350px;
+    font-size: 10px;
+  }
+  .swiper-button-next:after, .swiper-button-prev:after {
+    font-size: 10px;
+    color: black;
+    font-weight: bold;
+    padding: 5px;
+    z-index: 9999;
+  }
+  .swiper-button-next , .swiper-button-prev{
+    border-radius: 50%;
+    border: solid 2px black;
+    height: 30px;
+    width: 30px;
+    background-color: white;
+  }
+  .custom_1 .swiper-button-next{
+    left: 210px;
+  }
+  .custom_1 .swiper-button-prev{
+    left: 60px;
+  }
+  .custom_2 .swiper-button-next{
+    left: 350px;
+  }
+  .custom_2 .swiper-button-next, .custom_2 .swiper-button-prev{
+    top: 380px;
+  }
+  .custom_2 .swiper-button-prev{
+    left: 250px;
+  }

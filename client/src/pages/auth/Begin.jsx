@@ -4,7 +4,7 @@ import "tailwindcss";
 function Begin() {
   const navigate = useNavigate();
   const handleClick = () =>{
-    navigate("/login")
+    navigate("/start")
   }
   return (
     <div className=" overflow-hidden relative w-full h-screen bg-[url('Background.png')] bg-cover bg-center flex items-center justify-center">

@@ -1,0 +1,127 @@
+{
+  "question": [
+    {
+      "id": 1,
+      "question": "Bia tiến sĩ được công nhận là di sản tư liệu thế giới hiện nay được đặt tại đâu ở nước ta?",
+      "options": {
+        "A": "Hoàng thành Thăng Long",
+        "B": "Văn miếu Quốc Tử Giám",
+        "C": "Bắc Ninh",
+        "D": "Chùa Một Cột"
+      },
+      "correctAnswer": "B",
+      "information": {
+        "image": [
+          "https://nghiavuquansu.vn/wp-content/uploads/2025/01/tom-tat-khoi-nghia-lam-son.jpg",
+          "https://s.webpie.net/instances/1/c560f045982b56b9b280c82367675f2c/_p/08c01d94f9d75883bb57f21f17448060/lamson2.jpg",
+          "https://hoc365.edu.vn/wp-content/uploads/2023/02/khoi-nghia-lam-son.jpg"
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "question": "Ai là người lãnh đạo cuộc khởi nghĩa Lam Sơn chống quân Minh?",
+      "options": {
+        "A": "Trần Hưng Đạo",
+        "B": "Ngô Quyền",
+        "C": "Lê Lợi",
+        "D": "Quang Trung"
+      },
+      "correctAnswer": "C"
+    },
+    {
+      "id": 3,
+      "question": "Vịnh Hạ Long thuộc tỉnh nào của Việt Nam?",
+      "options": {
+        "A": "Hải Phòng",
+        "B": "Quảng Ninh",
+        "C": "Thanh Hóa",
+        "D": "Nghệ An"
+      },
+      "correctAnswer": "B"
+    }
+  ],
+  "information":[
+    {
+      "id": 1,
+      "game_id": 101,
+      "question_level": 1,
+      "images": [
+        "https://example.com/images/vanmieu1.jpg",
+        "https://example.com/images/vanmieu2.jpg"
+      ],
+      "texts": [
+        "Văn Miếu Quốc Tử Giám là trường đại học đầu tiên của Việt Nam.",
+        "Bia Tiến sĩ tại đây được UNESCO công nhận là Di sản tư liệu thế giới."
+      ]
+    },
+    {
+      "id": 2,
+      "game_id": 102,
+      "question_level": 2,
+      "images": [
+        "https://example.com/images/hoangthanh.jpg"
+      ],
+      "texts": [
+        "Hoàng thành Thăng Long là một di tích lịch sử quan trọng của Hà Nội.",
+        "Khu di tích này được xây dựng từ thời Lý và được UNESCO công nhận."
+      ]
+    },
+    {
+      "id": 3,
+      "game_id": 103,
+      "question_level": 3,
+      "images": [
+        "https://example.com/images/chuamotcot1.jpg",
+        "https://example.com/images/chuamotcot2.jpg"
+      ],
+      "texts": [
+        "Chùa Một Cột có kiến trúc độc đáo với cột đá đặt giữa hồ.",
+        "Ngôi chùa được xây dựng từ thời vua Lý Thái Tông (1049)."
+      ]
+    },
+    {
+      "id": 4,
+      "game_id": 104,
+      "question_level": 1,
+      "images": [
+        "https://example.com/images/dienbienphu.jpg"
+      ],
+      "texts": [
+        "Chiến thắng Điện Biên Phủ năm 1954 là một dấu mốc lịch sử của dân tộc.",
+        "Chiến dịch do Đại tướng Võ Nguyên Giáp chỉ huy, làm nên chiến thắng lẫy lừng."
+      ]
+    },
+    {
+      "id": 5,
+      "game_id": 105,
+      "question_level": 2,
+      "images": [
+        "https://example.com/images/truongsa.jpg"
+      ],
+      "texts": [
+        "Quần đảo Trường Sa thuộc chủ quyền của Việt Nam.",
+        "Trường Sa có vị trí chiến lược quan trọng về quốc phòng và kinh tế biển."
+      ]
+    }
+  ],
+  "game_4": [
+    {
+      "id": 1,
+      "question": "Câu 1",
+      "hint": "Địa danh nổi tiếng ở miền Bắc Việt Nam",
+      "answer": "QUỐC TỰ GIÁM",
+      "correct_letters": ["Q", "U", "Ô", "C", "T", "Ư", "G", "I", "A", "M"],
+      "letters": ["Q", "C", "I", "M", "G", "U", "C", "I", "A", "T", "Ô", "Ư"]
+    },
+    {
+      "id": 2,
+      "question": "Câu 2",
+      "hint": "Địa danh nổi tiếng miền Bắc Việt Nam",
+      "answer": "QUỐC TỰ GIÁM",
+      "correct_letters": ["Q", "U", "Ô", "C", "T", "Ư", "G", "I", "A", "M"],
+      "letters": ["Q", "C", "I", "M", "G", "U", "C", "I", "A", "T", "Ô", "Ư"]
+    }
+  ]
+  
+}

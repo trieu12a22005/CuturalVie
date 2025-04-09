@@ -1,40 +1,6 @@
 import store from "../store/store";
 export const questions = [
   {
-    id: 1,
-    question:
-      "Bia tiến sĩ được công nhận là di sản tư liệu thế giới hiện nay được đặt tại đâu ở nước ta?",
-    options: {
-      A: "Hoàng thành Thăng Long",
-      B: "Văn miếu Quốc Tử Giám",
-      C: "Bắc Ninh",
-      D: "Chùa Một Cột",
-    },
-    correctAnswer: "B",
-  },
-  {
-    id: 2,
-    question: "Ai là người lãnh đạo cuộc khởi nghĩa Lam Sơn chống quân Minh?",
-    options: {
-      A: "Trần Hưng Đạo",
-      B: "Ngô Quyền",
-      C: "Lê Lợi",
-      D: "Quang Trung",
-    },
-    correctAnswer: "C",
-  },
-  {
-    id: 3,
-    question: "Vịnh Hạ Long thuộc tỉnh nào của Việt Nam?",
-    options: {
-      A: "Hải Phòng",
-      B: "Quảng Ninh",
-      C: "Thanh Hóa",
-      D: "Nghệ An",
-    },
-    correctAnswer: "B",
-  },
-  {
     id: 4,
     question: "Động Phong Nha thuộc tỉnh nào của Việt Nam?",
     options: {

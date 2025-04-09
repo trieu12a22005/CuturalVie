@@ -35,7 +35,7 @@ const AnimatedText = ({ text, delay = 0 }) => {
 };
 
 const Rule = () => {
-  
+  const { setIsPlaying } = useAudio();
   const totalDuration =
     firstParaDuration+
     secondParaDuration +
@@ -43,8 +43,6 @@ const Rule = () => {
     listItems.length * 0.5 +
     calculateTextDuration(lastParagraphText) +
     0.3;
-    const { setIsPlaying } = useAudio();
-  console.log('object');
   return (
     
     <Layout bgImage={"/bg/bg3.png"}>
@@ -101,7 +99,7 @@ const Rule = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: totalDuration + 0.5 }}
         >
-         <Link to={"/game1/play"}>Start</Link>
+         <Link to={"/game_1"}>Start</Link>
         </motion.button>
       </div>
 

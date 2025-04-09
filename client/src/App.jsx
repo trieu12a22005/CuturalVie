@@ -19,6 +19,9 @@ import PuzzleRule from './pages/games/puzzle/Rule'
 import Cardgame from "./pages/games/cardFlip/Index";
 import PuzzleQuizz from "./pages/games/puzzle/Game";
 import StartPuzzzle from "./pages/games/puzzle/Start";
+import Infomation from "./pages/games/quizz/Information";
+import Instruction_3 from "./pages/games/instructions/instruction_3";
+import WordGame from "./pages/games/word/Game";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -73,20 +76,30 @@ function App() {
         />
       </Route>
       <Route path="/select" element={<Select />} />
+      <Route element={<QuizzLayout/>}>
+      <Route path="/rule" element={
+        <ProtectedRoute>
+          <Rule />
+        </ProtectedRoute>
+      } />
       <Route
-        path="/game1"
-        element={
-          <ProtectedRoute>
-            <QuizzLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="rule" element={<Rule />} />
-        <Route path="play" element={<QuizGame />} />
-        <Route path="learning" element={<Learning/>} />
-        <Route path="finish" element={<Finish/>} />
+          path="/instructions_3"
+          element={
+            <ProtectedRoute>
+              <Instruction_3 />
+            </ProtectedRoute>
+          }
+        />
+      <Route path="/game_1" element={<ProtectedRoute>
+        <QuizGame />
+      </ProtectedRoute>} />
+      <Route path="/information" element={<ProtectedRoute>
+        <Infomation />
+      </ProtectedRoute>} />
+      <Route path="/game_4" element={<ProtectedRoute>
+        <WordGame />
+      </ProtectedRoute>} />
       </Route>
-
       <Route
         path="/game2"
         element={
@@ -110,7 +123,6 @@ function App() {
       >
         <Route path="play" element={<Cardgame/>} />
       </Route>
-     
     </Routes>
   );
 }
