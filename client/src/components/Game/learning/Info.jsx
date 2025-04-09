@@ -54,7 +54,7 @@ const VanMieuInfo = () => {
   return (
     <div className="relative">
       <img src="/items/khung.png" alt="" />
-      <div className="p-4 text-gray-800 text-sm absolute top-3 w-full">
+      <div className="p-4 text-gray-800 text-sm absolute top-6 w-full">
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, x: direction * 50 }}

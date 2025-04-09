@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectAns, submitAns } from "../../store/quizz";
 import { formatTime, handleClassName } from "../../utils/quizz";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function QuizAnswer() {
   let [second, setSecond] = useState(10);
@@ -10,24 +10,26 @@ export default function QuizAnswer() {
   );
   let dispatch = useDispatch();
   let { options } = questions[current];
+  let timer=useRef()
   let handleChoose = (letter) => {
     dispatch(selectAns(letter));
   };
   let handleSubmit = () => {
+    clearTimeout(timer.current)
     dispatch(submitAns());
   };
  
   useEffect(() => {
-    let timer;
-    timer = setTimeout(() => {
+   
+    timer.current = setTimeout(() => {
       setSecond(second-1);
     }, 1000);
     if (second<=0) {
-      clearTimeout(timer);
+      clearTimeout(timer.current);
       if (!selected)  handleChoose("A")
       handleSubmit()
     }
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer.current);
   }, [second]);
   return (
     <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden  shadow-md mt-auto">

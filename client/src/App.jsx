@@ -13,11 +13,12 @@ import Rule from "./pages/games/quizz/Rule";
 import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
 import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
-import Learning from "./pages/games/quizz/Learning";
-import PuzzleQuizz from './components/puzzleGame/Index'
-import Finish from "./components/Game/Finish";
+import Learning from "./components/Game/learning/Learning";
+import Finish from "./components/Game/Finish/Finish";
 import PuzzleRule from './pages/games/puzzle/Rule'
-import Cardgame from "./pages/games/cardFlip/Game";
+import Cardgame from "./pages/games/cardFlip/Index";
+import PuzzleQuizz from "./pages/games/puzzle/Game";
+import StartPuzzzle from "./pages/games/puzzle/Start";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -94,7 +95,9 @@ function App() {
           </ProtectedRoute>
         }
       >
+        
         <Route path="play" element={<PuzzleQuizz/>} />
+        <Route index path="start" element={<StartPuzzzle/>} />
         <Route path="rule" element={<PuzzleRule/>} />
       </Route>
       <Route
@@ -107,6 +110,7 @@ function App() {
       >
         <Route path="play" element={<Cardgame/>} />
       </Route>
+     
     </Routes>
   );
 }

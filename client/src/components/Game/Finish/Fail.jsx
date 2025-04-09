@@ -1,11 +1,8 @@
 import React from 'react'
-import QuizHeader from './headerGame'
 
-function Finish() {
+function Fail() {
   return (
-    <>
-     <QuizHeader isFinish={true}/>
-    <div className=" flex justify-center items-center w-lg bg-green-100 mt-8 mx-auto min-h-[570px] min-w-[700px] rounded-2xl gap-10">
+    <div className=" relative flex justify-center items-center w-lg bg-green-100 mt-8 mx-auto min-h-[570px] min-w-[700px] rounded-2xl gap-10">
     <div className="text-center w-full max-w-md">
       {/* Header Message */}
       <p className="bg-yellow-200 text-black font-semibold text-2xl py-2 px-4 rounded-xl inline-block">
@@ -36,9 +33,9 @@ function Finish() {
         </div>
       </div>
     </div>
+      <img className=' absolute bottom-[-10%] right-[85%]' src="/character/character3.png" alt="" />
   </div>
-  </>
   )
 }
 
-export default Finish
+export default Fail

@@ -1,21 +1,19 @@
 import { useState, useEffect } from "react";
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
 import QuizHeader from "../../../components/Game/headerGame";
 import Question from "../../../components/quizzGame/Question";
 import QuizAnswer from "../../../components/quizzGame/QuizAnswer";
 import Loader from "../../../components/loading";
 import { questions } from "../../../utils/quizz";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { getQuizz } from "../../../store/quizz";
-import InteractUser from "../../../components/InteractUser";
-import { useAudio } from "../../../context/AudioContext";
+
 
 const QuizGame = () => {
-  const {setIsPlaying} = useAudio()
+  const {progress,current} =  useSelector(state=>state.quizz);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  <InteractUser setIsPlaying={setIsPlaying} />
+  
   useEffect(() => {
     const fetchFakeData = async () => {
       try {
@@ -37,7 +35,7 @@ const QuizGame = () => {
   if (loading) return <Loader/>;
   
   return <>
-    <QuizHeader/>
+    <QuizHeader progress={progress} current={current}/>
     <Question/>
     <QuizAnswer/>
   </>

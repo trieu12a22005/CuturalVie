@@ -1,12 +1,11 @@
-import { AiFillCheckCircle, AiFillCloseCircle } from "react-icons/ai";
+
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import { useSelector } from "react-redux";
-const QuizHeader = ({isFinish}) => {
-  const {progress,current} =  useSelector(state=>state.quizz);
+const GameHeader = ({isFinish,progress,current}) => {
   
   return (
-    <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md relative">
+    <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative">
       {/* Progress Circles */} 
      
         <div className="flex items-center gap-3">
@@ -43,4 +42,4 @@ const QuizHeader = ({isFinish}) => {
   );
 };
 
-export default QuizHeader;
+export default GameHeader;

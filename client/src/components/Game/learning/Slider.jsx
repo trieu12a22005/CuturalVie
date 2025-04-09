@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const images = ["/vanmieu.png", "/vanmieu2.png", "/vanmieu3.png"];
+const images = ["/vanmieu/vanmieu.png", "/vanmieu/vanmieu2.png", "/vanmieu/vanmieu3.png"];
 
 export default function ImageSlider() {
   return (

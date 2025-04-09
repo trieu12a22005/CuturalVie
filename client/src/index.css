@@ -1,6 +1,8 @@
 @import "tailwindcss";
 
-
+.border-tr {
+  border-top-right-radius: 40px;
+}
 .img2 {
     top: 57px; 
     left: 705px;
