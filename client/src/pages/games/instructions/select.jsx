@@ -19,7 +19,7 @@ function Select() {
   const handleClickImg = (index) =>{
     if (index==0)
     {
-      navigate("/rule")
+      navigate("/instructions_3")
     }
   }
 

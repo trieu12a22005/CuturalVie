@@ -110,7 +110,7 @@ function Content() {
         </motion.div>
       )}
 
-      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md">
+      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md mt-auto">
         <div className="bg-[#009951] text-white p-3 flex">
           {submitted ? (
             <>
@@ -124,12 +124,12 @@ function Content() {
           )}
         </div>
 
-        <div className="p-6">
-          <div className="flex text-center mt-[20px] w-[800px] ml-[330px] flex-wrap justify-center gap-1">
+        <div className="p-6 ">
+          <div className="flex text-center align-center w-[800px] ml-[22vw] mt-[-5vh] flex-wrap justify-center gap-1">
             {currentQues?.letters.map((letter, index) => (
               <div
                 key={index}
-                className="w-[50px] h-[50px]  border-[#14AE5C] bg-[#E2FFDD] border text-center flex items-center justify-center text-xl rounded-[20px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.6) ]"
+                className="w-[50px] h-[50px] mt-[10vh]  border-[#14AE5C] bg-[#E2FFDD] border text-center flex items-center justify-center text-xl rounded-[20px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.6) ]"
                 onClick={handleClick}
               >
                 {letter}
@@ -139,7 +139,7 @@ function Content() {
           {submitted ? (
             <button
               onClick={handleInfo}
-              className="mt-6 ml-[1350px] block disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-[2vh] ml-[85vw] block disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span
                 className=" px-[35px] py-[15px] font-bold rounded-md"

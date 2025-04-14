@@ -22,6 +22,8 @@ import StartPuzzzle from "./pages/games/puzzle/Start";
 import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
+import VerifyOTP from "./pages/auth/Otp";
+import Trip from "./pages/games/instructions/trip";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -57,6 +59,14 @@ function App() {
             </PublicRoute>
           }
         />
+        <Route
+          path="/verify-otp"
+          element={
+            <PublicRoute>
+              <VerifyOTP />
+            </PublicRoute>
+          }
+        />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route
           path="/instructions_2"
@@ -75,6 +85,7 @@ function App() {
           }
         />
       </Route>
+      {/* phần này riêng */}
       <Route path="/select" element={<Select />} />
       <Route element={<QuizzLayout />}>
         <Route
@@ -94,6 +105,15 @@ function App() {
           }
         />
         <Route
+          path="/trip"
+          element={
+            <ProtectedRoute>
+              <Trip />
+            </ProtectedRoute>
+          }
+        />
+        {/* game 1 */}
+        <Route
           path="/game_1"
           element={
             <ProtectedRoute>
@@ -101,6 +121,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {/* information */}
         <Route
           path="/information/:game_type"
           element={
@@ -109,6 +130,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        {/* game 4 */}
         <Route
           path="/game_4"
           element={
@@ -118,7 +140,7 @@ function App() {
           }
         />
       </Route>
-
+       {/* game 2 */}
       <Route
         path="/game2"
         element={
@@ -131,6 +153,7 @@ function App() {
         <Route index path="start" element={<StartPuzzzle />} />
         <Route path="rule" element={<PuzzleRule />} />
       </Route>
+      {/* game 3 */}
       <Route
         path="/game3"
         element={
