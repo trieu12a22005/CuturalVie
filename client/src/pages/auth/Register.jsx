@@ -83,12 +83,14 @@ export default function Register() {
     if (Object.values(validationErrors).some((e) => e)) return;
 
     try {
-      const response = await axiosInstance.post("/auth/register", {
+      const response = await axiosInstance.post("https://viet-cultural-be.vercel.app/api/v1/auth/register", {
         email: formData.email,
         full_name: formData.name,
         password: formData.password,
       });
 
+     if (response)
+     {
       toast.success("Đăng kí thành công!");
       console.log("Đăng kí thành công:", response.data);
       navigate("/verify-otp", {
@@ -97,6 +99,7 @@ export default function Register() {
         },
       });
       await fetchApi();
+     }
     } catch (err) {
       console.error("❌ Lỗi:", err.response?.data || err.message);
       notifyError("Đăng kí thất bại!");

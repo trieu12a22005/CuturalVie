@@ -24,6 +24,10 @@ import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
 import VerifyOTP from "./pages/auth/Otp";
 import Trip from "./pages/games/instructions/trip";
+import UserProfile from "./pages/profile/Profile";
+import Achievement from "./pages/profile/achievement";
+import FeedbackForm from "./pages/profile/feedback";
+import UpdatePassword from "./pages/profile/updatePassword";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -164,6 +168,38 @@ function App() {
       >
         <Route path="play" element={<Cardgame />} />
       </Route>
+      <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+      <Route
+          path="/updatePassword"
+          element={
+            <ProtectedRoute>
+              <UpdatePassword />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/achievement"
+          element={
+            <ProtectedRoute>
+              <Achievement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/feedback"
+          element={
+            <ProtectedRoute>
+              <FeedbackForm />
+            </ProtectedRoute>
+          }
+        />
     </Routes>
   );
 }

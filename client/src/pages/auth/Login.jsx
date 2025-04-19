@@ -69,12 +69,14 @@ export default function Login() {
     if (newErrors.email || newErrors.password) return;
     //handle login
     try {
-       let {data}= await axiosInstance.post("/auth/login",formData)
+       let {data}= await axiosInstance.post("/auth/login",formData,{
+        withCredentials: true // ✅ đúng cú pháp
+       })
        notifySuccess("Đăng nhập thành công")
        localStorage.setItem("accessToken",data.accessToken)
     } catch (error) {
       console.log(error);
-       notifyError(error.response.data.message)
+       notifyError(error)
     }
     
   };

@@ -1,12 +1,54 @@
+import { useLocation, useNavigate } from "react-router-dom";
+
 function Trip() {
   const images = [
     { src: "trip/history.png", alt: "History" },
     { src: "trip/cultural_1.png", alt: "Cultural 1" },
     { src: "trip/cultural_2.png", alt: "Cultural 2" },
   ];
+  const location = useLocation();
+  const { regionData } = location.state || {};
+  const game = regionData.game;
+  console.log(game)
+  const navigate = useNavigate();
   function handleImageClick(index) {
-    console.log("Bạn click vào ảnh thứ", index, images[index].alt);
-  }
+    switch (game[index]) {
+        case 1:
+          navigate('/game_1', {
+            state: {
+              region: '1',
+            },
+          });
+          break;
+      
+        case 2:
+          navigate('/game2/play', {
+            state: {
+              region: '1',
+            },
+          });
+          break;
+      
+        case 3:
+          navigate('/game3/play', {
+            state: {
+              region: '1',
+            },
+          });
+          break;
+      
+        case 4:
+          navigate('/game_4', {
+            state: {
+              region: '1',
+            },
+          });
+          break;
+      
+        default:
+          console.log('Không tìm thấy game phù hợp');
+      }      
+    }
   return (
     <>
       <div className="relative w-[95%] h-[95%] mx-auto">
