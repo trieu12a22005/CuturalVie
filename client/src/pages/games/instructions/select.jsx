@@ -16,10 +16,16 @@ const textVariants = {
 function Select() {
    const { setIsPlaying } = useAudio();
   const navigate = useNavigate();
-  const handleClickImg = (index) =>{
-    if (index==0)
+  const handleClickImg = async (index) =>{
+    const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index+1}`)
+    if (res)
     {
-      navigate("/rule")
+      const result = await res.json();
+      navigate("/trip", {
+        state: {
+          regionData: result
+        },
+      });
     }
   }
 

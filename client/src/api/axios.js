@@ -24,7 +24,9 @@ const isTokenExpired = (token)=> {
 const refreshAccessToken = async () => {
   try {
   
-    const response = await axios.post(`${baseURL}/auth/refresh-token`);
+    const response = await axios.post(`${baseURL}/auth/refresh-token`,{}, {
+      withCredentials: true // ✅ bắt buộc để gửi cookie
+    });
     console.log(response);
     const { accessToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
