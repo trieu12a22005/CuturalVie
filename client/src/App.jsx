@@ -22,6 +22,7 @@ import StartPuzzzle from "./pages/games/puzzle/Start";
 import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
+import Home from "./pages/home/Home";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -76,6 +77,7 @@ function App() {
         />
       </Route>
       <Route path="/select" element={<Select />} />
+      <Route path="/home" element={<Home/>} />
       <Route element={<QuizzLayout />}>
         <Route
           path="/rule"

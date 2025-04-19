@@ -1,5 +1,7 @@
 @import "tailwindcss";
-
+* {
+  
+}
 .border-tr {
   border-top-right-radius: 40px;
 }
