@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import ImageSlider from "./Slider";
 
 function Hero() {
   return (
@@ -34,11 +35,7 @@ function Hero() {
 
         {/* Right Image + Buttons */}
         <div className="flex flex-col items-center gap-6">
-          <img
-            src="/home/towel.png"
-            alt="Tháp Chăm"
-            className="w-[480px] rounded-[36px] object-cover shadow-lg"
-          />
+         <ImageSlider/>
           <div className="flex gap-12 mt-4 w-full">
             <button className="bg-[#7CC68D] text-white py-2.5 rounded-full text-lg font-semibold hover:bg-[#68b07c] transition flex-1">
               Chơi game

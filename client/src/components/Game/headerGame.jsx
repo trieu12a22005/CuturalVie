@@ -1,15 +1,14 @@
-
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const QuizHeader = () => {
-  const count = useSelector((state) => state.count.value);
+const QuizHeader = ({progress,count=0}) => {
+  
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative">
       {/* Progress Circles */} 
      
         <div className="flex items-center gap-3">
-          {/* {progress.map((status, i) => (
+          {progress.map((status, i) => (
             <div
               key={i}
               className={`w-10 h-10 flex items-center justify-center rounded-full border-2 text-lg font-bold ${
@@ -23,7 +22,7 @@ const QuizHeader = () => {
               {status === true ? <FaCheck size={20} /> : null}
               {status === false ? <IoClose size={20} /> : null}
             </div>
-          ))} */}
+          ))}
         </div>
 
         {/* Question Label */}

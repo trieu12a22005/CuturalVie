@@ -11,7 +11,7 @@ import Footer from './Footer'
 function Home() {
   return (
     <>
-    <section className="bg-cover bg-center bg-[url('/bg/bg1.png')]">
+    <section className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')]">
         <Header/>
          <Hero/>
          <Feature/>
