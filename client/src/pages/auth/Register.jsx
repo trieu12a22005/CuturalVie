@@ -6,11 +6,10 @@ import {
   AiOutlineEyeInvisible,
 } from "react-icons/ai";
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
 import axiosInstance from "../../api/axios";
 import { notifyError } from "../../utils/notify";
 
-export default function Register() {
+export default function Register({ onClose, onSwitchToLogin }) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +17,7 @@ export default function Register() {
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const navigate = useNavigate();
+
   const validateAllFields = () => {
     const tempErrors = {};
     Object.keys(formData).forEach((field) => {
@@ -40,9 +39,9 @@ export default function Register() {
     setErrors(tempErrors);
     return tempErrors;
   };
+
   const validateField = (name, value) => {
     let error = "";
-
     if (!value || !value.trim()) {
       error = "Trường này không được để trống";
     } else if (name === "name" && value.length < 3) {
@@ -63,43 +62,40 @@ export default function Register() {
       validateField(name, value);
     }
   };
+
   const fetchApi = async () => {
     try {
       const res = await axiosInstance.post(
         "https://viet-cultural-be.vercel.app/api/v1/auth/send-verification-email",
-        {
-          email: formData.email,
-        }
+        { email: formData.email }
       );
-      console.log("Dữ liệu từ server:", res.data);
+      console.log("OTP đã gửi:", res.data);
     } catch (err) {
-      console.error("Lỗi khi gửi OTP:", err.response?.data || err.message);
+      console.error("Lỗi gửi OTP:", err.response?.data || err.message);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const validationErrors = validateAllFields();
     if (Object.values(validationErrors).some((e) => e)) return;
 
     try {
-      const response = await axiosInstance.post("https://viet-cultural-be.vercel.app/api/v1/auth/register", {
-        email: formData.email,
-        full_name: formData.name,
-        password: formData.password,
-      });
-
-     if (response)
-     {
-      toast.success("Đăng kí thành công!");
-      console.log("Đăng kí thành công:", response.data);
-      navigate("/verify-otp", {
-        state: {
+      const response = await axiosInstance.post(
+        "https://viet-cultural-be.vercel.app/api/v1/auth/register",
+        {
           email: formData.email,
-        },
-      });
-      await fetchApi();
-     }
+          full_name: formData.name,
+          password: formData.password,
+        }
+      );
+
+      if (response) {
+        toast.success("Đăng kí thành công!");
+        console.log("Đăng kí thành công:", response.data);
+        await fetchApi();
+        // onClose(); // có thể đóng modal hoặc chuyển sang bước OTP
+      }
     } catch (err) {
       console.error("❌ Lỗi:", err.response?.data || err.message);
       notifyError("Đăng kí thất bại!");
@@ -108,13 +104,20 @@ export default function Register() {
 
   return (
     <div className="bg-white rounded-lg shadow-lg w-96 p-6 relative">
-      <button className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-2 py-1 rounded-md">
-        <AiOutlineClose size={21} className="text-white" />
+      {/* Nút đóng */}
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white bg-[#14AE5C] hover:bg-red-500 px-2 py-1 rounded-md"
+      >
+        <AiOutlineClose size={21} />
       </button>
+
       <h2 className="text-xl font-semibold text-center mb-4">
         Đăng kí tài khoản
       </h2>
+
       <form onSubmit={handleSubmit}>
+        {/* Tên */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">
             Tên người chơi
@@ -127,7 +130,7 @@ export default function Register() {
             <input
               type="text"
               name="name"
-              className="w-full pl-10 p-2 rounded-md focus:ring-2 focus:ring-green-500 outline-0 bg-green-100"
+              className="w-full pl-10 p-2 rounded-md bg-green-100 focus:ring-2 focus:ring-green-500 outline-0"
               placeholder="Nhập tên của bạn"
               value={formData.name}
               onChange={handleChange}
@@ -138,6 +141,8 @@ export default function Register() {
             <p className="text-red-500 text-sm mt-1">{errors.name}</p>
           )}
         </div>
+
+        {/* Email */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Email</label>
           <div className="relative">
@@ -148,7 +153,7 @@ export default function Register() {
             <input
               type="email"
               name="email"
-              className="w-full pl-10 p-2 rounded-md focus:ring-2 focus:ring-green-500 outline-0 bg-green-100"
+              className="w-full pl-10 p-2 rounded-md bg-green-100 focus:ring-2 focus:ring-green-500 outline-0"
               placeholder="Nhập email của bạn"
               value={formData.email}
               onChange={handleChange}
@@ -159,6 +164,8 @@ export default function Register() {
             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
         </div>
+
+        {/* Mật khẩu */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Mật khẩu</label>
           <div className="relative">
@@ -169,7 +176,7 @@ export default function Register() {
             <input
               type={showPassword ? "text" : "password"}
               name="password"
-              className="w-full pl-10 p-2 rounded-md focus:ring-2 focus:ring-green-500 outline-0 bg-green-100"
+              className="w-full pl-10 pr-10 p-2 rounded-md bg-green-100 focus:ring-2 focus:ring-green-500 outline-0"
               placeholder="Nhập mật khẩu"
               value={formData.password}
               onChange={handleChange}
@@ -191,17 +198,25 @@ export default function Register() {
             <p className="text-red-500 text-sm mt-1">{errors.password}</p>
           )}
         </div>
+
+        {/* Nút đăng ký */}
         <button
           type="submit"
           className="w-full bg-[#14AE5C] text-white p-2 rounded-md hover:bg-green-600"
         >
           Đăng kí
         </button>
+
+        {/* Chuyển sang đăng nhập */}
         <p className="text-sm text-center mt-4">
           Bạn đã có tài khoản?{" "}
-          <Link to="/login" className="text-[#14AE5C] hover:underline">
+          <button
+            type="button"
+            onClick={onSwitchToLogin}
+            className="text-[#14AE5C] hover:underline"
+          >
             Đăng nhập ngay
-          </Link>
+          </button>
         </p>
       </form>
     </div>

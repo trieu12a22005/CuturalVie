@@ -1,3 +1,5 @@
+import Header from "../../components/Header/Header";
+
 const regions = [
   {
     name: "Đồng bằng Bắc Bộ",
@@ -32,7 +34,9 @@ const regions = [
 ];
 function Achievement() {
   return (
-    <div className="min-h-screen bg-white flex items-center justify-center py-10">
+    <>
+    <Header />
+      <div className="min-h-screen bg-white flex items-center justify-center py-10 mt-[50px]">
       <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg p-6 text-center">
         <img
           src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
@@ -86,6 +90,7 @@ function Achievement() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

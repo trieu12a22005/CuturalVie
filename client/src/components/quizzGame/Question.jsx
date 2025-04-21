@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Modal from "./Modal";
-import {useNavigate } from "react-router-dom";
+import {useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 function Question() {
@@ -9,22 +9,30 @@ function Question() {
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [second, setSecond] = useState(10);
-  const [modal, setModal] = useState(null); // null = chưa hiện modal, true = đúng, false = sai
+  const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+    const { region } = location.state || {};
   useEffect(() => {
-    fetch("http://localhost:3000/question")
-      .then((res) => res.json())
-      .then((data) => {
-        setQuestions(data);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi fetch:", error);
-      });
+    function fetchData() {
+      fetch(`https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=quiz`,
+        {
+          method: "GET",
+          credentials: "include",
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          setQuestions(data.question);
+        })
+        .catch((error) => {
+          console.error("Lỗi khi fetch:", error);
+        });
+    }
+    fetchData();
   }, []);
   const count = useSelector((state) => state.count.value);
   const currentQues = question[count];
-
   useEffect(() => {
     if (submitted) return;
     if (second <= 0) {
@@ -78,7 +86,7 @@ function Question() {
           className="bg-green-100 p-10 rounded-3xl shadow-md w-full max-w-[552px] min-h-[290px] mx-auto mt-10"
         >
           <div className="bg-green-300 px-4 py-1 rounded-full w-fit mx-auto">
-            <h2 className="text-black font-bold">{`Câu hỏi ${count}`}</h2>
+            <h2 className="text-black font-bold">{`Câu hỏi ${count+1}`}</h2>
           </div>
 
           <p className="text-center text-lg font-semibold text-black mt-6">
