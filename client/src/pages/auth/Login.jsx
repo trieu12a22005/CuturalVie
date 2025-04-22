@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import axiosInstance from "../../api/axios";
 import { notifyError, notifySuccess } from "../../utils/notify";
 
-export default function Login() {
+export default function Login({ onClose, onSwitchToRegister }) {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -67,24 +67,26 @@ export default function Login() {
     };
     setErrors(newErrors);
     if (newErrors.email || newErrors.password) return;
-    //handle login
     try {
-       let {data}= await axiosInstance.post("/auth/login",formData,{
-        withCredentials: true // ✅ đúng cú pháp
-       })
-       notifySuccess("Đăng nhập thành công")
-       localStorage.setItem("accessToken",data.accessToken)
+      let { data } = await axiosInstance.post("/auth/login", formData, {
+        withCredentials: true, // ✅ đúng cú pháp
+      });
+      notifySuccess("Đăng nhập thành công");
+      localStorage.setItem("accessToken", data.accessToken);
+      onClose();
     } catch (error) {
       console.log(error);
-       notifyError(error)
+      notifyError(error);
     }
-    
   };
 
   return (
     <div className="bg-white rounded-lg shadow-lg w-96 p-6 relative">
       {/* Close Button */}
-      <button className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-2 py-1 rounded-md">
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-2 py-1 rounded-md"
+      >
         <AiOutlineClose size={21} className="text-white" />
       </button>
 
@@ -163,7 +165,10 @@ export default function Login() {
             />
             <span>Ghi nhớ tài khoản</span>
           </label>
-          <Link to={'/reset-password'} className="text-green-500 hover:underline">
+          <Link
+            to={"/reset-password"}
+            className="text-green-500 hover:underline"
+          >
             Quên mật khẩu?
           </Link>
         </div>
@@ -176,30 +181,15 @@ export default function Login() {
           Đăng nhập
         </button>
       </form>
-
-      {/* Other Login Methods */}
-      <div className="text-center mt-4">
-        <p className="text-sm font-medium">Hoặc đăng nhập bằng</p>
-        <div className="flex justify-center space-x-4 mt-2">
-          <button className="p-2 border border-green-500 rounded-md hover:bg-green-500 group">
-            <FaGoogle
-              size={20}
-              className="text-[#14AE5C] group-hover:text-white"
-            />
-          </button>
-          <button className="p-2 border border-green-500 rounded-md hover:bg-green-500 group">
-            <FaFacebook
-              size={22}
-              className="text-[#14AE5C] group-hover:text-white"
-            />
-          </button>
-        </div>
-      </div>
       <p className="text-sm text-center mt-4">
         Chưa có tài khoản?{" "}
-        <Link to="/register" className="text-green-500 hover:underline">
+        <button
+          type="button"
+          onClick={onSwitchToRegister}
+          className="text-green-500 hover:underline"
+        >
           Đăng ký ngay
-        </Link>
+        </button>
       </p>
     </div>
   );

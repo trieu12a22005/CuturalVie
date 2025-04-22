@@ -1,5 +1,3 @@
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/Forgot";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router-dom";
@@ -29,6 +27,9 @@ import FeedbackForm from "./pages/profile/feedback";
 import UpdatePassword from "./pages/profile/updatePassword";
 import StartCardGame from "./pages/games/cardFlip/Start";
 import CardRule from "./pages/games/cardFlip/Rule";
+import { AnimatePresence, motion } from "framer-motion";
+import RuleWord from "./pages/games/word/Rule";
+import InstructionTrip from "./pages/games/instructions/instructionsTrip";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -44,26 +45,11 @@ function App() {
     };
   }, []);
   return (
-    <Routes>
+    <AnimatePresence mode="wait">
+      <Routes>
       <Route element={<Layout bgImage={backgroundImage} />}>
         <Route path="start" element={<Start />} />
         <Route path="/" element={<Begin />} />
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
         <Route
           path="/verify-otp"
           element={
@@ -95,7 +81,7 @@ function App() {
       <Route path="/home" element={<Home/>} />
       <Route element={<QuizzLayout />}>
         <Route
-          path="/rule"
+          path="/quizz/rule"
           element={
             <ProtectedRoute>
               <Rule />
@@ -115,6 +101,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Trip />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/trip/instruction"
+          element={
+            <ProtectedRoute>
+              <InstructionTrip />
             </ProtectedRoute>
           }
         />
@@ -142,6 +136,14 @@ function App() {
           element={
             <ProtectedRoute>
               <WordGame />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/word/rule"
+          element={
+            <ProtectedRoute>
+              <RuleWord />
             </ProtectedRoute>
           }
         />
@@ -205,6 +207,7 @@ function App() {
           }
         />
     </Routes>
+    </AnimatePresence>
   );
 }
 
