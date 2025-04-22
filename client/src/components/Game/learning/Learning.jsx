@@ -3,6 +3,7 @@ import QuizHeader from "../headerGame";
 import Slider from "./Slider";
 import VanMieuInfo from "./Info";
 import { motion } from "framer-motion";
+import AIAssistantModal from "../../AI/Assistance";
 function Learning() {
   return (
     <>
@@ -27,6 +28,7 @@ function Learning() {
           <VanMieuInfo />
         </div>
       </motion.div>
+     {/* <AIAssistantModal/> */}
     </>
   );
 }

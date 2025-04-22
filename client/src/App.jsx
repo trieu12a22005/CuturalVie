@@ -14,12 +14,10 @@ import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
 import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
 import Learning from "./components/Game/learning/Learning";
-import Finish from "./components/Game/Finish/Finish";
 import PuzzleRule from "./pages/games/puzzle/Rule";
 import Cardgame from "./pages/games/cardFlip/Index";
 import PuzzleQuizz from "./pages/games/puzzle/Game";
 import StartPuzzzle from "./pages/games/puzzle/Start";
-import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
 import Home from "./pages/home/Home";
@@ -134,7 +132,7 @@ function App() {
           path="/information/:game_type"
           element={
             <ProtectedRoute>
-              <Infomation />
+              <Learning/>
             </ProtectedRoute>
           }
         />
