@@ -1,6 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
 function Trip() {
+  const {region,game: gamedata}=useSelector(state=>state.region)
+  //let dispatch=useDispatch()
   const images = [
     { src: "trip/history.png", alt: "History" },
     { src: "trip/cultural_1.png", alt: "Cultural 1" },
@@ -13,12 +16,14 @@ function Trip() {
   const navigate = useNavigate();
   console.log(game);
   function handleImageClick(index) {
+    
     navigate("/trip/instruction", {
       state: {
         image: `/trip/trip${index + 1}.png`,
       },
     });
   }
+  console.log(region,gamedata);
   return (
     <>
       <motion.div
