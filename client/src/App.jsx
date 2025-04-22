@@ -29,6 +29,8 @@ import UserProfile from "./pages/profile/Profile";
 import Achievement from "./pages/profile/achievement";
 import FeedbackForm from "./pages/profile/feedback";
 import UpdatePassword from "./pages/profile/updatePassword";
+import Community from "./pages/community/Community";
+import CreatePost from "./pages/community/createPost/CreatePost";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -92,7 +94,7 @@ function App() {
       </Route>
       {/* phần này riêng */}
       <Route path="/select" element={<Select />} />
-      <Route path="/home" element={<Home/>} />
+      <Route path="/home" element={<Home />} />
       <Route element={<QuizzLayout />}>
         <Route
           path="/rule"
@@ -146,7 +148,7 @@ function App() {
           }
         />
       </Route>
-       {/* game 2 */}
+      {/* game 2 */}
       <Route
         path="/game2"
         element={
@@ -171,38 +173,54 @@ function App() {
         <Route path="play" element={<Cardgame />} />
       </Route>
       <Route
-          path="/profile"
-          element={
-            <ProtectedRoute>
-              <UserProfile />
-            </ProtectedRoute>
-          }
-        />
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <UserProfile />
+          </ProtectedRoute>
+        }
+      />
       <Route
-          path="/updatePassword"
-          element={
-            <ProtectedRoute>
-              <UpdatePassword />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/achievement"
-          element={
-            <ProtectedRoute>
-              <Achievement />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/feedback"
-          element={
-            <ProtectedRoute>
-              <FeedbackForm />
-            </ProtectedRoute>
-          }
-        />
-    </Routes>
+        path="/updatePassword"
+        element={
+          <ProtectedRoute>
+            <UpdatePassword />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/achievement"
+        element={
+          <ProtectedRoute>
+            <Achievement />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/feedback"
+        element={
+          <ProtectedRoute>
+            <FeedbackForm />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/community/*"
+        element={
+          <ProtectedRoute>
+            <Community />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/community/create-post"
+        element={
+          <ProtectedRoute>
+            <CreatePost />
+          </ProtectedRoute>
+        }
+      />
+    </Routes >
   );
 }
 
