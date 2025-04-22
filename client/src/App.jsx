@@ -25,6 +25,8 @@ import UserProfile from "./pages/profile/Profile";
 import Achievement from "./pages/profile/achievement";
 import FeedbackForm from "./pages/profile/feedback";
 import UpdatePassword from "./pages/profile/updatePassword";
+import StartCardGame from "./pages/games/cardFlip/Start";
+import CardRule from "./pages/games/cardFlip/Rule";
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
@@ -169,6 +171,8 @@ function App() {
         }
       >
         <Route path="play" element={<Cardgame />} />
+        <Route path="rule" element={<CardRule/>} />
+        <Route index path="start" element={<StartCardGame/>} />
       </Route>
       <Route
           path="/profile"

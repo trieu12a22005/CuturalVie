@@ -27,7 +27,7 @@ export default function PuzzleQuiz() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-
+  console.log(progress);
   useEffect(() => {
     const fetchFakeData = async () => {
       try {
