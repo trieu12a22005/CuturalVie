@@ -1,7 +1,7 @@
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
-const QuizHeader = ({progress,count=0}) => {
+const QuizHeader = ({progress=[undefined],count=0}) => {
   
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative">

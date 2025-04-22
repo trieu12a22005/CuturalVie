@@ -16,7 +16,7 @@ function Question() {
     const { region } = location.state || {};
   useEffect(() => {
     function fetchData() {
-      fetch(`https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=quiz`,
+      fetch(`https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=1&gameType=quiz`,
         {
           method: "GET",
           credentials: "include",

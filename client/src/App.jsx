@@ -81,7 +81,7 @@ function App() {
       <Route path="/home" element={<Home/>} />
       <Route element={<QuizzLayout />}>
         <Route
-          path="/rule"
+          path="/quizz/rule"
           element={
             <ProtectedRoute>
               <Rule />

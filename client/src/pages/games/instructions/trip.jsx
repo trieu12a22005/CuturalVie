@@ -8,57 +8,26 @@ function Trip() {
   ];
   const location = useLocation();
   const { regionData } = location.state || {};
-  const game = regionData.game
-  console.log(game)
+  const game = regionData.game;
+  console.log(game);
   const navigate = useNavigate();
-  console.log(game)
+  console.log(game);
   function handleImageClick(index) {
-    
-    switch (game[index]) {
-        case 1:
-          navigate('/rule', {
-            state: {
-              region: '1',
-            },
-          });
-          break;
-      
-        case 2:
-          navigate('/rule', {
-            state: {
-              region: '1',
-            },
-          });
-          break;
-      
-        case 3:
-          navigate('/game3/play', {
-            state: {
-              region: '1',
-            },
-          });
-          break;
-      
-        case 4:
-          navigate('/game_4', {
-            state: {
-              region: '1',
-            },
-          });
-          break;
-      
-        default:
-          console.log('Không tìm thấy game phù hợp');
-      }      
-    }
+    navigate("/trip/instruction", {
+      state: {
+        image: `/trip/trip${index + 1}.png`,
+      },
+    });
+  }
   return (
     <>
-      <motion.div 
-      initial={{ opacity: 0, y: 40 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -40 }}
-      transition={{ duration: 0.5 }}
-      className="relative w-[95%] h-[95%] mx-auto">
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -40 }}
+        transition={{ duration: 0.5 }}
+        className="relative w-[95%] h-[95%] mx-auto"
+      >
         {/* Hình ảnh chiếm toàn bộ khung */}
         <motion.img
           src="bg/Frame 2.png"
