@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import QuizHeader from "../headerGame";
 import Slider from "./Slider";
 import VanMieuInfo from "./Info";
 import { motion } from "framer-motion";
 import AIAssistantModal from "../../AI/Assistance";
+import { MessageSquare } from "lucide-react";
+
 function Learning() {
+  const [open, setOpen] = useState(null);
+  let [chatData, setChatdata] = useState(null);
   return (
     <>
       <QuizHeader />
@@ -25,10 +29,24 @@ function Learning() {
 
         <div className="flex mt-3 items-center">
           <Slider />
-          <VanMieuInfo />
+          <VanMieuInfo setChatdata={setChatdata} />
         </div>
       </motion.div>
-     {/* <AIAssistantModal/> */}
+
+      {/* Chat button with animation */}
+      <button
+        className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 flex items-center space-x-2"
+        onClick={() =>setOpen(!open)}
+      >
+        <MessageSquare className="w-6 h-6" />
+        <span className="text-sm">Chat cùng AI</span>
+      </button>
+
+      <AIAssistantModal
+        open={open}
+        setOpen={setOpen}
+        chatData={chatData}
+      />
     </>
   );
 }

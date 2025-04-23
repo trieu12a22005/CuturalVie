@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import TooltipText from "../ToolTipText";
-let tooltipTextLists;
 const content = [
   {
     title: "Lịch sử hình thành",
@@ -32,13 +31,13 @@ const content = [
     ],
   },
 ];
-function getToolTiptext(text) {
+function getToolTiptext(text,setModal) {
   let items = text.split(" ");
-  items = items.map((item) => <TooltipText text={item} />);
+  items = items.map((item) => <TooltipText setModal={setModal} text={item} />);
   return items;
 }
 
-const VanMieuInfo = () => {
+const VanMieuInfo = ({setChatdata}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const selected = useRef();
@@ -51,12 +50,18 @@ const VanMieuInfo = () => {
         const startNode = range.startContainer;
         const startElement =
           startNode instanceof Element ? startNode : startNode.parentElement;
-        selected.current = startElement;
+        if (startElement.classList.contains("tooltip-text")) {
+          selected.current = startElement;
+        } else {
+          selected.current = null;
+          setTextel(null);
+        }
       } else {
         selected.current = null;
         setTextel(null);
       }
     };
+    
     let handletextEl = () => {
       document.querySelectorAll(".tooltip-text").forEach((item) => {
         item.nextElementSibling.classList.add("hidden");
@@ -73,7 +78,7 @@ const VanMieuInfo = () => {
       document.removeEventListener("selectionchange", handleSelect);
     };
   }, []);
-  console.log(textEl);
+  
   const nextContent = () => {
     if (currentIndex < content.length - 1) {
       setDirection(1);
@@ -105,7 +110,7 @@ const VanMieuInfo = () => {
             </h3>
             <ul className="list-disc pl-6 space-y-2">
               {content[currentIndex].items.map((item, i) => (
-                <li key={i}>{getToolTiptext(item)}</li>
+                <li key={i}>{getToolTiptext(item,setChatdata)}</li>
               ))}
             </ul>
           </motion.div>
