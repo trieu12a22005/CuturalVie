@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 function Trip() {
-  const {region,game: gamedata}=useSelector(state=>state.region)
+  const {region,game: game}=useSelector(state=>state.region)
   //let dispatch=useDispatch()
   const images = [
     { src: "trip/history.png", alt: "History" },
@@ -10,8 +10,7 @@ function Trip() {
     { src: "trip/cultural_2.png", alt: "Cultural 2" },
   ];
   const location = useLocation();
-  const { regionData } = location.state || {};
-  const game = regionData.game;
+  const name = location.state.nameRegion;
   console.log(game);
   const navigate = useNavigate();
   console.log(game);
@@ -19,11 +18,11 @@ function Trip() {
     
     navigate("/trip/instruction", {
       state: {
-        image: `/trip/trip${index + 1}.png`,
+        index: index
       },
     });
   }
-  console.log(region,gamedata);
+  console.log(region,game);
   return (
     <>
       <motion.div
@@ -51,7 +50,7 @@ function Trip() {
         </div>
         {/* Chữ đè lên và nằm theo vị trí phần trăm */}
         <motion.div className="absolute top-[7%] left-[48%] translate-x-[-50%] text-[18px] font-bold text-center">
-          <p>Đồng bằng Bắc Bộ</p>
+          <p>{name}</p>
         </motion.div>
       </motion.div>
     </>

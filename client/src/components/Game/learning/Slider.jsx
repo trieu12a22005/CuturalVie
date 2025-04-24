@@ -6,7 +6,8 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const images = ["/vanmieu/vanmieu.png", "/vanmieu/vanmieu2.png", "/vanmieu/vanmieu3.png"];
 
-export default function ImageSlider() {
+export default function ImageSlider({image}) {
+  console.log(image)
   return (
     <div className="relative w-[400px] p-6 ml-20 ">
       <Swiper
@@ -18,12 +19,18 @@ export default function ImageSlider() {
         loop={true}
         
       >
-        {images.map((src, index) => (
-          <SwiperSlide key={index} >
-            <img
-              src={src}
-              alt={`Slide ${index + 1}`}
-            />
+        {image?.map((item, index) => (
+          <SwiperSlide key={index}>
+            <div className="text-center">
+              <img
+                src={item.images[0]?.imageUrl}
+                alt={item.alt}
+                className="w-full h-[250px] object-contain rounded-xl"
+              />
+              <p className="mt-2 text-sm font-semibold text-gray-700">
+                {item.alt}
+              </p>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

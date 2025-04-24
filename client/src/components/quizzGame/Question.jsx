@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Modal from "./Modal";
-import {useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setQuestionId } from "../../store/questionSlice";
 function Question() {
   const [question, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
@@ -12,15 +12,17 @@ function Question() {
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-    const { region } = location.state || {};
+  const { region } = useSelector((state) => state.region);
+  const dispatch = useDispatch();
   useEffect(() => {
     function fetchData() {
-      fetch(`https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=1&gameType=quiz`,
+      fetch(
+        `https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=quiz`,
         {
           method: "GET",
           credentials: "include",
-        })
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           setQuestions(data.question);
@@ -39,7 +41,11 @@ function Question() {
       const auto = selected || "E";
       setSelected(auto);
       setSubmitted(true);
-      setModal(auto === currentQues?.correctAnswer); // mở modal dựa trên kết quả
+      setModal("wrong");
+      setDisplay(true);
+
+      const audio = new Audio(`sound/wrong.mp3`);
+      audio.play();
       return;
     }
 
@@ -55,7 +61,6 @@ function Question() {
       setSelected(letter);
     }
   };
-
   const handleSubmit = () => {
     if (!submitted && selected) {
       setSubmitted(true);
@@ -67,7 +72,12 @@ function Question() {
     }
   };
   const handleInfo = () => {
-    navigate(`/information/game_1`);
+    navigate(`/information/game_1`, {
+      state:{
+        gameId: 1,
+        id: currentQues.id
+      }
+    });
   };
   const formatTime = (sec) => {
     return `00:${sec.toString().padStart(2, "0")}`;
@@ -86,7 +96,7 @@ function Question() {
           className="bg-green-100 p-10 rounded-3xl shadow-md w-full max-w-[552px] min-h-[290px] mx-auto mt-10"
         >
           <div className="bg-green-300 px-4 py-1 rounded-full w-fit mx-auto">
-            <h2 className="text-black font-bold">{`Câu hỏi ${count+1}`}</h2>
+            <h2 className="text-black font-bold">{`Câu hỏi ${count + 1}`}</h2>
           </div>
 
           <p className="text-center text-lg font-semibold text-black mt-6">

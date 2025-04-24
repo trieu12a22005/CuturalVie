@@ -1,4 +1,4 @@
-import store from "../store/store";
+import { store } from "../store/store"; // ✅ Đúng
 export const questions = [
   {
     id: 4,

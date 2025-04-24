@@ -8,6 +8,7 @@ import InteractUser from "../../../components/InteractUser";
 import axiosInstance from "../../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setGame, setRegion } from "../../../store/Region";
+import { reset } from "../../../store/countSlice";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -20,17 +21,33 @@ function Select() {
    let dispatch=useDispatch()
   const navigate = useNavigate();
   const handleClickImg = async (index) =>{
-    const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index+1}`)
+    console.log(index);
+    if (index<3)
+    {
+      index = index+1;
+    }
+    else if (index==3 || index==4)
+    {
+      index = 4;
+    }
+    else if (index==5)
+    {
+      index= 7;
+    }
+    const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index}`)
     if (res)
     {
       dispatch(setRegion(index))
+      dispatch(reset());
       const result = await res.json();
-      console.log(result.game);
+      const parsedDescription = JSON.parse(result.description);
+      console.log(parsedDescription)
+      console.log(parsedDescription);
       dispatch(setGame(result.game))
-      navigate("/trip", {
+      navigate("/instructions_3",{
         state: {
-          regionData: result
-        },
+        description: parsedDescription
+      },
       });
     }
   }

@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
 import InteractUser from "../../../components/InteractUser";
 import { useAudio } from "../../../context/AudioContext";
+import { useNavigate } from "react-router-dom";
 
 function RuleWord() {
   const { setIsPlaying } = useAudio();
+  const navigate = useNavigate()
+  const handleClick = () =>{
+    navigate("/game_4")
+  }
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -37,7 +42,7 @@ function RuleWord() {
           <br />
           Chúc bạn may mắn và thành công trong hành trình khám phá mã lệnh này!
         </p>
-        <button className="mt-[20px] flex ml-[250px] bg-[#009951] p-[10px] pl-[20px] pr-[20px] rounded-2xl text-white font-bold">Chơi ngay</button>
+        <button className="mt-[20px] flex ml-[250px] bg-[#009951] p-[10px] pl-[20px] pr-[20px] rounded-2xl text-white font-bold" onClick={handleClick}>Chơi ngay</button>
       </div>
     </motion.div>
   );
