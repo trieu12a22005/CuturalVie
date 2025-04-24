@@ -4,10 +4,11 @@ import Slider from "./Slider";
 import VanMieuInfo from "./Info";
 import { motion } from "framer-motion";
 import AIAssistantModal from "../../AI/Assistance";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { increase } from "../../../store/countSlice";
+import { MessageSquare } from "lucide-react";
+
 function Learning() {
+  const [open, setOpen] = useState(null);
+  let [chatData, setChatdata] = useState(null);
   let { game_type } = useParams();
   const [info, setInfo] = useState();
   const count = useSelector((state) => state.count.value);
@@ -71,7 +72,21 @@ function Learning() {
           Câu tiếp theo
         </button>
       </motion.div>
-      {/* <AIAssistantModal/> */}
+
+      {/* Chat button with animation */}
+      <button
+        className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 flex items-center space-x-2"
+        onClick={() =>setOpen(!open)}
+      >
+        <MessageSquare className="w-6 h-6" />
+        <span className="text-sm">Chat cùng AI</span>
+      </button>
+
+      <AIAssistantModal
+        open={open}
+        setOpen={setOpen}
+        chatData={chatData}
+      />
     </>
   );
 }

@@ -20,7 +20,12 @@ const VanMieuInfo = ({ text }) => {
         const startNode = range.startContainer;
         const startElement =
           startNode instanceof Element ? startNode : startNode.parentElement;
-        selected.current = startElement;
+        if (startElement.classList.contains("tooltip-text")) {
+          selected.current = startElement;
+        } else {
+          selected.current = null;
+          setTextel(null);
+        }
       } else {
         selected.current = null;
         setTextel(null);

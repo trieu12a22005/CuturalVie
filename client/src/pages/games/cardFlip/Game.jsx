@@ -30,7 +30,7 @@ export default function CardGame({ref}) {
         clearInterval(ref.current)
            dispatch(winGame())
       }
-     console.log('object');
+     
   },[matched,seconds])
 
   const handleFlip = (index) => {
