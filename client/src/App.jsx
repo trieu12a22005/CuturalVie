@@ -27,9 +27,13 @@ import FeedbackForm from "./pages/profile/feedback";
 import UpdatePassword from "./pages/profile/updatePassword";
 import StartCardGame from "./pages/games/cardFlip/Start";
 import CardRule from "./pages/games/cardFlip/Rule";
+import Contact from "./pages/contact/Contact";
+import DetailPage from "./pages/contact/DetailPage";
+
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -79,6 +83,8 @@ function App() {
       {/* phần này riêng */}
       <Route path="/select" element={<Select />} />
       <Route path="/home" element={<Home/>} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/detail/:name" element={<DetailPage />} />
       <Route element={<QuizzLayout />}>
         <Route
           path="/quizz/rule"
