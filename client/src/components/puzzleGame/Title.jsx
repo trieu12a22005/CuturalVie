@@ -4,7 +4,8 @@ import { CountDown } from "../../store/puzzle";
 import { useDispatch, useSelector } from "react-redux";
 import { formatTime } from "../../utils/quizz";
 function Title() {
-  let {seconds}=useSelector(state=>state.puzzle)
+  let {seconds,current,puzzles}=useSelector(state=>state.puzzle)
+  let hint=puzzles[current].hint
   let dispatch=useDispatch()
   let timer=useRef()
  useEffect(()=>{
@@ -22,7 +23,7 @@ function Title() {
           Gợi ý
         </span>
         <p className="mt-2 font-medium">
-          Đây là một đồ vật đại diện cho nền văn minh sông Hồng
+         {hint}
         </p>
       </div>
 

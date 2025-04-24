@@ -1,7 +1,8 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 const initialState = {
-  region: null,
+  region: 1,
   game: [],
+  currentGame: null,
 };
 const regionSlice = createSlice({
   name: "region",
@@ -10,6 +11,9 @@ const regionSlice = createSlice({
     setRegion: (state, action) => {
       state.region = action.payload;
     },
+    // setCurrentGame(state,action) {
+    //   state.game = action.payload;
+    // }
     setGame: (state, action) => {
       state.game = action.payload;
     },

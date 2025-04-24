@@ -6,6 +6,7 @@ import { getPuzzle } from "../../../store/puzzle";
 import Loader from "../../../components/loading";
 import Solution from "../../../components/puzzleGame/Solution";
 import { motion } from "framer-motion";
+import axiosInstance from "../../../api/axios";
 const puzzleData = {
   hint: "Đây là một đồ vật đại diện cho nền văn minh sông Hồng",
   image: "path/to/image.png",
@@ -24,27 +25,29 @@ const puzzleData = {
 };
 export default function PuzzleQuiz() {
   const { progress, current, modal } = useSelector((state) => state.puzzle);
+  const { region} = useSelector((state) => state.region);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  console.log(progress);
+ 
   useEffect(() => {
-    const fetchFakeData = async () => {
+    const fetchData = async () => {
       try {
-        const fakeData = await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve([puzzleData]);
-          }, 1000);
-        });
-
-        dispatch(getPuzzle(fakeData));
+        const response = await axiosInstance.get('/game/get-gamedata',{
+          params: {
+             gameType: 'puzzle',
+             regionId: region
+          }
+        })
+       
+        dispatch(getPuzzle(response.data));
       } catch (err) {
         setError(true);
       } finally {
         setLoading(false);
       }
     };
-    fetchFakeData();
+    fetchData();
   }, []);
   if (loading) return <Loader />;
   return (

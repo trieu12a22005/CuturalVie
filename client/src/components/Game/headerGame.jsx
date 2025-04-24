@@ -1,9 +1,9 @@
 import { FaPlay, FaVolumeUp, FaHome, FaCheck } from "react-icons/fa";
-
-const QuizHeader = ({progress=[undefined],count=0}) => {
+import { IoClose } from "react-icons/io5";
+const QuizHeader = ({progress=[undefined,undefined],count=0}) => {
   
   return (
-    <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative">
+    <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative z-50">
       {/* Progress Circles */} 
      
         <div className="flex items-center gap-3">
