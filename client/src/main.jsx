@@ -8,7 +8,7 @@ import store from "./store/store.js";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AudioProvider } from "./context/AudioContext.jsx"; 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <Router> {/* Router bọc App */}
       <AudioProvider>
       <Provider store={store}>
@@ -17,5 +17,5 @@ createRoot(document.getElementById("root")).render(
         <Toaster />
       </AudioProvider>
     </Router>
-  </StrictMode>
+  </>
 );

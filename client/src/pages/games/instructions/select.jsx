@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 import axiosInstance from "../../../api/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { setGame, setRegion } from "../../../store/Region";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -15,12 +17,16 @@ const textVariants = {
 };
 function Select() {
    const { setIsPlaying } = useAudio();
+   let dispatch=useDispatch()
   const navigate = useNavigate();
   const handleClickImg = async (index) =>{
     const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index+1}`)
     if (res)
     {
+      dispatch(setRegion(index))
       const result = await res.json();
+      console.log(result.game);
+      dispatch(setGame(result.game))
       navigate("/trip", {
         state: {
           regionData: result

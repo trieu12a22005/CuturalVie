@@ -1,5 +1,3 @@
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/Forgot";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router-dom";
@@ -14,12 +12,10 @@ import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
 import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
 import Learning from "./components/Game/learning/Learning";
-import Finish from "./components/Game/Finish/Finish";
 import PuzzleRule from "./pages/games/puzzle/Rule";
 import Cardgame from "./pages/games/cardFlip/Index";
 import PuzzleQuizz from "./pages/games/puzzle/Game";
 import StartPuzzzle from "./pages/games/puzzle/Start";
-import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
 import Home from "./pages/home/Home";
@@ -33,6 +29,11 @@ import StartCardGame from "./pages/games/cardFlip/Start";
 import CardRule from "./pages/games/cardFlip/Rule";
 import Contact from "./pages/contact/Contact";
 import DetailPage from "./pages/contact/DetailPage";
+
+import { AnimatePresence, motion } from "framer-motion";
+import RuleWord from "./pages/games/word/Rule";
+import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -48,26 +49,11 @@ function App() {
     };
   }, []);
   return (
-    <Routes>
+    <AnimatePresence mode="wait">
+      <Routes>
       <Route element={<Layout bgImage={backgroundImage} />}>
         <Route path="start" element={<Start />} />
         <Route path="/" element={<Begin />} />
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
         <Route
           path="/verify-otp"
           element={
@@ -101,7 +87,7 @@ function App() {
       <Route path="/detail/:name" element={<DetailPage />} />
       <Route element={<QuizzLayout />}>
         <Route
-          path="/rule"
+          path="/quizz/rule"
           element={
             <ProtectedRoute>
               <Rule />
@@ -124,6 +110,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/trip/instruction"
+          element={
+            <ProtectedRoute>
+              <InstructionTrip />
+            </ProtectedRoute>
+          }
+        />
         {/* game 1 */}
         <Route
           path="/game_1"
@@ -138,7 +132,7 @@ function App() {
           path="/information/:game_type"
           element={
             <ProtectedRoute>
-              <Infomation />
+              <Learning/>
             </ProtectedRoute>
           }
         />
@@ -148,6 +142,14 @@ function App() {
           element={
             <ProtectedRoute>
               <WordGame />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/word/rule"
+          element={
+            <ProtectedRoute>
+              <RuleWord />
             </ProtectedRoute>
           }
         />
@@ -211,6 +213,7 @@ function App() {
           }
         />
     </Routes>
+    </AnimatePresence>
   );
 }
 
