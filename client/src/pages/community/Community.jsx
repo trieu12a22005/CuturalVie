@@ -17,11 +17,18 @@ const Community = () => {
     const [newCommentMap, setNewCommentMap] = useState({}); // Map postId -> new comment text
     const [loadingCommentsMap, setLoadingCommentsMap] = useState({}); // Map postId -> loading state
     const [userId, setUserId] = useState(null);
+    const [likedPostsMap, setLikedPostsMap] = useState({}); // Map postId -> liked status
 
     useEffect(() => {
         fetchUserProfile();
         fetchPosts();
     }, [currentPage]);
+
+    useEffect(() => {
+        if (userId && posts.length > 0) {
+            checkLikedPosts();
+        }
+    }, [userId, posts]);
 
     const fetchUserProfile = async () => {
         try {
@@ -68,6 +75,29 @@ const Community = () => {
             console.error("Error fetching posts:", err);
             setError("Không thể tải bài đăng. Vui lòng thử lại sau.");
             setLoading(false);
+        }
+    };
+
+    const checkLikedPosts = async () => {
+        try {
+            const likedStatusMap = {};
+
+            for (const post of posts) {
+                try {
+                    const response = await axiosInstance.get(`/post/${post.id}/is-liked`, {
+                        params: { userId }
+                    });
+                    console.log(`Post ${post.id} liked status:`, response.data);
+                    likedStatusMap[post.id] = response.data;
+                } catch (err) {
+                    console.error(`Error checking like status for post ${post.id}:`, err);
+                    likedStatusMap[post.id] = false;
+                }
+            }
+
+            setLikedPostsMap(likedStatusMap);
+        } catch (err) {
+            console.error("Error checking liked posts:", err);
         }
     };
 
@@ -139,14 +169,45 @@ const Community = () => {
         }
 
         try {
-            await axiosInstance.post(`/post/like-post/${postId}`, {
+            await axiosInstance.post(`/post/like`, {
+                postId,
                 userId: parseInt(userId)
             });
-            fetchPosts(); // Refresh posts to update like count
+
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: true
+            }));
+
+            fetchPosts();
             toast.success('Đã thích bài viết');
         } catch (err) {
             console.error("Error liking post:", err);
             toast.error('Không thể thích bài đăng. Vui lòng thử lại sau.');
+        }
+    };
+
+    const handleUnlikePost = async (postId) => {
+        if (!userId) {
+            return;
+        }
+
+        try {
+            await axiosInstance.post(`/post/like`, {
+                postId,
+                userId: parseInt(userId)
+            });
+
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: false
+            }));
+
+            fetchPosts();
+            toast.success('Đã bỏ thích bài viết');
+        } catch (err) {
+            console.error("Error unliking post:", err);
+            toast.error('Không thể bỏ thích bài đăng. Vui lòng thử lại sau.');
         }
     };
 
@@ -161,7 +222,6 @@ const Community = () => {
                 userId: parseInt(userId)
             });
 
-            // Refresh comments for this post
             fetchCommentsForPost(postId);
             toast.success('Đã thích bình luận');
         } catch (err) {
@@ -220,11 +280,12 @@ const Community = () => {
                                 title={post.title}
                                 content={post.question || ""}
                                 tags={post.tags || ["Ứng dụng"]}
-                                likes={post.likes || 0}
+                                likes={post.likeCount || 0}
                                 comments={(commentsMap[post.id]?.length) || 0}
                                 shares={post.shares || 0}
                                 image={post.imageUrl}
-                                onLike={() => handleLikePost(post.id)}
+                                isLiked={likedPostsMap[post.id] || false}
+                                onLike={() => likedPostsMap[post.id] ? handleUnlikePost(post.id) : handleLikePost(post.id)}
                             />
 
                             {/* Comments section for this post */}
