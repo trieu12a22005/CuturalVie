@@ -2,16 +2,16 @@ import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import TooltipText from "../ToolTipText";
-
-const VanMieuInfo = ({ text }) => {
+function getToolTiptext(paragraph,setChatdata) {
+  let words = paragraph.split(" ");
+  return words.map((word, idx) => <TooltipText setModal={setChatdata}  key={idx} text={word} />);
+}
+const VanMieuInfo = ({ text ,setChatdata}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const selected = useRef();
   let [textEl, setTextel] = useState(null);
-  function getToolTiptext(paragraph) {
-    let words = paragraph.split(" ");
-    return words.map((word, idx) => <TooltipText key={idx} text={word} />);
-  }
+  
   useEffect(() => {
     const handleSelect = () => {
       const selection = window.getSelection();
@@ -82,7 +82,7 @@ const VanMieuInfo = ({ text }) => {
           </h3>
           <ul className="list-disc pl-6 space-y-2">
             {text[currentIndex].content.map((item, i) => (
-              <li key={item.id}>{getToolTiptext(item.paragraph)}</li>
+              <li key={item.id}>{getToolTiptext(item.paragraph,setChatdata)}</li>
             ))}
           </ul>
         </motion.div>

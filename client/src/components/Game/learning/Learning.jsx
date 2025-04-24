@@ -5,7 +5,9 @@ import VanMieuInfo from "./Info";
 import { motion } from "framer-motion";
 import AIAssistantModal from "../../AI/Assistance";
 import { MessageSquare } from "lucide-react";
-
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { increase } from "../../../store/countSlice";
 function Learning() {
   const [open, setOpen] = useState(null);
   let [chatData, setChatdata] = useState(null);
@@ -62,7 +64,7 @@ function Learning() {
           <Slider image={info?.link} />
           {info?.slides &&
             Array.isArray(info.slides) &&
-            info.slides.length > 0 && <VanMieuInfo text={info.slides} />}
+            info.slides.length > 0 && <VanMieuInfo setChatdata={setChatdata} text={info.slides} />}
         </div>
         <button
           className="ml-[86%] px-[35px] py-[15px] font-bold rounded-md"
