@@ -11,8 +11,8 @@ function InstructionTrip() {
   const navigate = useNavigate();
   const paths = {
     1: "/quizz/rule",
-    2: "/puzzle/rule",
-    3: "/treasure/rule",
+    2: "/game2/rule",
+    3: "/game3/rule",
     4: "/word/rule",
   };
   const handleClick = () => {

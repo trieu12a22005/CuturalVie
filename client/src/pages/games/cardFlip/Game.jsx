@@ -3,11 +3,12 @@ import { motion } from "framer-motion";
 import Congra from "../../../components/Game/Congra";
 import { useDispatch, useSelector } from "react-redux";
 import { setMatched, winGame } from "../../../store/Card";
+import { useNavigate } from "react-router-dom";
 
-export default function CardGame({ref}) {
- const {cards,modal,seconds,matched}=useSelector(state=>state.card)
+export default function CardGame({ ref }) {
+  const { cards, modal, seconds, matched } = useSelector((state) => state.card);
   const [flipped, setFlipped] = useState([]);
-  
+  let navigate=useNavigate()
   const dispatch = useDispatch();
   useEffect(() => {
     if (flipped.length === 2) {
@@ -25,28 +26,34 @@ export default function CardGame({ref}) {
       setTimeout(() => setFlipped([]), 800);
     }
   }, [flipped]);
-  useEffect(()=>{
-      if (seconds && matched.length==cards.length) {
-        clearInterval(ref.current)
-           dispatch(winGame())
-      }
-     
-  },[matched,seconds])
-
+  useEffect(() => {
+    if (seconds && matched.length == cards.length && !modal) {
+      clearInterval(ref.current);
+      dispatch(winGame());
+    }
+  }, [matched, seconds]);
+  
   const handleFlip = (index) => {
-    console.log(index);
-    if (matched.includes(index) || modal) return;
+    if (modal) {
+      navigate(`/information`, {
+        state:{
+          gameId: 3,
+          id: cards[index].id
+        }
+      });
+    }
+    if (matched.includes(index)) return;
     if (flipped.includes(index)) {
       setFlipped(flipped.filter((i) => i !== index));
     } else if (flipped.length < 2) {
       setFlipped([...flipped, index]);
     }
   };
-
+  
   return (
     <div className="flex flex-col items-center justify-center  p-4 relative z-10">
       <h2 className="rounded-3xl font-bold my-5 px-7 py-3 bg-green-200">
-      Kết nối kho báu
+        Kết nối kho báu
       </h2>
 
       <div className="grid grid-cols-4 gap-2 ">
@@ -74,8 +81,7 @@ export default function CardGame({ref}) {
                 card.value
               ) : (
                 <img
-                  src={card.value}
-                  alt={card.value.slice(card.value.lastIndexOf('/')+1)}
+                  src={card.imageUrl}
                   className="w-full h-full object-cover rounded-xl"
                 />
               )}
@@ -86,10 +92,11 @@ export default function CardGame({ref}) {
               style={{ backfaceVisibility: "hidden" }}
             ></div>
           </motion.div>
-        ))}   
+        ))}
       </div>
-  
-     {modal &&  <Congra type={modal}/>}
+
+      {modal && <Congra type={modal} />}
     </div>
   );
 }
+//bg-gradient-to-br from-yellow-200 to-pink-300

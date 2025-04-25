@@ -9,7 +9,12 @@ function Solution() {
   let ans = puzzles[current].imageUrl;
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/information/game_1");
+    navigate(`/information`, {
+      state:{
+        gameId: 2,
+        id: puzzles[current].id
+      }
+    });
   };
   return (
     <section className="w-full relative">
