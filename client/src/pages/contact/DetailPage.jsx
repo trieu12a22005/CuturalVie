@@ -18,7 +18,7 @@ const DetailPage = () => {
     overflow: 'hidden',
     display: '-webkit-box'
   }
-
+  
   useEffect(() => {
     if (!subject) {
       navigate("/contact");
@@ -68,8 +68,6 @@ const DetailPage = () => {
           Nơi cung cấp cho bạn những thông tin bổ ích về văn hóa, lịch sử và truyền thống của Việt Nam.
         </p>
         <h2 className="text-3xl font-semibold text-white mb-8">{subject}</h2>
-
-        {/* Content Cards */}
         <div className="space-y-8">
           {data.map((item) => {
             const isOpen = Array.isArray(expandItems) && expandItems.includes(item.id);
