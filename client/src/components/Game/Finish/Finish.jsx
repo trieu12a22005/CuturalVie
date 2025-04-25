@@ -1,15 +1,46 @@
-import React from "react";
+import React, { useEffect } from "react";
 import QuizHeader from "../headerGame";
 import Winning from "./Winning";
 import { useLocation, useNavigate } from "react-router-dom";
+import {useSelector } from "react-redux";
 import Fail from "./Fail";
 function Finish() {
   const location = useLocation();
-  const result = location.state?.result ?? null;
+  // const result = location.state?.result ?? null;
+  const result = "win"
   const navigate = useNavigate();
+  const nametrip = localStorage.getItem("trip");
+
+  const {region}=useSelector(state=>state.region)
   const handleClick = () => {
     navigate("/trip");
   };
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch(
+          `https://viet-cultural-be.vercel.app/api/v1/achievements/update-achievement/${region}`,
+          {
+            method: "PATCH",
+            credentials: "include",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              [nametrip]: true,
+            }),
+          }
+        );
+  
+        const data = await response.json();
+        console.log(data)
+      } catch (error) {
+        console.error("Lỗi khi fetch:", error);
+      }
+    }
+  
+    if (result === "win") fetchData();
+  }, []);  
   return (
     <>
       <QuizHeader isFinish={true} />

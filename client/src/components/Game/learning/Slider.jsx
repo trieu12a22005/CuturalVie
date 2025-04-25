@@ -4,12 +4,25 @@ import "swiper/css";
 import "swiper/css/navigation";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const images = ["/vanmieu/vanmieu.png", "/vanmieu/vanmieu2.png", "/vanmieu/vanmieu3.png"];
+const isYoutubeUrl = (url) =>
+  typeof url === "string" &&
+  (url.includes("youtube.com") || url.includes("youtu.be"));
 
-export default function ImageSlider({image}) {
-  console.log(image)
+  const getYoutubeEmbedUrl = (url) => {
+    try {
+      const videoId = url.includes("youtu.be")
+        ? url.split("/").pop().split("?")[0]
+        : new URL(url).searchParams.get("v");
+      return `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1`;
+    } catch {
+      return "";
+    }
+  };
+  
+
+export default function ImageSlider({ image }) {
   return (
-    <div className="relative w-[400px] p-6 ml-20 ">
+    <div className="relative w-[400px] p-6 ml-20">
       <Swiper
         modules={[Navigation]}
         navigation={{
@@ -17,25 +30,43 @@ export default function ImageSlider({image}) {
           prevEl: ".prev",
         }}
         loop={true}
-        
       >
-        {image?.map((item, index) => (
-          <SwiperSlide key={index}>
-            <div className="text-center">
-              <img
-                src={item.images[0]?.imageUrl}
-                alt={item.alt}
-                className="w-full h-[250px] object-contain rounded-xl"
-              />
-              <p className="mt-2 text-sm font-semibold text-gray-700">
-                {item.alt}
-              </p>
-            </div>
-          </SwiperSlide>
-        ))}
+        {image?.map((item, index) => {
+          const alt = item.alt || `Slide ${index + 1}`;
+          const youtube = item.youtubeLink;
+          const images = item.images || [];
+
+          return (
+            <SwiperSlide key={index}>
+              <div className="text-center">
+                {isYoutubeUrl(youtube) ? (
+                  <div className="w-full aspect-video">
+                    <iframe
+                      src={getYoutubeEmbedUrl(youtube)}
+                      title="YouTube video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full rounded-xl"
+                    ></iframe>
+                  </div>
+                ) : images.length > 0 ? (
+                  <img
+                    src={images[0].imageUrl}
+                    alt={alt}
+                    className="w-full h-[250px] object-contain rounded-xl"
+                  />
+                ) : (
+                  <p className="text-red-500">Không có dữ liệu hình ảnh hoặc video</p>
+                )}
+
+                <p className="mt-2 text-sm font-semibold text-gray-700">{alt}</p>
+              </div>
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
 
-      <div className=" flex gap-12 mt-5 justify-center">
+      <div className="flex gap-12 mt-5 justify-center">
         <button className="prev flex items-center justify-center w-10 h-10 border-2 border-black text-black rounded-full bg-transparent hover:bg-black hover:text-white transition">
           <FaChevronLeft />
         </button>

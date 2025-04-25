@@ -34,6 +34,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
 import Finish from "./components/Game/Finish/Finish";
+import Summary from "./components/Game/Finish/Summary";
 
 function App() {
   const backgroundImage = "/bg/bg1.png";
@@ -153,6 +154,14 @@ function App() {
             }
           />
           <Route
+            path="/summary"
+            element={
+              <ProtectedRoute>
+                <Summary />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/word/rule"
             element={
               <ProtectedRoute>
@@ -224,6 +233,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Contact />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail/:name"
+          element={
+            <ProtectedRoute>
+              <DetailPage />
             </ProtectedRoute>
           }
         />

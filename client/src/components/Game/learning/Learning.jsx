@@ -16,9 +16,9 @@ function Learning() {
   const count = useSelector((state) => state.count.value);
   const navigate = useNavigate();
   const location = useLocation();
-  const gameId = location.state.gameId;
+  const gameId = location.state.id;
   const dispatch = useDispatch();
-  const gameTypeId = location.state.id;
+  const gameTypeId = location.state.gameId;
   useEffect(() => {
     function fetchData() {
       fetch(
@@ -43,7 +43,8 @@ function Learning() {
     {
       navigate("/finish",{
         state:{
-          result: "win"
+          result: "win",
+          description: "bạn đã..."
         }
       })
       return;
@@ -51,6 +52,7 @@ function Learning() {
     dispatch(increase());
     navigate("/" + `${game_type}`);
   };
+  console.log(info?.link)
   return (
     <>
       <QuizHeader />

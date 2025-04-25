@@ -1,6 +1,6 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 function Trip() {
   const {region,game: game}=useSelector(state=>state.region)
   //let dispatch=useDispatch()
@@ -9,13 +9,22 @@ function Trip() {
     { src: "trip/cultural_1.png", alt: "Cultural 1" },
     { src: "trip/cultural_2.png", alt: "Cultural 2" },
   ];
-  
   const name = localStorage.getItem("nameRegion");
-  console.log(game);
   const navigate = useNavigate();
-  console.log(game);
   function handleImageClick(index) {
-    
+    if (index==1)
+    {
+
+      localStorage.setItem("trip", "history");
+    }
+    else if (index==3)
+    {
+      localStorage.setItem("trip","intangible_heritage")
+    }
+    else if (index==2)
+    {
+      localStorage.setItem("trip","tangible_heritage")
+    }
     navigate("/trip/instruction", {
       state: {
         index: index
