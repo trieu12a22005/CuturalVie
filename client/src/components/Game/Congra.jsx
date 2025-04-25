@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 let winText="Giỏi quá! Bạn đã trả lời đúng rồi"
 let loseText="Tiếc quá! sai mất rồi"
 let timeoutText="Tiếc quá! hết thời gian mất rồi"

@@ -137,7 +137,7 @@ function App() {
         />
           {/* information */}
           <Route
-            path="/information/:game_type"
+            path="/information"
             element={
               <ProtectedRoute>
                 <Learning />
@@ -196,6 +196,7 @@ function App() {
           <Route path="rule" element={<CardRule />} />
           <Route index path="start" element={<StartCardGame />} />
         </Route>
+        
         <Route
           path="/profile"
           element={

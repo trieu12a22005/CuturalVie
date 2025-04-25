@@ -5,13 +5,13 @@ import VanMieuInfo from "./Info";
 import { motion } from "framer-motion";
 import AIAssistantModal from "../../AI/Assistance";
 import { MessageSquare } from "lucide-react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { increase } from "../../../store/countSlice";
+let lists=[null,"game_1","game2/play","game3/play","game_4"]
 function Learning() {
   const [open, setOpen] = useState(null);
   let [chatData, setChatdata] = useState(null);
-  let { game_type } = useParams();
   const [info, setInfo] = useState();
   const count = useSelector((state) => state.count.value);
   const navigate = useNavigate();
@@ -30,6 +30,7 @@ function Learning() {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(gameId,gameTypeId);
           setInfo(data.topic);
         })
         .catch((error) => {
@@ -50,7 +51,7 @@ function Learning() {
       return;
     }
     dispatch(increase());
-    navigate("/" + `${game_type}`);
+    navigate(`/${lists[gameTypeId]}`);
   };
   console.log(info?.link)
   return (

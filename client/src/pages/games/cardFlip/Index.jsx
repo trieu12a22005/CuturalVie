@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react'
 import CardGame from './Game'
 import CardGameHeader from '../../../components/CardGame/Header'
-import Congra from '../../../components/Game/Congra'
 import { motion } from "framer-motion";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getcard } from '../../../store/Card';
 import Loader from '../../../components/loading';
 import Character from '../../../components/CardGame/Character';
+import axiosInstance from '../../../api/axios'
 const cardsData = [
   { type: "text", value: "Chầu Văn", matchGroup: 1 },
   { type: "image", value: "/images/chau_van.jpg", matchGroup: 1 },
@@ -29,17 +29,18 @@ function Index() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const dispatch = useDispatch();
+  const { region} = useSelector((state) => state.region);
   let timer=useRef()
   useEffect(() => {
     const fetchFakeData = async () => {
       try {
-        const fakeData = await new Promise((resolve) => {
-          setTimeout(() => {
-            resolve(cardsData);
-          }, 1000); 
-        });
-
-       dispatch(getcard(fakeData));
+        const {data}= await axiosInstance.get('/game/get-gamedata',{
+          params: {
+             gameType: 'treasure',
+             regionId: region
+          }
+        })
+       dispatch(getcard(data[0].cardsData));
       } catch (err) {
         setError(true);
       } finally {

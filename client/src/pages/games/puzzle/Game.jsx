@@ -7,22 +7,8 @@ import Loader from "../../../components/loading";
 import Solution from "../../../components/puzzleGame/Solution";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../api/axios";
-const puzzleData = {
-  hint: "Đây là một đồ vật đại diện cho nền văn minh sông Hồng",
-  image: "path/to/image.png",
-  options: [
-    { id: 1, piece: "/drum/drum1.png" },
-    { id: 2, piece: "/drum/drum2.png" },
-    { id: 3, piece: "/drum/drum3.png" },
-    { id: 4, piece: "/drum/drum4.png" },
-    { id: 5, piece: "/drum/drum5.png" },
-    { id: 6, piece: "/drum/drum6.png" },
-    { id: 7, piece: "/drum/drum7.png" },
-    { id: 8, piece: "/drum/drum8.png" },
-    { id: 9, piece: "/drum/drum9.png" },
-  ],
-  answer: [6, 2, 9, 4, 7, 3, 1, 5, 8],
-};
+
+
 export default function PuzzleQuiz() {
   const { progress, current, modal } = useSelector((state) => state.puzzle);
   const { region} = useSelector((state) => state.region);

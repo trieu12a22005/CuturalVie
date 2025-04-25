@@ -7,9 +7,9 @@ import { CountDown } from "../../store/Card";
 const CardGameHeader = ({ref}) => {
   let {seconds}=useSelector(state=>state.card)
   let dispatch=useDispatch()
+  console.log(ref.current);
   useEffect(()=>{
     ref.current=setInterval(()=>{
-      console.log('object');
       dispatch(CountDown(ref.current))
     },1000)
      return ()=>clearInterval(ref.current)

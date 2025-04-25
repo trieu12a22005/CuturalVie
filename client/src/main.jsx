@@ -11,7 +11,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./store/store.js"; // dùng named export đúng
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
@@ -22,5 +22,5 @@ createRoot(document.getElementById("root")).render(
         </Router>
       </PersistGate>
     </Provider>
-  </StrictMode>
+  </>
 );

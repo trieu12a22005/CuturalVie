@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import Modal from "./Modal";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setQuestionId } from "../../store/questionSlice";
+import { formatTime } from "../../utils/quizz";
+import { initProgress, updateProgress } from "../../store/countSlice";
+
 function Question() {
   const [question, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(10);
+  const [second, setSecond] = useState(10000);
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ function Question() {
         .then((res) => res.json())
         .then((data) => {
           setQuestions(data.question);
+          dispatch(initProgress(data.question))
         })
         .catch((error) => {
           console.error("Lỗi khi fetch:", error);
@@ -34,6 +37,7 @@ function Question() {
   }, []);
   const count = useSelector((state) => state.count.value);
   const currentQues = question[count];
+  console.log(count);
   useEffect(() => {
     if (submitted) return;
     if (second <= 0) {
@@ -64,6 +68,7 @@ function Question() {
     if (!submitted && selected) {
       setSubmitted(true);
       const isCorrect = selected === currentQues?.correctAnswer;
+      dispatch(updateProgress(isCorrect ? true : false))
       setModal(isCorrect ? "correct" : "wrong");
       setDisplay(true);
       const audio = new Audio(`sound/${isCorrect ? "correct" : "wrong"}.mp3`);
@@ -71,16 +76,14 @@ function Question() {
     }
   };
   const handleInfo = () => {
-    navigate(`/information/game_1`, {
+    navigate(`/information`, {
       state:{
         gameId: 1,
         id: currentQues.id
       }
     });
   };
-  const formatTime = (sec) => {
-    return `00:${sec.toString().padStart(2, "0")}`;
-  };
+
   return (
     <>
       {/* Hiển thị modal kết quả nếu đã chọn và nộp */}
@@ -104,7 +107,7 @@ function Question() {
         </motion.div>
       )}
 
-      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md">
+      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md mt-auto">
         <div className="bg-[#009951] text-white p-3 flex justify-between items-center">
           <span className="bg-green-300 text-black px-4 py-1 rounded-full font-semibold">
             Hãy chọn đáp án đúng
