@@ -13,7 +13,7 @@ function Winning() {
         Kết quả
       </button>
       <p className="mt-2 font-bold text-gray-700">Bạn đã ghép đúng 4/6 hình</p>
-      <img className=" absolute bottom-[-10%] right-[100%] translate-x-1/2" src="/character/character7.png" alt="" />
+      <img className=" absolute bottom-[-10%] right-[100%] translate-x-1/2" src="/character/Character10.png" alt="" />
     </div>
   );
 }

@@ -33,6 +33,7 @@ import DetailPage from "./pages/contact/DetailPage";
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+import Finish from "./components/Game/Finish/Finish";
 
 function App() {
   const backgroundImage = "/bg/bg1.png";
@@ -125,6 +126,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+          path="/finish"
+          element={
+            <ProtectedRoute>
+              <Finish />
+            </ProtectedRoute>
+          }
+        />
           {/* information */}
           <Route
             path="/information/:game_type"
@@ -207,6 +216,14 @@ function App() {
           element={
             <ProtectedRoute>
               <FeedbackForm />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <Contact />
             </ProtectedRoute>
           }
         />

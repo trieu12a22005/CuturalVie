@@ -9,8 +9,8 @@ function Trip() {
     { src: "trip/cultural_1.png", alt: "Cultural 1" },
     { src: "trip/cultural_2.png", alt: "Cultural 2" },
   ];
-  const location = useLocation();
-  const name = location.state.nameRegion;
+  
+  const name = localStorage.getItem("nameRegion");
   console.log(game);
   const navigate = useNavigate();
   console.log(game);

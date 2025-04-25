@@ -26,9 +26,11 @@ const DetailPage = () => {
     }
 
     const fetchData = async () => {
+      console.log(subject);
+      console.log(currentPage)
       try {
         const response = await fetch(
-          `http://localhost:5000/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
+          `https://viet-cultural-be.vercel.app/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
         );
         const result = await response.json();
         setData(result.posts);

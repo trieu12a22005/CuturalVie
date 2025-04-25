@@ -46,9 +46,9 @@ const Contact = () => {
     }
   ];
   return (
-    <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')] text-white">
+    <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')]">
       <Header />
-      <section className="text-center py-16">
+      <section className="text-center py-16 text-white">
         <h1 className="text-4xl font-bold mb-4">KHƠI NGUỒN TRI THỨC</h1>
         <p className="text-lg">
           Nơi cung cấp cho bạn những thông tin bổ ích về văn hóa, lịch sử và

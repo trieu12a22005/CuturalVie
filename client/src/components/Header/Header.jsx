@@ -31,7 +31,7 @@ const Header = () => {
     { label: "Trang chủ", key: "home", path: "/home" },
     { label: "Cultural Journey", key: "cultural", path: "/start" },
     { label: "Cộng đồng", key: "community", path: "/community" },
-    { label: "Khơi nguồn tri thức", key: "contact", path: "/knowledge" },
+    { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
   ];
   const switchToRegister = () => {
     setShowLoginModal(false);

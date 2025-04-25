@@ -11,13 +11,12 @@ function Instruction_3() {
   const text1 = description.text1;
   const subject = description.subject;
   const text2 = description.text2;
-    const handleClick = () =>{
-      navigate("/trip",{
-        state: {
-          nameRegion: description.subject
-        }
-      })
-    }
+  const handleClick = () => {
+    const nameRegion = description.subject;
+    localStorage.setItem("nameRegion", nameRegion);
+    navigate("/trip");
+  };
+  
   return (
     <>
       <motion.div

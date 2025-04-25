@@ -39,6 +39,15 @@ function Learning() {
     fetchData();
   }, []);
   const handleClick = () => {
+    if (count==10)
+    {
+      navigate("/finish",{
+        state:{
+          result: "win"
+        }
+      })
+      return;
+    }
     dispatch(increase());
     navigate("/" + `${game_type}`);
   };
