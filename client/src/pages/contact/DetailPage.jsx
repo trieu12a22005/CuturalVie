@@ -34,8 +34,7 @@ const DetailPage = () => {
     }
 
     const fetchData = async () => {
-      console.log(subject);
-      console.log(currentPage);
+      setLoading(true)
       try {
         const response = await fetch(
           `https://viet-cultural-be.vercel.app/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
@@ -47,31 +46,32 @@ const DetailPage = () => {
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
+      finally {
+        setLoading(false)
+      }
     };
 
     fetchData();
   }, [subject, currentPage, navigate]);
 
-  const toggleContent = (id) => {
-    setExpandItems(id == expandItems ? null : id);
-  };
-
+  const handleReadMore = (item) => {
+    const relatedPosts = data.filter((post) => post.id  !== item.id)
+    console.log(relatedPosts);
+    
+    navigate(`/detail-more`, { state: {item, relatedPosts} })
+  }
   const handlePageChange = (page) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
-  };
-
-  if (!data) {
-    return (
-      <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')] text-white min-h-screen">
-        <Header tab={"/contact"} />
-        <Loader />
-      </div>
-    );
   }
-  if (!data.length) {
-    return <Unavaible/>
+
+  if (loading) {
+    return <div className="text-black text-center py-20">Đang tải dữ liệu...</div>;
+  }
+
+  if (!data || data.length === 0) {
+    return <div className="text-white text-center py-20">Hiện tại chưa có bài đăng nào về chủ đề này</div>;
   }
 
   return (
@@ -88,7 +88,7 @@ const DetailPage = () => {
         <h2 className="text-3xl font-semibold text-white mb-8">{subject}</h2>
         <div className="space-y-8">
           {data.map((item) => {
-            const isOpen = item.id == expandItems;
+            
             return (
               <div
                 key={item.id}
@@ -170,7 +170,7 @@ const DetailPage = () => {
         <AIAssistantModal chatData={chatData} open={open} setOpen={setOpen} />
       </section>
     </div>
-  );
+  ) 
 };
 
 export default DetailPage;

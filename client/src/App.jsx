@@ -32,6 +32,7 @@ import DetailPage from "./pages/contact/DetailPage";
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+import DetailMorePage from "./pages/contact/DetailMorePage";
 import Finish from "./components/Game/Finish/Finish";
 import Summary from "./components/Game/Finish/Summary";
 import Community from "./pages/community/Community";
