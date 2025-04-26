@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import AIAssistantModal from "../../components/AI/Assistance";
-import TooltipText from "../../components/Game/TooltipText";
+import TooltipText from "../../components/Game/Tooltiptext";
 import { MessageSquare } from "lucide-react";
 function getToolTiptext(paragraph, setChatdata) {
   let words = paragraph.split(" ");
