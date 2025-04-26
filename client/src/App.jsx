@@ -33,6 +33,7 @@ import DetailPage from "./pages/contact/DetailPage";
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+import DetailMorePage from "./pages/contact/DetailMorePage";
 
 function App() {
   const backgroundImage = "/bg/bg1.png";
@@ -85,6 +86,7 @@ function App() {
       <Route path="/home" element={<Home/>} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/detail/:name" element={<DetailPage />} />
+      <Route path="/detail-more" element={<DetailMorePage/>}/>
       <Route element={<QuizzLayout />}>
         <Route
           path="/quizz/rule"

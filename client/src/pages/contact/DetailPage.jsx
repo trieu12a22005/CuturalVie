@@ -9,7 +9,7 @@ const DetailPage = () => {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1)
-  const [expandItems, setExpandItems] = useState([])
+  const [loading, setLoading] = useState(false)
   const subject = location.state?.subject;
 
   const paragraphStyles = {
@@ -26,6 +26,7 @@ const DetailPage = () => {
     }
 
     const fetchData = async () => {
+      setLoading(true)
       try {
         const response = await fetch(
           `http://localhost:5000/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
@@ -36,25 +37,32 @@ const DetailPage = () => {
       } catch (error) {
         console.log("Error fetching data: ", error);
       }
+      finally {
+        setLoading(false)
+      }
     };
 
     fetchData();
   }, [subject, currentPage ,navigate]);
 
-  const toggleContent = (id) => {
-    setExpandItems((prev) => 
-      prev.includes(id) ? prev.filter((itemId) => itemId !== id) : [...prev, id]
-    )
+  const handleReadMore = (item) => {
+    const relatedPosts = data.filter((post) => post.id  !== item.id)
+    console.log(relatedPosts);
+    
+    navigate(`/detail-more`, { state: {item, relatedPosts} })
   }
-
   const handlePageChange = (page) => {
     if(page >= 1 && page <= totalPages) {
       setCurrentPage(page)
     }
   }
 
+  if (loading) {
+    return <div className="text-black text-center py-20">Đang tải dữ liệu...</div>;
+  }
+
   if (!data || data.length === 0) {
-    return <div className="text-white text-center py-20">Đang tải dữ liệu...</div>;
+    return <div className="text-white text-center py-20">Hiện tại chưa có bài đăng nào về chủ đề này</div>;
   }
 
   return (
@@ -70,7 +78,7 @@ const DetailPage = () => {
         {/* Content Cards */}
         <div className="space-y-8">
           {data.map((item) => {
-            const isOpen = Array.isArray(expandItems) && expandItems.includes(item.id);
+            
             return (
             <div
               key={item.id}
@@ -83,9 +91,9 @@ const DetailPage = () => {
               />
               <div className="text-left">
                 <h3 className="text-black text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-black" style={isOpen ? null: paragraphStyles}>{item.content}</p>
-                <button onClick={() => toggleContent(item.id)} className="text-green-600 font-medium" >
-                  {isOpen ? 'Ẩn bớt' : 'Đọc thêm'}
+                <p className="text-black" style={paragraphStyles}>{item.content}</p>
+                <button onClick={() => handleReadMore(item)} className="text-green-600 font-medium" >
+                  Đọc thêm
                 </button>
               </div>
             </div>
@@ -130,7 +138,7 @@ const DetailPage = () => {
         </div>
       </section>
     </div>
-  );
+  ) 
 };
 
 export default DetailPage;
