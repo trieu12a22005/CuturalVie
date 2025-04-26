@@ -36,6 +36,8 @@ import InstructionTrip from "./pages/games/instructions/instructionsTrip";
 import Finish from "./components/Game/Finish/Finish";
 import Summary from "./components/Game/Finish/Summary";
 
+import Community from "./pages/community/Community";
+import CreatePost from "./pages/community/createPost/CreatePost";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
