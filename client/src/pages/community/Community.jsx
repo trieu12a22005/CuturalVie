@@ -122,7 +122,7 @@ const Community = () => {
     const fetchUserProfile = async () => {
         try {
             const response = await fetch(
-                `https://viet-cultural-be.vercel.app/api/v1/users/profile`,
+                `${import.meta.env.VITE_API_URL}/users/profile`,
                 {
                     method: "GET",
                     credentials: "include",

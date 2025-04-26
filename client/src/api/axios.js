@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
-let baseURL='https://viet-cultural-be.vercel.app/api/v1'
+let baseURL=import.meta.env.VITE_API_URL;
+
 const axiosInstance = axios.create({
   baseURL, 
   headers: {
     'Content-Type': 'application/json',
   },
-  
+  withCredentials: true
 });
 
 
@@ -24,9 +25,7 @@ const isTokenExpired = (token)=> {
 const refreshAccessToken = async () => {
   try {
   
-    const response = await axios.post(`${baseURL}/auth/refresh-token`,{}, {
-      withCredentials: true // ✅ bắt buộc để gửi cookie
-    });
+    const response = await axios.post(`${baseURL}/auth/refresh-token`,{});
     console.log(response);
     const { accessToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
@@ -42,7 +41,7 @@ const refreshAccessToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     let accessToken = localStorage.getItem('accessToken');
-
+    console.log(accessToken);
     if (accessToken && isTokenExpired(accessToken)) {
       try {
         

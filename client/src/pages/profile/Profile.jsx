@@ -19,7 +19,7 @@ const UserProfile = () => {
     async function fetchData() {
       try {
         const res = await fetch(
-          `https://viet-cultural-be.vercel.app/api/v1/users/profile`,
+          `${import.meta.env.VITE_API_URL}/users/profile`,
           {
             method: "GET",
             credentials: "include",
@@ -65,7 +65,7 @@ const UserProfile = () => {
     const isoDate = new Date(formData.dob).toISOString();
   
     const response = await fetch(
-      "https://viet-cultural-be.vercel.app/api/v1/users/update-profile",
+      `${import.meta.env.VITE_API_URL}/users/update-profile`,
       {
         method: "PUT",
         credentials: "include",

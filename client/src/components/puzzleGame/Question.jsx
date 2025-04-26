@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Title from "./Title";
 import { useDispatch, useSelector } from "react-redux";
 import { handleWin } from "../../store/puzzle";
-import { motion } from "framer-motion";
+import { motion, progress } from "framer-motion";
 
 
 function PuzzleGame() {
@@ -10,7 +10,7 @@ function PuzzleGame() {
   let dispatch=useDispatch()
   let puzzleData=puzzles[current]
   const [slots, setSlots] = useState(Array(9).fill(null));
-  const [pieces, setPieces] = useState([...puzzleData.options]);
+  const [pieces, setPieces] = useState([...puzzleData.pieces]);
 
   const handleDragStart = (piece, index) => (event) => {
     event.dataTransfer.setData("pieceId", piece.id);
@@ -21,21 +21,23 @@ function PuzzleGame() {
     event.preventDefault();
     const pieceId = Number(event.dataTransfer.getData("pieceId"));
     const sourceIndex = event.dataTransfer.getData("sourceIndex");
-    const piece = puzzleData.options.find((p) => p.id === pieceId);
+    const piece = puzzleData.pieces.find((p) => p.id === pieceId);
 
     if (!piece) return;
 
     const newSlots = [...slots];
     const newPieces = [...pieces];
-
+    //bring from piece to slot
     if (sourceIndex === "null") {
       const existingPiece = newSlots[index];
       if (existingPiece) {
         newPieces.push(existingPiece);
       }
+      //add dragged piece
       newSlots[index] = piece;
+      //delete dragged piece
       setPieces(newPieces.filter((p) => p.id !== pieceId));
-    } else {
+    } else { //swap item in slots
       const srcIdx = Number(sourceIndex);
       [newSlots[srcIdx], newSlots[index]] = [newSlots[index], newSlots[srcIdx]];
     }
@@ -45,12 +47,14 @@ function PuzzleGame() {
 
   const checkAnswer = () => {
     console.log(slots);
+    console.log(puzzleData.answers);
     const isCorrect = slots.every(
-      (piece, i) => piece?.id === puzzleData.answer[i]
+      (piece, i) => piece?.piece_index == puzzleData.answers[i].index
     );
+    console.log(isCorrect);
    isCorrect ? dispatch(handleWin("win")) : dispatch(handleWin("lose"));
   };
-
+ 
   return (
     <motion.div
   initial={{ y: -50, opacity: 0 }}
@@ -70,7 +74,7 @@ function PuzzleGame() {
       >
         {slot && (
           <img
-            src={slot.piece}
+            src={slot.imageUrl}
             alt="puzzle"
             className="w-full h-full cursor-pointer"
             draggable
@@ -84,7 +88,7 @@ function PuzzleGame() {
       {pieces.map((piece) => (
         <img
           key={piece.id}
-          src={piece.piece}
+          src={piece.imageUrl}
           alt="puzzle piece"
           className="w-24 h-24 cursor-pointer"
           draggable

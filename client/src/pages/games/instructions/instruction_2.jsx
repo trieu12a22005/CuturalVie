@@ -5,6 +5,7 @@ import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 import Layout from "./Layout";
 import { useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 
 
 const text =
@@ -132,7 +133,7 @@ function Instruction_2() {
           src="bird.png"
           alt="Bird"
         />
-    
+      <BackButton/>
      </motion.div>
   </div>
   );

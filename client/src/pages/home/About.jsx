@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const stats = [
   { value: "6", label: "Vùng văn hóa", color: "text-red-500" },
@@ -94,7 +95,7 @@ const About = () => {
         </div>
 
         <button className="bg-[#98D99A] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold">
-          Chơi game
+        <Link to={"/instructions_1"}>Chơi game</Link>
         </button>
       </motion.div>
     </div>

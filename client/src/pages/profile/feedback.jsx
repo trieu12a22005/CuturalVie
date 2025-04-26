@@ -1,12 +1,20 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function FeedbackForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
-  
+
   return (
-    <div className="min-h-screen flex items-center justify-center py-10 px-4" style={{backgroundImage:"url(bg/bg3.png)",backgroundRepeat: "no-repeat",backgroundSize: "cover",}}>
+    <div
+      className="min-h-screen flex items-center justify-center py-10 px-4"
+      style={{
+        backgroundImage: "url(bg/bg3.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}
+    >
       <div className="w-full max-w-xl  rounded-2xl bg-white shadow-md p-8">
         <div className="flex flex-col items-center mb-6">
           <img
@@ -55,7 +63,7 @@ function FeedbackForm() {
             Gửi thư
           </button>
           <button className="bg-gray-200 text-gray-600 font-semibold px-6 py-2 rounded-md">
-            Hủy bỏ
+            <Link to={"/home"}>Hủy bỏ</Link>
           </button>
         </div>
       </div>

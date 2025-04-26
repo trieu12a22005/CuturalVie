@@ -1,30 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 function PuzzleRule() {
+  const [showButton, setShowButton] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowButton(true), 2000); // Show button after 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div
-      className="relative h-[600px] flex items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: "url('/rule/rule2.png')" }}
+    <motion.section
+      className="relative h-full"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
     >
-      {/* Instructions Overlay (without repeating title) */}
-      <div className="absolute bottom-10 px-8 text-center max-w-2xl">
-        <p className="text-gray-700 text-lg">
-          Chào mừng bạn đến với "Mảnh ghép vạn năng"! Trong trò chơi này, bạn sẽ
-          phải ghép các mảnh hình ảnh đã bị xáo trộn...
-        </p>
+      <motion.img
+        className="absolute left-1/2 -translate-x-1/2 w-full -top-10"
+        src="/game2/group.png"
+        alt="Group Image"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+      />
 
-        <h3 className="mt-4 text-lg font-semibold">Cách chơi:</h3>
-        <ul className="list-disc pl-6 text-gray-700 text-left">
-          <li>Mỗi hình ảnh có 1 phút để ghép...</li>
-          <li>Bạn có thể hỏi AI về nội dung...</li>
-          <li>Nếu bạn ghép đúng 3/6 bức ảnh...</li>
-        </ul>
+      <motion.img
+        className="absolute left-[6%] bottom-10"
+        src="/game2/character.png"
+        alt="Character Image"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+      />
 
-        <p className="text-center mt-6 font-semibold">
-          Bạn đã sẵn sàng để bắt đầu chưa?
-        </p>
-      </div>
-    </div>
+      {/* Button appears after 2 seconds */}
+      {showButton && (
+        <motion.button
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 px-6 py-2 bg-green-400 text-white rounded-full hover:bg-green-500 shadow-md transition"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          onClick={() => navigate('/game2/play')}
+        >
+          Sẵn Sàng
+        </motion.button>
+      )}
+    </motion.section>
   );
 }
 

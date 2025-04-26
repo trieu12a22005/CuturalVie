@@ -11,10 +11,7 @@ function Information() {
   const count = useSelector((state) => state.count.value);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(()=>{
-    fetch("http://localhost:3000/information")
-    .then((res) =>res.json())
-  })
+ 
   const handleClick = () =>{
     dispatch(increase());
     console.log(count)

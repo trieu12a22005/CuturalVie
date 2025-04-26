@@ -1,37 +1,55 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Modal from "./Modal";
-import {useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { formatTime } from "../../utils/quizz";
+import { initProgress, updateProgress } from "../../store/countSlice";
 
 function Question() {
   const [question, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(10);
-  const [modal, setModal] = useState(null); // null = chưa hiện modal, true = đúng, false = sai
+  const [second, setSecond] = useState(10000);
+  const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
+  let dispatch=useDispatch()
+  const { region } = useSelector((state) => state.region);
   useEffect(() => {
-    fetch("http://localhost:3000/question")
-      .then((res) => res.json())
-      .then((data) => {
-        setQuestions(data);
-      })
-      .catch((error) => {
-        console.error("Lỗi khi fetch:", error);
-      });
+    function fetchData() {
+      fetch(
+        `${import.meta.env.VITE_API_URL}/game/get-gamedata?regionId=${region}&gameType=quiz`,
+        {
+          method: "GET",
+          credentials: "include",
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setQuestions(data.question);
+          dispatch(initProgress(data.question))
+        })
+        .catch((error) => {
+          console.error("Lỗi khi fetch:", error);
+        });
+    }
+    fetchData();
   }, []);
   const count = useSelector((state) => state.count.value);
   const currentQues = question[count];
-
+  console.log(count);
   useEffect(() => {
     if (submitted) return;
     if (second <= 0) {
       const auto = selected || "E";
       setSelected(auto);
       setSubmitted(true);
-      setModal(auto === currentQues?.correctAnswer); // mở modal dựa trên kết quả
+      setModal("wrong");
+      setDisplay(true);
+
+      const audio = new Audio(`sound/wrong.mp3`);
+      audio.play();
       return;
     }
 
@@ -47,11 +65,11 @@ function Question() {
       setSelected(letter);
     }
   };
-
   const handleSubmit = () => {
     if (!submitted && selected) {
       setSubmitted(true);
       const isCorrect = selected === currentQues?.correctAnswer;
+      dispatch(updateProgress(isCorrect ? true : false))
       setModal(isCorrect ? "correct" : "wrong");
       setDisplay(true);
       const audio = new Audio(`sound/${isCorrect ? "correct" : "wrong"}.mp3`);
@@ -59,11 +77,14 @@ function Question() {
     }
   };
   const handleInfo = () => {
-    navigate(`/information/game_1`);
+    navigate(`/information`, {
+      state:{
+        gameId: 1,
+        id: currentQues.id
+      }
+    });
   };
-  const formatTime = (sec) => {
-    return `00:${sec.toString().padStart(2, "0")}`;
-  };
+
   return (
     <>
       {/* Hiển thị modal kết quả nếu đã chọn và nộp */}
@@ -78,7 +99,7 @@ function Question() {
           className="bg-green-100 p-10 rounded-3xl shadow-md w-full max-w-[552px] min-h-[290px] mx-auto mt-10"
         >
           <div className="bg-green-300 px-4 py-1 rounded-full w-fit mx-auto">
-            <h2 className="text-black font-bold">{`Câu hỏi ${count}`}</h2>
+            <h2 className="text-black font-bold">{`Câu hỏi ${count + 1}`}</h2>
           </div>
 
           <p className="text-center text-lg font-semibold text-black mt-6">
@@ -87,7 +108,7 @@ function Question() {
         </motion.div>
       )}
 
-      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md">
+      <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md mt-auto">
         <div className="bg-[#009951] text-white p-3 flex justify-between items-center">
           <span className="bg-green-300 text-black px-4 py-1 rounded-full font-semibold">
             Hãy chọn đáp án đúng

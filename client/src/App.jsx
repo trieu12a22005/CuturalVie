@@ -1,5 +1,3 @@
-import Login from "./pages/auth/Login";
-import Register from "./pages/auth/Register";
 import ResetPassword from "./pages/auth/Forgot";
 import Layout from "./components/Layout";
 import { Route, Routes } from "react-router-dom";
@@ -14,12 +12,10 @@ import ProtectedRoute, { PublicRoute } from "./routes/ProtectedRoute";
 import QuizzLayout from "./components/QuizzLayout";
 import QuizGame from "./pages/games/quizz/Game";
 import Learning from "./components/Game/learning/Learning";
-import Finish from "./components/Game/Finish/Finish";
 import PuzzleRule from "./pages/games/puzzle/Rule";
 import Cardgame from "./pages/games/cardFlip/Index";
 import PuzzleQuizz from "./pages/games/puzzle/Game";
 import StartPuzzzle from "./pages/games/puzzle/Start";
-import Infomation from "./components/Game/Information";
 import Instruction_3 from "./pages/games/instructions/instruction_3";
 import WordGame from "./pages/games/word/Game";
 import Home from "./pages/home/Home";
@@ -29,8 +25,19 @@ import UserProfile from "./pages/profile/Profile";
 import Achievement from "./pages/profile/achievement";
 import FeedbackForm from "./pages/profile/feedback";
 import UpdatePassword from "./pages/profile/updatePassword";
+import StartCardGame from "./pages/games/cardFlip/Start";
+import CardRule from "./pages/games/cardFlip/Rule";
+import Contact from "./pages/contact/Contact";
+import DetailPage from "./pages/contact/DetailPage";
+import { AnimatePresence, motion } from "framer-motion";
+import RuleWord from "./pages/games/word/Rule";
+import InstructionTrip from "./pages/games/instructions/instructionsTrip";
+import DetailMorePage from "./pages/contact/DetailMorePage";
+import Finish from "./components/Game/Finish/Finish";
+import Summary from "./components/Game/Finish/Summary";
 import Community from "./pages/community/Community";
 import CreatePost from "./pages/community/createPost/CreatePost";
+import AIProvider from "./components/AI/AIProvider";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -46,181 +53,236 @@ function App() {
     };
   }, []);
   return (
-    <Routes>
-      <Route element={<Layout bgImage={backgroundImage} />}>
-        <Route path="start" element={<Start />} />
-        <Route path="/" element={<Begin />} />
+    <AnimatePresence mode="wait">
+      <Routes>
+        <Route element={<Layout bgImage={backgroundImage} />}>
+          <Route path="start" element={<Start />} />
+          <Route path="/" element={<Begin />} />
+          <Route
+            path="/verify-otp"
+            element={
+              <PublicRoute>
+                <VerifyOTP />
+              </PublicRoute>
+            }
+          />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            path="/instructions_2"
+            element={
+              <ProtectedRoute>
+                <Instruction_2 />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructions_1"
+            element={
+              <ProtectedRoute>
+                <Instruction_1 />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        {/* phần này riêng */}
+        <Route path="/select" element={<Select />} />
+        <Route path="/home" element={<Home />} />
+        <Route element={<QuizzLayout />}>
+          <Route
+            path="/quizz/rule"
+            element={
+              <ProtectedRoute>
+                <Rule />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/instructions_3"
+            element={
+              <ProtectedRoute>
+                <Instruction_3 />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/trip"
+            element={
+              <ProtectedRoute>
+                <Trip />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/trip/instruction"
+            element={
+              <ProtectedRoute>
+                <InstructionTrip />
+              </ProtectedRoute>
+            }
+          />
+          {/* game 1 */}
+          <Route
+            path="/game_1"
+            element={
+              <ProtectedRoute>
+                <QuizGame />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/finish"
+            element={
+              <ProtectedRoute>
+                <Finish />
+              </ProtectedRoute>
+            }
+          />
+          {/* information */}
+          <Route
+            path="/information"
+            element={
+              <ProtectedRoute>
+                <Learning />
+              </ProtectedRoute>
+            }
+          />
+          {/* game 4 */}
+          <Route
+            path="/game_4"
+            element={
+              <ProtectedRoute>
+                <WordGame />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/summary"
+            element={
+              <ProtectedRoute>
+                <Summary />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/word/rule"
+            element={
+              <ProtectedRoute>
+                <RuleWord />
+              </ProtectedRoute>
+            }
+          />
+        </Route>
+        {/* game 2 */}
         <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/verify-otp"
-          element={
-            <PublicRoute>
-              <VerifyOTP />
-            </PublicRoute>
-          }
-        />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route
-          path="/instructions_2"
+          path="/game2"
           element={
             <ProtectedRoute>
-              <Instruction_2 />
+              <QuizzLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="play" element={<PuzzleQuizz />} />
+          <Route index path="start" element={<StartPuzzzle />} />
+          <Route path="rule" element={<PuzzleRule />} />
+        </Route>
+        {/* game 3 */}
+        <Route
+          path="/game3"
+          element={
+            <ProtectedRoute>
+              <QuizzLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="play" element={<Cardgame />} />
+          <Route path="rule" element={<CardRule />} />
+          <Route index path="start" element={<StartCardGame />} />
+        </Route>
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <UserProfile />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/instructions_1"
+          path="/updatePassword"
           element={
             <ProtectedRoute>
-              <Instruction_1 />
-            </ProtectedRoute>
-          }
-        />
-      </Route>
-      {/* phần này riêng */}
-      <Route path="/select" element={<Select />} />
-      <Route path="/home" element={<Home />} />
-      <Route element={<QuizzLayout />}>
-        <Route
-          path="/rule"
-          element={
-            <ProtectedRoute>
-              <Rule />
+              <UpdatePassword />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/instructions_3"
+          path="/achievement"
           element={
             <ProtectedRoute>
-              <Instruction_3 />
+              <Achievement />
             </ProtectedRoute>
           }
         />
         <Route
-          path="/trip"
+          path="/feedback"
           element={
             <ProtectedRoute>
-              <Trip />
+              <FeedbackForm />
             </ProtectedRoute>
           }
         />
-        {/* game 1 */}
         <Route
-          path="/game_1"
+          path="/contact"
           element={
             <ProtectedRoute>
-              <QuizGame />
+              <Contact />
             </ProtectedRoute>
           }
         />
-        {/* information */}
         <Route
-          path="/information/:game_type"
+          path="/community"
           element={
             <ProtectedRoute>
-              <Infomation />
+              <Community />
             </ProtectedRoute>
           }
         />
-        {/* game 4 */}
         <Route
-          path="/game_4"
+          path="/detail/:name"
           element={
             <ProtectedRoute>
-              <WordGame />
+              <AIProvider>
+                <DetailPage />
+              </AIProvider>
             </ProtectedRoute>
           }
         />
-      </Route>
-      {/* game 2 */}
-      <Route
-        path="/game2"
-        element={
-          <ProtectedRoute>
-            <QuizzLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="play" element={<PuzzleQuizz />} />
-        <Route index path="start" element={<StartPuzzzle />} />
-        <Route path="rule" element={<PuzzleRule />} />
-      </Route>
-      {/* game 3 */}
-      <Route
-        path="/game3"
-        element={
-          <ProtectedRoute>
-            <QuizzLayout />
-          </ProtectedRoute>
-        }
-      >
-        <Route path="play" element={<Cardgame />} />
-      </Route>
-      <Route
-        path="/profile"
-        element={
-          <ProtectedRoute>
-            <UserProfile />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/updatePassword"
-        element={
-          <ProtectedRoute>
-            <UpdatePassword />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/achievement"
-        element={
-          <ProtectedRoute>
-            <Achievement />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/feedback"
-        element={
-          <ProtectedRoute>
-            <FeedbackForm />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/community/*"
-        element={
-          <ProtectedRoute>
-            <Community />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/community/create-post"
-        element={
-          <ProtectedRoute>
-            <CreatePost />
-          </ProtectedRoute>
-        }
-      />
-    </Routes >
+        <Route
+          path="/community/*"
+          element={
+            <ProtectedRoute>
+              <Community />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/community/create-post"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-more"
+          element={
+            <AIProvider>
+              <DetailMorePage />
+            </AIProvider>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
   );
 }
 

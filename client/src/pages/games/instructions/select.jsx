@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 import axiosInstance from "../../../api/axios";
+import { useDispatch } from "react-redux";
+import { setGame, setRegion } from "../../../store/Region";
+import { reset } from "../../../store/countSlice";
+import { resetPuzzle } from "../../../store/puzzle";
+import { resetCard } from "../../../store/Card";
+import BackButton from "../../../components/BackButton";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -15,16 +21,38 @@ const textVariants = {
 };
 function Select() {
    const { setIsPlaying } = useAudio();
+   let dispatch=useDispatch()
   const navigate = useNavigate();
   const handleClickImg = async (index) =>{
-    const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index+1}`)
+    console.log(index);
+    if (index<3)
+    {
+      index = index+1;
+    }
+    else if (index==3 || index==4)
+    {
+      index = 4;
+    }
+    else if (index==5)
+    {
+      index= 7;
+    }
+    const res = await fetch(`https://viet-cultural-be.vercel.app/api/v1/region/get-region?id=${index}`)
     if (res)
     {
+      dispatch(setRegion(index))
+      dispatch(reset());
+      dispatch(resetPuzzle());
+      dispatch(resetCard())
       const result = await res.json();
-      navigate("/trip", {
+      const parsedDescription = JSON.parse(result.description);
+      console.log(parsedDescription)
+      console.log(parsedDescription);
+      dispatch(setGame(result.game))
+      navigate("/instructions_3",{
         state: {
-          regionData: result
-        },
+        description: parsedDescription
+      },
       });
     }
   }
@@ -36,6 +64,7 @@ function Select() {
   },[])
   return (
     <Layout>
+    <BackButton home={true}/>
     <InteractUser setIsPlaying={setIsPlaying} />
       {images.map((src, index) => (
         <img
@@ -51,7 +80,7 @@ function Select() {
 
       <div className="relative w-fit top-[90px] left-7">
         <img src="/items/chat.png" alt="Hanging Board" />
-
+        
         <p className=" absolute top-12 left-10 font-semibold text-lg w-[75%]">
           {text.split(" ").map((word, index) => (
             <motion.span
@@ -61,7 +90,7 @@ function Select() {
               animate="visible"
               custom={index}
             >
-              {word}{" "}
+              {word} {" "}
             </motion.span>
           ))}
         </p>
@@ -83,6 +112,7 @@ function Select() {
         src="/items/hat.png"
         alt="Bird"
       />
+
     </Layout>
   );
 }
