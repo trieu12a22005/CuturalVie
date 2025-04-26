@@ -77,7 +77,7 @@ const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, 
                     }}
                 >
                     <svg 
-                        fill={isLiked.liked ? "#ff0000" : "#000000"} 
+                        fill={isLiked ? "#ff0000" : "#000000"} 
                         width="18" 
                         height="18" 
                         viewBox="0 0 512 512" 
@@ -98,12 +98,6 @@ const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, 
                         ></path>
                     </svg>
                     {comments} thảo luận
-                </span>
-                <span className="flex items-center">
-                    <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path>
-                    </svg>
-                    {shares} chia sẻ
                 </span>
             </div>
         </div>
