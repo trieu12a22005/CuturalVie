@@ -3,11 +3,11 @@ import React from 'react'
 // Hàm để định dạng thời gian
 const formatTimeAgo = (dateString) => {
     if (!dateString) return "Không xác định";
-    
+
     const date = new Date(dateString);
     const now = new Date();
     const diffInSeconds = Math.floor((now - date) / 1000);
-    
+
     if (diffInSeconds < 60) {
         return "Vừa xong";
     } else if (diffInSeconds < 3600) {
@@ -33,7 +33,21 @@ const formatTimeAgo = (dateString) => {
 
 const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, shares, image, onLike, isLiked, created_at }) => {
     const timeAgo = formatTimeAgo(created_at);
-    
+
+    // Generate a color class for each tag based on its index for diversity
+    const tagColors = [
+        "bg-red-800 text-white",
+        "bg-orange-400 text-white",
+        "bg-green-500 text-white",
+        "bg-blue-500 text-white",
+        "bg-purple-500 text-white",
+        "bg-pink-500 text-white",
+        "bg-yellow-500 text-black",
+        "bg-teal-500 text-white",
+        "bg-indigo-500 text-white",
+        "bg-gray-500 text-white"
+    ];
+
     return (
         <div className="mb-6 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors">
             <div className="flex items-start gap-3 mb-2">
@@ -60,28 +74,27 @@ const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, 
                 {tags && tags.map((tag, index) => (
                     <span
                         key={index}
-                        className={`px-3 py-1 text-xs rounded-full ${tag === "Ứng dụng" ? "bg-red-800 text-white" : "bg-orange-400 text-white"
-                            }`}
+                        className={`px-3 py-1 text-xs rounded-full ${tagColors[index % tagColors.length]}`}
                     >
-                        {tag}
+                        {tag.name}
                     </span>
                 ))}
             </div>
 
             <div className="flex items-center text-sm text-gray-600 space-x-4">
-                <span 
+                <span
                     className="flex items-center cursor-pointer hover:text-green-600"
                     onClick={(e) => {
                         e.stopPropagation();
                         onLike && onLike();
                     }}
                 >
-                    <svg 
-                        fill={isLiked ? "#ff0000" : "#000000"} 
-                        width="18" 
-                        height="18" 
-                        viewBox="0 0 512 512" 
-                        xmlns="http://www.w3.org/2000/svg" 
+                    <svg
+                        fill={isLiked ? "#ff0000" : "#000000"}
+                        width="18"
+                        height="18"
+                        viewBox="0 0 512 512"
+                        xmlns="http://www.w3.org/2000/svg"
                         className="mr-1"
                     >
                         <title>ionicons-v5-f</title>
