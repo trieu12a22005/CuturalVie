@@ -6,52 +6,10 @@ function getToolTiptext(paragraph,setChatdata) {
   let words = paragraph.split(" ");
   return words.map((word, idx) => <TooltipText setModal={setChatdata}  key={idx} text={word} />);
 }
-const VanMieuInfo = ({ text ,setChatdata}) => {
+const LearningInfo = ({ text ,setChatdata}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
-  const selected = useRef();
-  let [textEl, setTextel] = useState(null);
   
-  useEffect(() => {
-    const handleSelect = () => {
-      const selection = window.getSelection();
-      if (selection && selection.toString()) {
-        const range = selection.getRangeAt(0);
-        const startNode = range.startContainer;
-        const startElement =
-          startNode instanceof Element ? startNode : startNode.parentElement;
-        if (startElement.classList.contains("tooltip-text")) {
-          selected.current = startElement;
-        } else {
-          selected.current = null;
-          setTextel(null);
-        }
-      } else {
-        selected.current = null;
-        setTextel(null);
-      }
-    };
-
-    const handleTextEl = () => {
-      document.querySelectorAll(".tooltip-text").forEach((item) => {
-        item.nextElementSibling?.classList.add("hidden");
-      });
-      document.querySelectorAll(".tooltip-text").forEach((item) => {
-        if (item === selected.current) {
-          item.nextElementSibling?.classList.remove("hidden");
-        }
-      });
-    };
-
-    document.addEventListener("selectionchange", handleSelect);
-    document.addEventListener("mouseup", handleTextEl);
-
-    return () => {
-      document.removeEventListener("selectionchange", handleSelect);
-      document.removeEventListener("mouseup", handleTextEl);
-    };
-  }, []);
-
   const nextContent = () => {
     if (currentIndex < text.length - 1) {
       setDirection(1);
@@ -117,4 +75,4 @@ const VanMieuInfo = ({ text ,setChatdata}) => {
   );
 };
 
-export default VanMieuInfo;
+export default LearningInfo;

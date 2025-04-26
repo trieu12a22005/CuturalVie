@@ -67,10 +67,14 @@ const Rule = () => {
     listItems.length * 0.5 +
     calculateTextDuration(lastParagraphText) +
     0.3;
-
+  
   return (
-    <Layout bgImage={"/bg/bg3.png"}>
-      <InteractUser setIsPlaying={setIsPlaying} />
+    <>
+       <main
+        className="flex-1 flex items-center justify-center bg-cover bg-center"
+      
+      >
+        <InteractUser setIsPlaying={setIsPlaying} />
       <div className="relative w-fit">
         <img
           className="min-h-[100%]"
@@ -138,7 +142,8 @@ const Rule = () => {
           delay: 0,
         }}
       />
-    </Layout>
+      </main>
+    </>
   );
 };
 

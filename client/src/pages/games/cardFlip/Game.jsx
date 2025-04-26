@@ -56,12 +56,15 @@ export default function CardGame({ ref }) {
     }
   };
   const handleClick = () => {
-    navigate("/finish",{
-      state:{
+    navigate("/finish", {
+      state: {
         result: modal,
-        description: "bạn đã..."
-      }
-    })
+        description:
+          modal == "win"
+            ? "bạn đã hoàn thành tốt trờ chơi"
+            : "Hãy cố gắng những lần sau nhé<3",
+      },
+    });
   };
   return (
     <div className="flex flex-col items-center justify-center  p-4 relative z-10">
@@ -109,12 +112,14 @@ export default function CardGame({ ref }) {
       </div>
 
       {modal && <Congra type={modal} />}
-      <button
-              onClick={handleClick}
-              className="bg-green-400 hover:bg-green-500 transition-colors duration-300 w-fit block mt-5 text-white font-bold px-4 py-2 rounded-full mx-auto"
-            >
-              Tổng Kết
-            </button>
+      {modal && (
+        <button
+          onClick={handleClick}
+          className="bg-green-400 hover:bg-green-500 transition-colors duration-300 w-fit block mt-5 text-white font-bold px-4 py-2 rounded-full mx-auto"
+        >
+          Tổng Kết
+        </button>
+      )}
     </div>
   );
 }

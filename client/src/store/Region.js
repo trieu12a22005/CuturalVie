@@ -11,14 +11,14 @@ const regionSlice = createSlice({
     setRegion: (state, action) => {
       state.region = action.payload;
     },
-    // setCurrentGame(state,action) {
-    //   state.game = action.payload;
-    // }
+    setCurrentGame(state,action) {
+      state.currentGame=action.payload;
+    },
     setGame: (state, action) => {
       state.game = action.payload;
     },
   },
 });
 
-export const { setGame,setRegion} = regionSlice.actions;
+export const { setGame,setRegion,setCurrentGame} = regionSlice.actions;
 export default regionSlice.reducer;

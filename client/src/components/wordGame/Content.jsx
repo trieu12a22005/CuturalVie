@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Modal from "../quizzGame/Modal";
+import { formatTime } from "../../utils/quizz";
+import { initProgress, updateProgress } from "../../store/countSlice";
 
 function Content() {
   const [question, setQuestions] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(60);
+  const [second, setSecond] = useState(6000);
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const [values, setValues] = useState([]);
   const [letterChoices, setLetterChoices] = useState([]);
   const navigate = useNavigate();
+  let dispatch=useDispatch()
   const count = useSelector((state) => state.count.value);
-
+  let {region}= useSelector((state) => state.region);
   useEffect(() => {
     fetch(
-      `https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=2&gameType=word`,
+      `https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=word`,
       {
         method: "GET",
         credentials: "include",
@@ -25,7 +28,9 @@ function Content() {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setQuestions(data);
+        dispatch(initProgress(data))
       })
       .catch((error) => {
         console.error("Lỗi khi fetch:", error);
@@ -59,10 +64,13 @@ function Content() {
   }, [second]);
 
   const handleInfo = () => {
-    navigate("/information");
-  };
-
-  const formatTime = (sec) => `00:${sec.toString().padStart(2, "0")}`;
+    navigate(`/information`, {
+      state:{
+        gameId: 4,
+        id: question[count].id
+      }
+    });
+  }
 
   const handleClick = (letter, index) => {
     const newValues = [...values];
@@ -99,6 +107,7 @@ function Content() {
     const isEqual =
       JSON.stringify(values) === JSON.stringify(currentQues?.correct_letters);
     setModal(isEqual ? "correct" : "wrong");
+    dispatch(updateProgress(isEqual ? true : false))
     setDisplay(true);
     const audio = new Audio(`sound/${isEqual ? "correct" : "wrong"}.mp3`);
     audio.play();
@@ -132,7 +141,7 @@ function Content() {
                 value={val}
                 onClick={() => handleDelete(index)}
                 readOnly
-                className={`w-[50px] h-[50px] border-[#14AE5C] bg-[#E2FFDD] cursor-pointer border text-center text-xl rounded-[20px] 
+                className={`w-[50px] outline-0 h-[50px] border-[#14AE5C] bg-[#E2FFDD] cursor-pointer border text-center text-xl rounded-[20px] 
         shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] 
         ${val === "" ? "text-transparent" : "text-black"}`}
               />

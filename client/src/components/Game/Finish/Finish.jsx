@@ -4,13 +4,16 @@ import Winning from "./Winning";
 import { useLocation, useNavigate } from "react-router-dom";
 import {useSelector } from "react-redux";
 import Fail from "./Fail";
+let storename=[null,"count","puzzle","card","word"]
 function Finish() {
   const location = useLocation();
    const result = location.state?.result ?? null;
    const desc=location.state?.description || "bạn đã giành chiến thắng"
   const navigate = useNavigate();
   const nametrip = localStorage.getItem("trip");
-
+  let {currentGame}=useSelector(state=>state.region)
+  console.log(currentGame);
+   let state=useSelector(state=>state[storename[currentGame]])
   const {region}=useSelector(state=>state.region)
   const handleClick = () => {
     navigate("/trip");
@@ -43,7 +46,7 @@ function Finish() {
   }, []);  
   return (
     <>
-      <QuizHeader isFinish={true} />
+      <QuizHeader progress={state.progress} isFinish={true} />
       {result === "win" && (
         <>
           <Winning desc={desc} />
@@ -52,7 +55,7 @@ function Finish() {
 
       {result != "win" && (
         <>
-          <Fail />
+          <Fail desc={desc} />
         </>
       )}
       <button

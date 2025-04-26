@@ -1,6 +1,28 @@
 import React from 'react'
-
-function Fail() {
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { reset } from '../../../store/countSlice';
+import { resetPuzzle } from '../../../store/puzzle';
+import { resetCard } from '../../../store/Card';
+const paths = {
+  1: "/quizz/rule",
+  2: "/game2/rule",
+  3: "/game3/rule",
+  4: "/word/rule",
+};
+function Fail({desc}) {
+  let navigate=useNavigate()
+  let {currentGame}=useSelector(state=>state.region)
+  let dispatch=useDispatch()
+  let handlePlayAgain=()=>{
+    dispatch(reset());
+        dispatch(resetPuzzle());
+        dispatch(resetCard());
+      navigate(paths[currentGame])
+  }
+  let handleClick=()=>{
+    navigate("/trip")
+}
   return (
     <div className=" relative flex justify-center items-center w-lg bg-green-100 mt-8 mx-auto min-h-[570px] min-w-[700px] rounded-2xl gap-10">
     <div className="text-center w-full max-w-md">
@@ -19,14 +41,14 @@ function Fail() {
 
         {/* Modal Content */}
         <div className=" flex flex-col gap-15 justify-center items-center h-[100%] ">
-          <p className="text-black font-bold text-lg">Bạn đã làm đúng 5/10 câu</p>
+          <p className="text-black font-bold text-lg">{desc}</p>
 
           {/* Buttons */}
           <div className="flex justify-center gap-4">
-            <button className="bg-red-200 px-4 py-2 rounded-md font-semibold shadow-md hover:bg-red-300">
+            <button onClick={handlePlayAgain} className="bg-red-200 px-4 py-2 rounded-md font-semibold shadow-md hover:bg-red-300">
               Chơi lại nhé
             </button>
-            <button className="bg-green-600  px-4 py-2 rounded-md font-semibold shadow-md hover:bg-green-700">
+            <button onClick={handleClick} className="bg-green-600  px-4 py-2 rounded-md font-semibold shadow-md hover:bg-green-700">
               Hành trình mới
             </button>
           </div>

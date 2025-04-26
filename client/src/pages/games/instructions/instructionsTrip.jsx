@@ -1,11 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { notifyError } from "../../../utils/notify";
+import { reset } from "../../../store/countSlice";
+import { resetPuzzle } from "../../../store/puzzle";
+import { resetCard } from "../../../store/Card";
+import { setCurrentGame } from "../../../store/Region";
 function InstructionTrip() {
   const location = useLocation();
+  let dispatch=useDispatch()
   const index = location.state?.index;
   const image = `/trip/trip${index + 1}.png`;
-  const { region, game: game } = useSelector((state) => state.region);
+  const { region, game} = useSelector((state) => state.region);
   console.log(region)
   console.log(game)
   const navigate = useNavigate();
@@ -16,12 +21,16 @@ function InstructionTrip() {
     4: "/word/rule",
   };
   const handleClick = () => {
+    dispatch(reset());
+    dispatch(resetPuzzle());
+    dispatch(resetCard());
+    dispatch(setCurrentGame(game[index]))
     const path = paths[game[index]];
     if (path) {
       navigate(path);
     } else {
       console.log(game[index])
-      console.warn("Không tìm thấy game phù hợp");
+      notifyError("Không tìm thấy game phù hợp");
     }
   };
 

@@ -25,7 +25,7 @@ export default function PuzzleQuiz() {
              regionId: region
           }
         })
-       
+        console.log(response.data);
         dispatch(getPuzzle(response.data));
       } catch (err) {
         setError(true);
@@ -38,7 +38,7 @@ export default function PuzzleQuiz() {
   if (loading) return <Loader />;
   return (
     <>
-      <QuizHeader progress={progress} current={current} />
+      <QuizHeader progress={progress} count={current} />
       {modal ? <Solution /> : <PuzzleGame />}
 
       {!modal && <motion.img

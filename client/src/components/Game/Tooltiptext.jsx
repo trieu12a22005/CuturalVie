@@ -2,7 +2,6 @@ import React from "react";
 
 const TooltipText = ({ text, setModal }) => {
   let handleClick = () => {
-    console.log('object');
     const selection = window.getSelection();
     if (!selection) return
     const range = selection.getRangeAt(0);
@@ -26,7 +25,7 @@ const TooltipText = ({ text, setModal }) => {
   };
 
   return (
-    <p className="relative inline-block mr-1.5">
+    <p className="relative inline-block mr-1.5 font-[lora]">
       <span className="cursor-pointer tooltip-text">{text}</span>
       <button
         onClick={handleClick}

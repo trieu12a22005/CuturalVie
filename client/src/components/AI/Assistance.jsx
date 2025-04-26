@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { generateContent } from "../../api/Gemini";
+import { IoCloseSharp } from "react-icons/io5";
 const getTime = () =>
   new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 
@@ -110,7 +111,7 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
             className="text-gray-400 hover:text-gray-700 text-xl font-bold"
             aria-label="Close"
           >
-            &times;
+            <IoCloseSharp size={27} />
           </button>
         </header>
 
@@ -123,18 +124,18 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
               }`}
             >
               {msg.sender === "User" ? null : (
-                <span className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                <span className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
                   🤖
                 </span>
               )}
               <div
                 className={`p-3 rounded-xl text-sm max-w-[75%] ${
-                  msg.sender === "User" ? "bg-blue-100" : "bg-gray-100"
+                  msg.sender === "User" ? "bg-green-100" : "bg-gray-100"
                 }`}
               >
                 <p className="text-gray-800 whitespace-pre-wrap">{msg.text}</p>
                 {msg.timestamp && (
-                  <time className="text-[10px] text-gray-500 mt-1 block">
+                  <time className="text-[10px] text-gray-500 mt-1 block text-left">
                     {msg.timestamp}
                   </time>
                 )}
@@ -155,7 +156,7 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
             />
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-xl text-sm hover:bg-blue-600 disabled:opacity-50"
+              className="bg-green-500 text-white px-4 py-2 rounded-xl text-sm hover:bg-blue-600 disabled:opacity-50"
               disabled={loading}
             >
               {loading ? "..." : "Send"}

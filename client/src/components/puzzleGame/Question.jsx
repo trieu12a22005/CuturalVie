@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Title from "./Title";
 import { useDispatch, useSelector } from "react-redux";
 import { handleWin } from "../../store/puzzle";
-import { motion } from "framer-motion";
+import { motion, progress } from "framer-motion";
 
 
 function PuzzleGame() {
@@ -47,13 +47,14 @@ function PuzzleGame() {
 
   const checkAnswer = () => {
     console.log(slots);
+    console.log(puzzleData.answers);
     const isCorrect = slots.every(
       (piece, i) => piece?.piece_index == puzzleData.answers[i].index
     );
     console.log(isCorrect);
    isCorrect ? dispatch(handleWin("win")) : dispatch(handleWin("lose"));
   };
-
+ 
   return (
     <motion.div
   initial={{ y: -50, opacity: 0 }}

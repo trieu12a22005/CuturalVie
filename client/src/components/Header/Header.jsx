@@ -6,7 +6,7 @@ import Login from "../../pages/auth/Login";
 import "./style.css";
 import Register from "../../pages/auth/Register";
 import toast from "react-hot-toast";
-const Header = () => {
+const Header = ({tab}) => {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: "", avatar: "" });
@@ -85,7 +85,7 @@ const Header = () => {
             <div
               key={item.key}
               className={`relative pb-2 border-b-2 transition-all ${
-                location.pathname === item.path
+                location.pathname === item.path || tab===item.path
                   ? "border-[#02542D] text-[#02542D]"
                   : "border-transparent hover:border-[#02542D] hover:text-[#02542D]"
               }`}

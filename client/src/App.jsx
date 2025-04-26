@@ -38,6 +38,7 @@ import Summary from "./components/Game/Finish/Summary";
 
 import Community from "./pages/community/Community";
 import CreatePost from "./pages/community/createPost/CreatePost";
+import AIProvider from "./components/AI/AIProvider";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -130,13 +131,13 @@ function App() {
             }
           />
           <Route
-          path="/finish"
-          element={
-            <ProtectedRoute>
-              <Finish />
-            </ProtectedRoute>
-          }
-        />
+            path="/finish"
+            element={
+              <ProtectedRoute>
+                <Finish />
+              </ProtectedRoute>
+            }
+          />
           {/* information */}
           <Route
             path="/information"
@@ -198,7 +199,7 @@ function App() {
           <Route path="rule" element={<CardRule />} />
           <Route index path="start" element={<StartCardGame />} />
         </Route>
-        
+
         <Route
           path="/profile"
           element={
@@ -243,7 +244,9 @@ function App() {
           path="/detail/:name"
           element={
             <ProtectedRoute>
-              <DetailPage />
+              <AIProvider>
+                <DetailPage />
+              </AIProvider>
             </ProtectedRoute>
           }
         />

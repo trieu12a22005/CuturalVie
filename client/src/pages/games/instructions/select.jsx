@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAudio } from "../../../context/AudioContext";
 import InteractUser from "../../../components/InteractUser";
 import axiosInstance from "../../../api/axios";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setGame, setRegion } from "../../../store/Region";
 import { reset } from "../../../store/countSlice";
 import { resetPuzzle } from "../../../store/puzzle";
