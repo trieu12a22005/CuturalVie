@@ -82,7 +82,7 @@ export default function Register({ onClose, onSwitchToLogin }) {
 
     try {
       const response = await axiosInstance.post(
-        "https://viet-cultural-be.vercel.app/api/v1/auth/register",
+        `${import.meta.env.VITE_API_URL}/auth/register`,
         {
           email: formData.email,
           full_name: formData.name,

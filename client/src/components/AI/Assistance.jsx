@@ -26,7 +26,7 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
   const addAIMessage = async (text) => {
     setLoading(true);
     const loadingMsg = {
-      id: messages.length + 1,
+      id: Date.now().toString(),
       text: "Typing...",
       timestamp: "",
       sender: "AI",
@@ -74,7 +74,7 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
     e.preventDefault();
     if (inputText.trim() === "") return;
     const userMessage = {
-      id: messages.length + 1,
+      id: Date.now().toString(),
       text: inputText.trim(),
       timestamp: getTime(),
       sender: "User",

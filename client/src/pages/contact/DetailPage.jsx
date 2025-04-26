@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
-import AIAssistantModal from "../../components/AI/Assistance";
-import TooltipText from "../../components/Game/ToolTipText";
+import { ChevronLeft, ChevronRight} from "lucide-react";
 import Loader from "../../components/loading";
 import Unavaible from "./Unavaible";
-function getToolTiptext(paragraph, setChatdata, isOpen) {
-  let words = paragraph.split(" ");
-  if (!isOpen) {
-    words = words.slice(0, 40);
-    words[words.length - 1] += "...";
-  }
-  return words.map((word, idx) => (
-    <TooltipText setModal={setChatdata} key={idx} text={word} />
-  ));
+
+const paragraphStyles = {
+  WebkitLineClamp: 3,
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  display: '-webkit-box'
 }
 const DetailPage = () => {
   const location = useLocation();
@@ -22,11 +17,9 @@ const DetailPage = () => {
   const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [expandItems, setExpandItems] = useState(null);
-  let [open, setOpen] = useState(false);
-  let [chatData, setChatdata] = useState(null);
+  let [loading,setLoading]=useState(false)
   const subject = location.state?.subject;
-
+  
   useEffect(() => {
     if (!subject) {
       navigate("/contact");
@@ -37,7 +30,7 @@ const DetailPage = () => {
       setLoading(true)
       try {
         const response = await fetch(
-          `https://viet-cultural-be.vercel.app/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
+          `${import.meta.env.VITE_API_URL}/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
         );
         const result = await response.json();
         console.log(result);
@@ -67,11 +60,15 @@ const DetailPage = () => {
   }
 
   if (loading) {
-    return <div className="text-black text-center py-20">Đang tải dữ liệu...</div>;
+    return <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')] text-white min-h-screen">
+      <Header tab={"/contact"} />
+      <Loader/>
+      </div>
+
   }
 
   if (!data || data.length === 0) {
-    return <div className="text-white text-center py-20">Hiện tại chưa có bài đăng nào về chủ đề này</div>;
+    return <Unavaible/>;
   }
 
   return (
@@ -103,14 +100,14 @@ const DetailPage = () => {
                   <h3 className="text-black text-xl font-bold mb-2">
                     {item.title}
                   </h3>
-                  <p className="text-black transition-all">
-                    {getToolTiptext(item.content, setChatdata, isOpen)}
+                  <p style={paragraphStyles} className="text-black transition-all">
+                    {item.content}
                   </p>
                   <button
-                    onClick={() => toggleContent(item.id)}
+                    onClick={() => handleReadMore(item)}
                     className="text-green-600 font-medium"
                   >
-                    {isOpen ? "Ẩn bớt" : "Đọc thêm"}
+                    Đọc thêm
                   </button>
                 </div>
               </div>
@@ -160,14 +157,7 @@ const DetailPage = () => {
             Quay về
           </button>
         </div>
-        <button
-          className="fixed bottom-6 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 flex items-center space-x-2"
-          onClick={() => setOpen(!open)}
-        >
-          <MessageSquare className="w-6 h-6" />
-          <span className="text-sm">Chat cùng AI</span>
-        </button>
-        <AIAssistantModal chatData={chatData} open={open} setOpen={setOpen} />
+        
       </section>
     </div>
   ) 

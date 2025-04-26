@@ -12,7 +12,7 @@ function Summary() {
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://viet-cultural-be.vercel.app/api/v1/achievements/get-achievement/${region}`,
+          `${import.meta.env.VITE_API_URL}/achievements/get-achievement/${region}`,
           {
             method: "GET",
             credentials: "include",

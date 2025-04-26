@@ -239,11 +239,11 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/community"
           element={
             <ProtectedRoute>
-              <Community/>
+              <Community />
             </ProtectedRoute>
           }
         />
@@ -258,21 +258,29 @@ function App() {
           }
         />
         <Route
-        path="/community/*"
-        element={
-          <ProtectedRoute>
-            <Community />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/community/create-post"
-        element={
-          <ProtectedRoute>
-            <CreatePost />
-          </ProtectedRoute>
-        }
-      />
+          path="/community/*"
+          element={
+            <ProtectedRoute>
+              <Community />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/community/create-post"
+          element={
+            <ProtectedRoute>
+              <CreatePost />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/detail-more"
+          element={
+            <AIProvider>
+              <DetailMorePage />
+            </AIProvider>
+          }
+        />
       </Routes>
     </AnimatePresence>
   );

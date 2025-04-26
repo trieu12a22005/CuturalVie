@@ -33,7 +33,7 @@ function Learning() {
   useEffect(() => {
     function fetchData() {
       fetch(
-        `https://viet-cultural-be.vercel.app/api/v1/afterInfo/get-afterInfo?gameTypeId=${gameTypeId}&gameId=${gameId}`,
+        `${import.meta.env.VITE_API_URL}/afterInfo/get-afterInfo?gameTypeId=${gameTypeId}&gameId=${gameId}`,
         {
           method: "POST",
           credentials: "include",

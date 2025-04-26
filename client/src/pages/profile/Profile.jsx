@@ -1,8 +1,6 @@
-import { AwardIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-
 const UserProfile = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -12,25 +10,24 @@ const UserProfile = () => {
     dob: "",
     avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
   });
+
   const [avatar, setAvatar] = useState(
     "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
   );
-  const [file, setFile] = useState(null); // ✅ Thêm state lưu file upload
   const navigate = useNavigate();
-
   useEffect(() => {
     async function fetchData() {
       try {
         const res = await fetch(
-          `https://viet-cultural-be.vercel.app/api/v1/users/profile`,
+          `${import.meta.env.VITE_API_URL}/users/profile`,
           {
             method: "GET",
             credentials: "include",
           }
-        );
-        const data = await res.json();
-        console.log(data);
-        updateState(data);
+        );        
+          const data = await res.json();
+          console.log(data);
+          updateState(data);
       } catch (err) {
         console.error("Lỗi khi fetch profile:", err);
       }
@@ -47,20 +44,16 @@ const UserProfile = () => {
           data.avatar ||
           "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
       }));
-      setAvatar(data.avatar || "https://cdn-icons-png.flaticon.com/512/4140/4140037.png");
     }
 
     fetchData();
   }, []);
-
   const handleAvatarChange = (e) => {
-    const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setAvatar(URL.createObjectURL(selectedFile)); // Preview
-      setFile(selectedFile); // Lưu file
+    const file = e.target.files[0];
+    if (file) {
+      setAvatar(URL.createObjectURL(file));
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -68,40 +61,11 @@ const UserProfile = () => {
       [name]: value,
     }));
   };
-
   const handleClick = async () => {
-    let uploadedAvatarUrl = formData.avatar; // Mặc định dùng avatar hiện tại
-
-    if (file) {
-      const formDataUpload = new FormData();
-      formDataUpload.append("file", file);
-
-      try {
-        const uploadResponse = await fetch(
-          "https://viet-cultural-be.vercel.app/api/v1/upload",
-          {
-            method: "POST",
-            body: formDataUpload,
-            credentials: "include",
-          }
-        );
-        const uploadResult = await uploadResponse.json();
-        console.log("Kết quả upload:", uploadResult);
-
-        if (uploadResult.url) {
-          uploadedAvatarUrl = uploadResult.url; // Cập nhật avatar mới
-        }
-      } catch (error) {
-        console.error("Lỗi khi upload ảnh:", error);
-        toast.error("Upload ảnh thất bại");
-        return;
-      }
-    }
-
     const isoDate = new Date(formData.dob).toISOString();
-
+  
     const response = await fetch(
-      "https://viet-cultural-be.vercel.app/api/v1/users/update-profile",
+      `${import.meta.env.VITE_API_URL}/users/update-profile`,
       {
         method: "PUT",
         credentials: "include",
@@ -112,23 +76,23 @@ const UserProfile = () => {
           full_name: formData.username,
           date_of_birth: isoDate,
           gender: formData.gender,
-          avatar: uploadedAvatarUrl,
         }),
       }
     );
-
+  
     const result = await response.json();
-    if (result) {
-      toast.success("Cập nhật thông tin thành công");
-    } else {
-      toast.error("Lỗi cập nhật thông tin");
+    if (result)
+    {
+      toast.success("Cập nhật thông tin thành công")
+    }
+    else
+    {
+      toast.error("Lỗi")
     }
   };
-
-  const handleUpdatePassword = () => {
-    navigate("/updatePassword");
-  };
-
+  const handleUpdate = () =>{
+    navigate("/updatePassword")
+  }
   return (
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center pt-[100px] pb-[100px]"
@@ -144,7 +108,7 @@ const UserProfile = () => {
           <div className="relative mb-4" style={{ maxWidth: "150px" }}>
             <div
               className="w-[150px] h-[150px] rounded-full border-4 border-gray-300 bg-cover bg-center transition-all hover:border-green-600 hover:brightness-90"
-              style={{ backgroundImage: `url('${avatar}')` }}
+              style={{ backgroundImage: `url('${formData.avatar}')` }}
             ></div>
             <input
               type="file"
@@ -169,7 +133,7 @@ const UserProfile = () => {
           </p>
         </div>
 
-        {/* FORM */}
+        {/* FORM (chỉ hiển thị, không submit) */}
         <div className="space-y-5 text-base">
           <div>
             <label className="block text-base font-medium text-gray-700 mb-1">
@@ -217,12 +181,7 @@ const UserProfile = () => {
                   } text-gray-400`}
                 />
               </span>
-              <button
-                className="bg-[#009951] text-white ml-[20px] w-[150px] rounded font-bold"
-                onClick={handleUpdatePassword}
-              >
-                Update
-              </button>
+              <button className="bg-[#009951] text-white ml-[20px] w-[150px] rounded font-bold" onClick={handleUpdate}>Update</button>
             </div>
           </div>
 
@@ -255,7 +214,6 @@ const UserProfile = () => {
               <option value="Other">Khác</option>
             </select>
           </div>
-
           <div>
             <button
               className="bg-[#009951] text-white p-[10px] ml-[40%] w-[100px] rounded font-bold"

@@ -6,7 +6,7 @@ function UpdatePassword() {
 
   const handleSubmit = async () => {
     const response = await fetch(
-      "https://viet-cultural-be.vercel.app/api/v1/users/update-password",
+      `${import.meta.env.VITE_API_URL}/users/update-password`,
       {
         method: "PUT",
         credentials: "include",

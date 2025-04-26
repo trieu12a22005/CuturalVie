@@ -7,7 +7,7 @@ function Achievement() {
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://viet-cultural-be.vercel.app/api/v1/achievements/get-achievement-user-id`,
+          `${import.meta.env.VITE_API_URL}/achievements/get-achievement-user-id`,
           {
             method: "GET",
             credentials: "include",

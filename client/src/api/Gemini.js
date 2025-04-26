@@ -1,20 +1,21 @@
 import axios from "axios";
 let controller
-let apiKey="AIzaSyD6_81liBCkE2OFUgCRics8vpaDrWczD98"
+let apiKey=import.meta.env.VITE_API_KEY
+let context=import.meta.env.VITE_CONTEXT
 export async function generateContent(prompt) {
     if (controller) {
         controller.abort(); 
       }
     
       controller = new AbortController(); 
-    
+     console.log(context);
       try {
         const response = await axios.post(
           `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
           {
             contents: [
               {
-                parts: [{ text: prompt }],
+                parts: [{ text: context+prompt }],
               },
             ],
           },

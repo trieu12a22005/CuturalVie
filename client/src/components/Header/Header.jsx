@@ -46,10 +46,10 @@ const Header = ({tab}) => {
     setShowLoginModal(false);
     setTimeout(() => {
       setShowRegisterModal(true);
-    }, 300); // chờ Login Modal đóng rồi mở Register
+    }, 300);
   };
   const handleClick = async() =>{
-    const response = await fetch("https://viet-cultural-be.vercel.app/api/v1/auth/logout",{
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`,{
       credentials: "include"
     })
     if (response)

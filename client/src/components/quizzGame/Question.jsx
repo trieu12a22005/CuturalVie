@@ -19,7 +19,7 @@ function Question() {
   useEffect(() => {
     function fetchData() {
       fetch(
-        `https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=quiz`,
+        `${import.meta.env.VITE_API_URL}/game/get-gamedata?regionId=${region}&gameType=quiz`,
         {
           method: "GET",
           credentials: "include",

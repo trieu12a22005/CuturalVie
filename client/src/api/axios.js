@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
-let baseURL='https://viet-cultural-be.vercel.app/api/v1'
+let baseURL=import.meta.env.VITE_API_URL;
+
 const axiosInstance = axios.create({
   baseURL, 
   headers: {

@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
-
+import AIAssistantModal from "../../components/AI/Assistance";
+import TooltipText from "../../components/Game/ToolTipText";
+import { MessageSquare } from "lucide-react";
+function getToolTiptext(paragraph, setChatdata) {
+  let words = paragraph.split(" ");
+  return words.map((word, idx) => (
+    <TooltipText setModal={setChatdata} key={idx} text={word} />
+  ));
+}
 const DetailMorePage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { item, relatedPosts } = location.state || {};
-
-  
+  let [open, setOpen] = useState(false);
+    let [chatData, setChatdata] = useState(null);
   const paragraphStyles = {
     WebkitLineClamp: 3,
     WebkitBoxOrient: 'vertical',
     overflow: 'hidden',
     display: '-webkit-box'
   }
-
+  useEffect(()=>{
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  },[])
   const handleReadMore = (post) => {
     const updatedPosts = relatedPosts ? [...relatedPosts.filter((related) => related.id !== post.id), item] : [item]
     navigate(`/detail-more`, { state: { item: post, relatedPosts: updatedPosts } }); 
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -35,7 +46,7 @@ const DetailMorePage = () => {
             alt={item.title}
             className="w-full h-auto rounded-md mb-4"
           />
-          <p className="text-gray-800 text-lg">{item.content}</p>
+          <p className="text-gray-800 text-lg">{getToolTiptext(item.content, setChatdata)}</p>
         </div>
 
         <div className="mt-12">
@@ -75,6 +86,14 @@ const DetailMorePage = () => {
           </button>
         </div>
       </section>
+      <button
+          className="fixed bottom-30 right-6 bg-green-600 text-white p-4 rounded-full shadow-lg hover:bg-green-700 transition duration-300 flex items-center space-x-2"
+          onClick={() => setOpen(!open)}
+        >
+          <MessageSquare className="w-6 h-6" />
+          <span className="text-sm">Chat cùng AI</span>
+        </button>
+        <AIAssistantModal chatData={chatData} open={open} setOpen={setOpen} />
     </div>
   );
 };
