@@ -29,13 +29,11 @@ import StartCardGame from "./pages/games/cardFlip/Start";
 import CardRule from "./pages/games/cardFlip/Rule";
 import Contact from "./pages/contact/Contact";
 import DetailPage from "./pages/contact/DetailPage";
-
 import { AnimatePresence, motion } from "framer-motion";
 import RuleWord from "./pages/games/word/Rule";
 import InstructionTrip from "./pages/games/instructions/instructionsTrip";
 import Finish from "./components/Game/Finish/Finish";
 import Summary from "./components/Game/Finish/Summary";
-
 import Community from "./pages/community/Community";
 import CreatePost from "./pages/community/createPost/CreatePost";
 import AIProvider from "./components/AI/AIProvider";
@@ -258,6 +256,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+        path="/community/*"
+        element={
+          <ProtectedRoute>
+            <Community />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/community/create-post"
+        element={
+          <ProtectedRoute>
+            <CreatePost />
+          </ProtectedRoute>
+        }
+      />
       </Routes>
     </AnimatePresence>
   );

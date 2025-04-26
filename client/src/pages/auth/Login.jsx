@@ -69,10 +69,11 @@ export default function Login({ onClose, onSwitchToRegister }) {
     if (newErrors.email || newErrors.password) return;
     try {
       let { data } = await axiosInstance.post("/auth/login", formData, {
-        withCredentials: true, // ✅ đúng cú pháp
+        withCredentials: true,
       });
       notifySuccess("Đăng nhập thành công");
       localStorage.setItem("accessToken", data.accessToken);
+      localStorage.setItem("name", data.full_name);
       onClose();
     } catch (error) {
       console.log(error);
