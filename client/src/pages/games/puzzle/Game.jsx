@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import QuizHeader from "../../../components/Game/headerGame";
-import PuzzleGame from "../../../components/puzzleGame/question";
+import PuzzleGame from "../../../components/puzzleGame/Question";
 import { useDispatch, useSelector } from "react-redux";
 import { getPuzzle } from "../../../store/puzzle";
 import Loader from "../../../components/loading";
