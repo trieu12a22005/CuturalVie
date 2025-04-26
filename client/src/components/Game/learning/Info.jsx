@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import TooltipText from "../ToolTipText";
+import TooltipText from "../Tooltiptext";
 function getToolTiptext(paragraph,setChatdata) {
   let words = paragraph.split(" ");
   return words.map((word, idx) => <TooltipText setModal={setChatdata}  key={idx} text={word} />);
