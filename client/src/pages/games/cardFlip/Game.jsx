@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 export default function CardGame({ ref }) {
   const { cards, modal, seconds, matched } = useSelector((state) => state.card);
   const [flipped, setFlipped] = useState([]);
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const dispatch = useDispatch();
   useEffect(() => {
     if (flipped.length === 2) {
@@ -32,14 +32,20 @@ export default function CardGame({ ref }) {
       dispatch(winGame());
     }
   }, [matched, seconds]);
-  
+
   const handleFlip = (index) => {
     if (modal) {
+      let id = cards[index].id;
+      if (cards[index].type == "image")
+        id = cards.find(
+          (item) =>
+            item.matchGroup == cards[index].matchGroup && item.type == "text"
+        ).id;
       navigate(`/information`, {
-        state:{
+        state: {
           gameId: 3,
-          id: cards[index].id
-        }
+          id,
+        },
       });
     }
     if (matched.includes(index)) return;
@@ -49,7 +55,14 @@ export default function CardGame({ ref }) {
       setFlipped([...flipped, index]);
     }
   };
-  
+  const handleClick = () => {
+    navigate("/finish",{
+      state:{
+        result: modal,
+        description: "bạn đã..."
+      }
+    })
+  };
   return (
     <div className="flex flex-col items-center justify-center  p-4 relative z-10">
       <h2 className="rounded-3xl font-bold my-5 px-7 py-3 bg-green-200">
@@ -96,6 +109,12 @@ export default function CardGame({ ref }) {
       </div>
 
       {modal && <Congra type={modal} />}
+      <button
+              onClick={handleClick}
+              className="bg-green-400 hover:bg-green-500 transition-colors duration-300 w-fit block mt-5 text-white font-bold px-4 py-2 rounded-full mx-auto"
+            >
+              Tổng Kết
+            </button>
     </div>
   );
 }

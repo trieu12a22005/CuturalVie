@@ -9,6 +9,8 @@ import axiosInstance from "../../../api/axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setGame, setRegion } from "../../../store/Region";
 import { reset } from "../../../store/countSlice";
+import { resetPuzzle } from "../../../store/puzzle";
+import { resetCard } from "../../../store/Card";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -39,6 +41,8 @@ function Select() {
     {
       dispatch(setRegion(index))
       dispatch(reset());
+      dispatch(resetPuzzle());
+      dispatch(resetCard())
       const result = await res.json();
       const parsedDescription = JSON.parse(result.description);
       console.log(parsedDescription)

@@ -16,6 +16,12 @@ const puzzleSlice = createSlice({
       state.puzzles = action.payload;
       state.progress = Array.from({ length: action.payload.length }, () => undefined);
     },
+    increasePuzzle(state) {
+       state.current=state.current+1;
+    },
+    resetPuzzle() {
+      return initialState;
+    },
     handleWin(state,action) {
       state.modal=action.payload;
       if (action.payload=="win") {
@@ -35,5 +41,5 @@ const puzzleSlice = createSlice({
    },
 }});
 
-export const { getPuzzle,handleWin,CountDown } = puzzleSlice.actions;
+export const { getPuzzle,handleWin,CountDown ,resetPuzzle,increasePuzzle} = puzzleSlice.actions;
 export default puzzleSlice.reducer;

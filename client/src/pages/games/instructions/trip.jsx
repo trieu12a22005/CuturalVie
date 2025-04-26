@@ -2,7 +2,7 @@ import {useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {useSelector } from "react-redux";
 function Trip() {
-  const {region,game: game}=useSelector(state=>state.region)
+  const {region,game}=useSelector(state=>state.region)
   //let dispatch=useDispatch()
   const images = [
     { src: "trip/history.png", alt: "History" },

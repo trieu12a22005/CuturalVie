@@ -6,8 +6,8 @@ import {useSelector } from "react-redux";
 import Fail from "./Fail";
 function Finish() {
   const location = useLocation();
-  // const result = location.state?.result ?? null;
-  const result = "win"
+   const result = location.state?.result ?? null;
+   const desc=location.state?.description || "bạn đã giành chiến thắng"
   const navigate = useNavigate();
   const nametrip = localStorage.getItem("trip");
 
@@ -46,11 +46,11 @@ function Finish() {
       <QuizHeader isFinish={true} />
       {result === "win" && (
         <>
-          <Winning />
+          <Winning desc={desc} />
         </>
       )}
 
-      {result === "fail" && (
+      {result != "win" && (
         <>
           <Fail />
         </>

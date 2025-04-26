@@ -14,6 +14,7 @@ function Question() {
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();
+  let dispatch=useDispatch()
   const { region } = useSelector((state) => state.region);
   useEffect(() => {
     function fetchData() {

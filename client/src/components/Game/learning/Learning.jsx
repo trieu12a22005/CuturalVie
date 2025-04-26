@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import QuizHeader from "../headerGame";
 import Slider from "./Slider";
 import VanMieuInfo from "./Info";
-import { motion } from "framer-motion";
+import { motion, progress } from "framer-motion";
 import AIAssistantModal from "../../AI/Assistance";
 import { MessageSquare } from "lucide-react";
 import { useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { increase } from "../../../store/countSlice";
+import { increasePuzzle } from "../../../store/puzzle";
+
 let lists=[null,"game_1","game2/play","game3/play","game_4"]
+let storename=[null,"count","puzzle","card","word"]
+let increaseLists=[null,increase,increasePuzzle,increase]
+let totalLists=[10,5,null,10]
 function Learning() {
   const [open, setOpen] = useState(null);
   let [chatData, setChatdata] = useState(null);
   const [info, setInfo] = useState();
-  const count = useSelector((state) => state.count.value);
   const navigate = useNavigate();
   const location = useLocation();
   const gameId = location.state.id;
   const dispatch = useDispatch();
   const gameTypeId = location.state.gameId;
+  let state=useSelector(state=>state[storename[gameTypeId]])
+  let current=state.current ? state.current : state.value
   useEffect(() => {
     function fetchData() {
       fetch(
@@ -40,23 +46,26 @@ function Learning() {
     fetchData();
   }, []);
   const handleClick = () => {
-    if (count==10)
+    if (gameTypeId==3) return navigate(`/${lists[gameTypeId]}`);
+    if (current==10-1)
     {
+      let Trueones=state.progress.reduce((acc,item)=>(item ? 1 : 0)+acc,0);
+      let game3desc="bạn đã hoàn thành tốt game "
       navigate("/finish",{
         state:{
           result: "win",
-          description: "bạn đã..."
+          description: gameTypeId==3 ? game3desc :  `bạn đã hoàn thành ${Trueones}/${totalLists[gameTypeId]} câu`
         }
       })
       return;
     }
-    dispatch(increase());
+    dispatch(increaseLists[gameTypeId]());
     navigate(`/${lists[gameTypeId]}`);
   };
-  console.log(info?.link)
+  console.log(gameId,gameTypeId)
   return (
     <>
-      <QuizHeader />
+      <QuizHeader count={current} progress={state.progress} />
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

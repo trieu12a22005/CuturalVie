@@ -11,11 +11,12 @@ const countSlice = createSlice({
       state.value += 1;
     },
     initProgress(state, action) {
-      if (!state.progress.length)
+      if (state.value==0) {
         state.progress = state.progress = Array.from(
           { length: action.payload.length },
           () => undefined
         );
+      }
     },
     updateProgress(state, action) {
       state.progress[state.value] = action.payload;
