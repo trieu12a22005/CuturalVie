@@ -29,13 +29,12 @@ const Comment = ({ avatar, author, content, likes, onLike, isLiked = false, repl
                             </svg>
                             {likes}
                         </button>
-                        <button className="text-blue-500">Phản hồi</button>
                     </div>
 
                     {replies.map((reply, index) => (
                         <div key={index} className="flex items-start gap-3 mt-3 ml-6">
                             <img
-                                src={reply.user?.avatar || "/placeholder.svg"}
+                                src={reply.user?.avatar_url || "/placeholder.svg"}
                                 alt={reply.user?.full_name || "Người dùng ẩn danh"}
                                 width={40}
                                 height={40}
@@ -47,7 +46,7 @@ const Comment = ({ avatar, author, content, likes, onLike, isLiked = false, repl
                                 <div className="flex items-center mt-1 text-sm">
                                     <button className="flex items-center text-gray-500 mr-3">
                                         <svg
-                                            className="w-4 h-4 mr-1"
+                                            className="w-4 h-4 mr-1  hover:cursor-pointer"
                                             fill="none"
                                             stroke="currentColor"
                                             viewBox="0 0 24 24"
