@@ -29,7 +29,7 @@ function Learning() {
   const dispatch = useDispatch();
   const gameTypeId = location.state.gameId;
   let state = useSelector((state) => state[storename[gameTypeId]]);
-  let current = state.current ? state.current : state.value;
+  let current = state.current>=0 ? state.current : state.value;
   useEffect(() => {
     function fetchData() {
       fetch(
@@ -77,7 +77,7 @@ function Learning() {
     dispatch(increaseLists[gameTypeId]());
     navigate(`/${lists[gameTypeId]}`);
   };
-  console.log(gameId, gameTypeId);
+  console.log(state);
   return (
     <>
       <QuizHeader count={current} progress={state.progress} />
