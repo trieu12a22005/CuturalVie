@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Comment = ({ avatar, author, content, likes, onLike, replies = [] }) => {
+const Comment = ({ avatar, author, content, likes, onLike, isLiked = false, replies = [] }) => {
     return (
         <div className="mb-4">
             <div className="flex items-start gap-3">
@@ -10,12 +10,12 @@ const Comment = ({ avatar, author, content, likes, onLike, replies = [] }) => {
                     <p className="text-gray-700">{content}</p>
                     <div className="flex items-center mt-1 text-sm">
                         <button 
-                            className="flex items-center text-gray-500 mr-3"
+                            className={`flex items-center mr-3 ${isLiked ? 'text-blue-500' : 'text-gray-500'}`}
                             onClick={onLike}
                         >
                             <svg
                                 className="w-4 h-4 mr-1"
-                                fill="none"
+                                fill={isLiked ? "currentColor" : "none"}
                                 stroke="currentColor"
                                 viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg"

@@ -1,6 +1,39 @@
 import React from 'react'
 
-const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, shares, image, onLike, isLiked }) => {
+// Hàm để định dạng thời gian
+const formatTimeAgo = (dateString) => {
+    if (!dateString) return "Không xác định";
+    
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+    
+    if (diffInSeconds < 60) {
+        return "Vừa xong";
+    } else if (diffInSeconds < 3600) {
+        const minutes = Math.floor(diffInSeconds / 60);
+        return `${minutes} phút trước`;
+    } else if (diffInSeconds < 86400) {
+        const hours = Math.floor(diffInSeconds / 3600);
+        return `${hours} giờ trước`;
+    } else if (diffInSeconds < 604800) {
+        const days = Math.floor(diffInSeconds / 86400);
+        return `${days} ngày trước`;
+    } else if (diffInSeconds < 2592000) {
+        const weeks = Math.floor(diffInSeconds / 604800);
+        return `${weeks} tuần trước`;
+    } else if (diffInSeconds < 31536000) {
+        const months = Math.floor(diffInSeconds / 2592000);
+        return `${months} tháng trước`;
+    } else {
+        const years = Math.floor(diffInSeconds / 31536000);
+        return `${years} năm trước`;
+    }
+};
+
+const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, shares, image, onLike, isLiked, created_at }) => {
+    const timeAgo = formatTimeAgo(created_at);
+    
     return (
         <div className="mb-6 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors">
             <div className="flex items-start gap-3 mb-2">
@@ -13,11 +46,11 @@ const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, 
                 </div>
                 {image ? (
                     <div className="ml-auto">
-                        <div className="text-xs text-gray-500 text-right mb-1">3 giờ trước</div>
+                        <div className="text-xs text-gray-500 text-right mb-1">{timeAgo}</div>
                         <img src={image || "/placeholder.svg"} alt={title} width={150} height={100} className="rounded-lg" />
                     </div>
                 ) : (
-                    <div className="ml-auto text-xs text-gray-500">2 giờ trước</div>
+                    <div className="ml-auto text-xs text-gray-500">{timeAgo}</div>
                 )}
             </div>
 

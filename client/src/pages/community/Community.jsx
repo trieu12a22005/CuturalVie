@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Search } from 'lucide-react'
 import CommunityPost from './community_post'
 import Comment from './comment'
@@ -6,11 +6,25 @@ import axiosInstance from "../../api/axios";
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+// Debounce function to limit how often a function can be called
+const debounce = (func, delay) => {
+    let timeoutId;
+    return function(...args) {
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        timeoutId = setTimeout(() => {
+            func.apply(this, args);
+        }, delay);
+    };
+};
+
 const Community = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [isSearching, setIsSearching] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [commentsMap, setCommentsMap] = useState({}); // Map postId -> comments
@@ -18,6 +32,18 @@ const Community = () => {
     const [loadingCommentsMap, setLoadingCommentsMap] = useState({}); // Map postId -> loading state
     const [userId, setUserId] = useState(null);
     const [likedPostsMap, setLikedPostsMap] = useState({}); // Map postId -> liked status
+    const [likedCommentsMap, setLikedCommentsMap] = useState({}); // Map commentId -> liked status
+    const [sortBy, setSortBy] = useState('created_at');
+    const [sortOrder, setSortOrder] = useState('desc');
+
+    // Create a debounced search function
+    const debouncedSearch = useCallback(
+        debounce(() => {
+            setCurrentPage(1);
+            fetchPosts();
+        }, 500),
+        [] // Empty dependency array means this function is created once
+    );
 
     useEffect(() => {
         fetchUserProfile();
@@ -27,8 +53,22 @@ const Community = () => {
     useEffect(() => {
         if (userId && posts.length > 0) {
             checkLikedPosts();
+            // Check liked comments for all fetched posts
+            posts.forEach(post => {
+                if (commentsMap[post.id] && commentsMap[post.id].length > 0) {
+                    checkLikedComments(commentsMap[post.id]);
+                }
+            });
         }
-    }, [userId, posts]);
+    }, [userId, posts, commentsMap]);
+
+    // Trigger search when searchTerm changes
+    useEffect(() => {
+        if (searchTerm !== '') {
+            setIsSearching(true);
+            debouncedSearch();
+        }
+    }, [searchTerm, debouncedSearch]);
 
     const fetchUserProfile = async () => {
         try {
@@ -57,24 +97,37 @@ const Community = () => {
                 params: {
                     page: currentPage,
                     limit: 10,
-                    search: searchTerm
+                    search: searchTerm,
+                    sortBy: sortBy,
+                    sortOrder: sortOrder
                 }
             });
 
-            const fetchedPosts = response.data || [];
+            const { posts: fetchedPosts, pagination } = response.data || { posts: [], pagination: {} };
+            
             setPosts(fetchedPosts);
-            setTotalPages(Math.ceil(fetchedPosts.length / 10) || 1);
+            setTotalPages(pagination.totalPages || 1);
 
             // Fetch comments for all posts
             fetchedPosts.forEach(post => {
-                fetchCommentsForPost(post.id);
+                // If post already has comments from the API, use those
+                if (post.comments && post.comments.length > 0) {
+                    setCommentsMap(prev => ({
+                        ...prev,
+                        [post.id]: post.comments
+                    }));
+                } else {
+                    fetchCommentsForPost(post.id);
+                }
             });
 
             setLoading(false);
+            setIsSearching(false);
         } catch (err) {
             console.error("Error fetching posts:", err);
             setError("Không thể tải bài đăng. Vui lòng thử lại sau.");
             setLoading(false);
+            setIsSearching(false);
         }
     };
 
@@ -107,18 +160,55 @@ const Community = () => {
         fetchPosts();
     };
 
+    // Modified input change handler
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+        if (e.target.value === '') {
+            setIsSearching(false);
+            setCurrentPage(1);
+            fetchPosts();
+        }
+    };
+
     const fetchCommentsForPost = async (postId) => {
         setLoadingCommentsMap(prev => ({ ...prev, [postId]: true }));
         try {
             const response = await axiosInstance.get(`/comment/post/${postId}`);
+            const comments = response.data || [];
             setCommentsMap(prev => ({
                 ...prev,
-                [postId]: response.data || []
+                [postId]: comments
             }));
+
+            if (userId) {
+                checkLikedComments(comments);
+            }
         } catch (err) {
             console.error("Error fetching comments for post", postId, ":", err);
         } finally {
             setLoadingCommentsMap(prev => ({ ...prev, [postId]: false }));
+        }
+    };
+
+    const checkLikedComments = async (comments) => {
+        try {
+            const likedStatusMap = { ...likedCommentsMap };
+
+            for (const comment of comments) {
+                try {
+                    const response = await axiosInstance.get(`/comment/${comment.id}/is-liked`, {
+                        params: { userId }
+                    });
+                    likedStatusMap[comment.id] = response.data;
+                } catch (err) {
+                    console.error(`Error checking like status for comment ${comment.id}:`, err);
+                    likedStatusMap[comment.id] = false;
+                }
+            }
+
+            setLikedCommentsMap(likedStatusMap);
+        } catch (err) {
+            console.error("Error checking liked comments:", err);
         }
     };
 
@@ -156,6 +246,7 @@ const Community = () => {
 
             // Refresh comments for this post
             fetchCommentsForPost(postId);
+            fetchPosts();
         } catch (err) {
             console.error("Error adding comment:", err);
             toast.error('Không thể thêm bình luận. Vui lòng thử lại sau.');
@@ -169,20 +260,47 @@ const Community = () => {
         }
 
         try {
+            // Update UI optimistically
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: true
+            }));
+            
+            // Update post's like count in place
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post.id === postId 
+                        ? { ...post, likeCount: (post.likeCount || 0) + 1 } 
+                        : post
+                )
+            );
+
+            // Send API request in background
             await axiosInstance.post(`/post/like`, {
                 postId,
                 userId: parseInt(userId)
             });
 
-            setLikedPostsMap(prev => ({
-                ...prev,
-                [postId]: true
-            }));
-
-            fetchPosts();
             toast.success('Đã thích bài viết');
+            fetchPosts();
         } catch (err) {
             console.error("Error liking post:", err);
+            
+            // Revert optimistic updates on error
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: false
+            }));
+            
+            // Revert like count
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post.id === postId 
+                        ? { ...post, likeCount: (post.likeCount || 1) - 1 } 
+                        : post
+                )
+            );
+            
             toast.error('Không thể thích bài đăng. Vui lòng thử lại sau.');
         }
     };
@@ -193,20 +311,47 @@ const Community = () => {
         }
 
         try {
+            // Update UI optimistically
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: false
+            }));
+            
+            // Update post's like count in place
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post.id === postId 
+                        ? { ...post, likeCount: Math.max((post.likeCount || 1) - 1, 0) } 
+                        : post
+                )
+            );
+
+            // Send API request in background
             await axiosInstance.post(`/post/like`, {
                 postId,
                 userId: parseInt(userId)
             });
 
-            setLikedPostsMap(prev => ({
-                ...prev,
-                [postId]: false
-            }));
-
-            fetchPosts();
             toast.success('Đã bỏ thích bài viết');
+            fetchPosts();
         } catch (err) {
             console.error("Error unliking post:", err);
+            
+            // Revert optimistic updates on error
+            setLikedPostsMap(prev => ({
+                ...prev,
+                [postId]: true
+            }));
+            
+            // Revert like count
+            setPosts(prevPosts => 
+                prevPosts.map(post => 
+                    post.id === postId 
+                        ? { ...post, likeCount: (post.likeCount || 0) + 1 } 
+                        : post
+                )
+            );
+            
             toast.error('Không thể bỏ thích bài đăng. Vui lòng thử lại sau.');
         }
     };
@@ -218,15 +363,101 @@ const Community = () => {
         }
 
         try {
+            // Update UI optimistically
+            setLikedCommentsMap(prev => ({
+                ...prev,
+                [commentId]: true
+            }));
+            
+            // Update comment like count in place
+            setCommentsMap(prev => ({
+                ...prev,
+                [postId]: prev[postId].map(comment => 
+                    comment.id === commentId 
+                        ? { ...comment, likes: (comment.likes || 0) + 1 } 
+                        : comment
+                )
+            }));
+
+            // Send API request in background
             await axiosInstance.post(`/comment/like-comment/${commentId}`, {
                 userId: parseInt(userId)
             });
 
-            fetchCommentsForPost(postId);
             toast.success('Đã thích bình luận');
+            fetchPosts();
         } catch (err) {
             console.error("Error liking comment:", err);
+            
+            // Revert optimistic updates on error
+            setLikedCommentsMap(prev => ({
+                ...prev,
+                [commentId]: false
+            }));
+            
+            // Revert comment like count
+            setCommentsMap(prev => ({
+                ...prev,
+                [postId]: prev[postId].map(comment => 
+                    comment.id === commentId 
+                        ? { ...comment, likes: Math.max((comment.likes || 1) - 1, 0) } 
+                        : comment
+                )
+            }));
+            
             toast.error('Không thể thích bình luận. Vui lòng thử lại sau.');
+        }
+    };
+
+    const handleUnlikeComment = async (postId, commentId) => {
+        if (!userId) {
+            return;
+        }
+
+        try {
+            // Update UI optimistically
+            setLikedCommentsMap(prev => ({
+                ...prev,
+                [commentId]: false
+            }));
+            
+            // Update comment like count in place
+            setCommentsMap(prev => ({
+                ...prev,
+                [postId]: prev[postId].map(comment => 
+                    comment.id === commentId 
+                        ? { ...comment, likes: Math.max((comment.likes || 1) - 1, 0) } 
+                        : comment
+                )
+            }));
+
+            // Send API request in background
+            await axiosInstance.post(`/comment/unlike-comment/${commentId}`, {
+                userId: parseInt(userId)
+            });
+
+            toast.success('Đã bỏ thích bình luận');
+            fetchPosts();
+        } catch (err) {
+            console.error("Error unliking comment:", err);
+            
+            // Revert optimistic updates on error
+            setLikedCommentsMap(prev => ({
+                ...prev,
+                [commentId]: true
+            }));
+            
+            // Revert comment like count
+            setCommentsMap(prev => ({
+                ...prev,
+                [postId]: prev[postId].map(comment => 
+                    comment.id === commentId 
+                        ? { ...comment, likes: (comment.likes || 0) + 1 } 
+                        : comment
+                )
+            }));
+            
+            toast.error('Không thể bỏ thích bình luận. Vui lòng thử lại sau.');
         }
     };
 
@@ -254,9 +485,14 @@ const Community = () => {
                                 placeholder="Bạn đang tìm kiếm điều gì?"
                                 className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-full focus:outline-none focus:ring-1 focus:ring-green-500"
                                 value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
+                                onChange={handleSearchChange}
                                 onKeyDown={(e) => e.key === 'Enter' && handleSearch(e)}
                             />
+                            {isSearching && (
+                                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                    <div className="w-4 h-4 border-t-2 border-green-500 border-r-2 rounded-full animate-spin"></div>
+                                </div>
+                            )}
                         </div>
                         <Link to="/community/create-post">
                             <button className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2">+ Bài đăng mới</button>
@@ -285,8 +521,8 @@ const Community = () => {
                                 shares={post.shares || 0}
                                 image={post.imageUrl}
                                 isLiked={likedPostsMap[post.id] || false}
-                                onLike={() => likedPostsMap[post.id] ? handleUnlikePost(post.id) : handleLikePost(post.id)}
-                            />
+                                created_at={post.created_at}
+                                onLike={() => likedPostsMap[post.id].liked ? handleUnlikePost(post.id) : handleLikePost(post.id)} />
 
                             {/* Comments section for this post */}
                             <div className="mt-4 bg-gray-50 p-4 rounded-lg">
@@ -307,7 +543,10 @@ const Community = () => {
                                         author={comment.user?.full_name || "Người dùng ẩn danh"}
                                         content={comment.content}
                                         likes={comment.likes || 0}
-                                        onLike={() => handleLikeComment(post.id, comment.id)}
+                                        isLiked={likedCommentsMap[comment.id] || false}
+                                        onLike={() => likedCommentsMap[comment.id]
+                                            ? handleUnlikeComment(post.id, comment.id)
+                                            : handleLikeComment(post.id, comment.id)}
                                         replies={comment.replies || []}
                                     />
                                 ))}
