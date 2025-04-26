@@ -8,6 +8,7 @@ import {
 import { FiMail, FiLock, FiUser } from "react-icons/fi";
 import axiosInstance from "../../api/axios";
 import { notifyError } from "../../utils/notify";
+import { useNavigate } from "react-router-dom";
 
 export default function Register({ onClose, onSwitchToLogin }) {
   const [formData, setFormData] = useState({
@@ -17,7 +18,7 @@ export default function Register({ onClose, onSwitchToLogin }) {
   });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
   const validateAllFields = () => {
     const tempErrors = {};
     Object.keys(formData).forEach((field) => {
@@ -94,7 +95,7 @@ export default function Register({ onClose, onSwitchToLogin }) {
         toast.success("Đăng kí thành công!");
         console.log("Đăng kí thành công:", response.data);
         await fetchApi();
-        // onClose(); // có thể đóng modal hoặc chuyển sang bước OTP
+        navigate("/verify-otp")
       }
     } catch (err) {
       console.error("❌ Lỗi:", err.response?.data || err.message);
