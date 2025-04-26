@@ -24,18 +24,11 @@ export const questions = [
   },
 ];
 
-export function handleClassName(letter) {
-  const state = store.getState();
-  let { questions, current, selected, modal } = state.quizz;
-  if (modal == "correct") {
-    if (letter == selected) return "bg-green-400";
-    else return "bg-green-200";
-  } else if (modal == "wrong") {
-    if (letter == selected) return "bg-red-400";
-    else if (letter == questions[current].correctAnswer) return "bg-green-400";
-    else return "bg-green-200";
-  }
-  return letter == selected ? "bg-yellow-400" : "bg-green-200";
+export function getTotalists() {
+   const state = store.getState();
+   let arr=[null,state.count.progress.length,state.puzzle.puzzles.length,null,state.count.progress.length];
+   console.log(arr);
+   return arr;
 }
 //format time
 export function formatTime(seconds) {

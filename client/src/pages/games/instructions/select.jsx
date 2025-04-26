@@ -11,6 +11,7 @@ import { setGame, setRegion } from "../../../store/Region";
 import { reset } from "../../../store/countSlice";
 import { resetPuzzle } from "../../../store/puzzle";
 import { resetCard } from "../../../store/Card";
+import BackButton from "../../../components/BackButton";
 const textVariants = {
   hidden: { opacity: 0 },
   visible: (i) => ({
@@ -63,6 +64,7 @@ function Select() {
   },[])
   return (
     <Layout>
+    <BackButton home={true}/>
     <InteractUser setIsPlaying={setIsPlaying} />
       {images.map((src, index) => (
         <img
@@ -78,7 +80,7 @@ function Select() {
 
       <div className="relative w-fit top-[90px] left-7">
         <img src="/items/chat.png" alt="Hanging Board" />
-
+        
         <p className=" absolute top-12 left-10 font-semibold text-lg w-[75%]">
           {text.split(" ").map((word, index) => (
             <motion.span
@@ -88,7 +90,7 @@ function Select() {
               animate="visible"
               custom={index}
             >
-              {word}{" "}
+              {word} {" "}
             </motion.span>
           ))}
         </p>
@@ -110,6 +112,7 @@ function Select() {
         src="/items/hat.png"
         alt="Bird"
       />
+
     </Layout>
   );
 }

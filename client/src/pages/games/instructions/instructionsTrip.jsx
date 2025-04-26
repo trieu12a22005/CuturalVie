@@ -5,6 +5,7 @@ import { reset } from "../../../store/countSlice";
 import { resetPuzzle } from "../../../store/puzzle";
 import { resetCard } from "../../../store/Card";
 import { setCurrentGame } from "../../../store/Region";
+import BackButton from "../../../components/BackButton";
 function InstructionTrip() {
   const location = useLocation();
   let dispatch=useDispatch()
@@ -50,6 +51,7 @@ function InstructionTrip() {
         >
           Start now
         </button>
+        <BackButton/>
       </div>
     </>
   );

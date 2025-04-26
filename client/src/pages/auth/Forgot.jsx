@@ -181,7 +181,7 @@ export default function ResetPassword() {
         </button>
         <p className="text-sm text-center mt-4">
           Bạn đã có tài khoản?{" "}
-          <Link to="/login" className="text-[#14AE5C] hover:underline">
+          <Link to="/" className="text-[#14AE5C] hover:underline">
             Đăng nhập ngay
           </Link>
         </p>

@@ -4,13 +4,14 @@ import Header from "../../components/Header/Header";
 import { ChevronLeft, ChevronRight, MessageSquare } from "lucide-react";
 import AIAssistantModal from "../../components/AI/Assistance";
 import TooltipText from "../../components/Game/ToolTipText";
-import Loader from '../../components/loading'
-function getToolTiptext(paragraph, setChatdata,isOpen) {
+import Loader from "../../components/loading";
+import Unavaible from "./Unavaible";
+function getToolTiptext(paragraph, setChatdata, isOpen) {
   let words = paragraph.split(" ");
   if (!isOpen) {
-    words=words.slice(0,40);
-    words[words.length-1]+="..."
-  } 
+    words = words.slice(0, 40);
+    words[words.length - 1] += "...";
+  }
   return words.map((word, idx) => (
     <TooltipText setModal={setChatdata} key={idx} text={word} />
   ));
@@ -18,14 +19,13 @@ function getToolTiptext(paragraph, setChatdata,isOpen) {
 const DetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [expandItems, setExpandItems] = useState(null);
   let [open, setOpen] = useState(false);
   let [chatData, setChatdata] = useState(null);
   const subject = location.state?.subject;
-
 
   useEffect(() => {
     if (!subject) {
@@ -41,6 +41,7 @@ const DetailPage = () => {
           `https://viet-cultural-be.vercel.app/api/v1/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
         );
         const result = await response.json();
+        console.log(result);
         setData(result.posts);
         setTotalPages(result.totalPages);
       } catch (error) {
@@ -52,8 +53,7 @@ const DetailPage = () => {
   }, [subject, currentPage, navigate]);
 
   const toggleContent = (id) => {
-    
-    setExpandItems(id==expandItems ? null : id);
+    setExpandItems(id == expandItems ? null : id);
   };
 
   const handlePageChange = (page) => {
@@ -62,13 +62,16 @@ const DetailPage = () => {
     }
   };
 
-  if (!data || data.length === 0) {
+  if (!data) {
     return (
       <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')] text-white min-h-screen">
-       <Header tab={"/contact"} />
-       <Loader/>
-    </div>
-    )
+        <Header tab={"/contact"} />
+        <Loader />
+      </div>
+    );
+  }
+  if (!data.length) {
+    return <Unavaible/>
   }
 
   return (
@@ -85,7 +88,7 @@ const DetailPage = () => {
         <h2 className="text-3xl font-semibold text-white mb-8">{subject}</h2>
         <div className="space-y-8">
           {data.map((item) => {
-            const isOpen =item.id==expandItems;
+            const isOpen = item.id == expandItems;
             return (
               <div
                 key={item.id}
@@ -100,10 +103,8 @@ const DetailPage = () => {
                   <h3 className="text-black text-xl font-bold mb-2">
                     {item.title}
                   </h3>
-                  <p
-                    className="text-black transition-all"
-                  >
-                    {getToolTiptext(item.content, setChatdata,isOpen)}
+                  <p className="text-black transition-all">
+                    {getToolTiptext(item.content, setChatdata, isOpen)}
                   </p>
                   <button
                     onClick={() => toggleContent(item.id)}

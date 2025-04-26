@@ -11,10 +11,14 @@ import { increase } from "../../../store/countSlice";
 import { increasePuzzle } from "../../../store/puzzle";
 import AIProvider from "../../AI/AIProvider";
 
+import { getTotalists } from "../../../utils/quizz";
+
 let lists = [null, "game_1", "game2/play", "game3/play", "game_4"];
 let storename = [null, "count", "puzzle", "card", "count"];
 let increaseLists = [null, increase, increasePuzzle, null,increase];
-let totalLists = [null, 10, 5, null, 10];
+
+
+
 function Learning() {
   const [open, setOpen] = useState(false);
   let [chatData, setChatdata] = useState(null);
@@ -47,15 +51,16 @@ function Learning() {
     fetchData();
   }, []);
   const handleClick = () => {
+    let totalLists = getTotalists();
     if (gameTypeId == 3) return navigate(`/${lists[gameTypeId]}`);
-    if (current == totalLists[gameTypeId] - 1) {
+    if (current >= totalLists[gameTypeId] - 1) {
       let Trueones = state.progress.reduce(
         (acc, item) => (item ? 1 : 0) + acc,
         0
       );
       let status;
       if (gameTypeId == 3) status = state.modal;
-      if (Trueones > totalLists[gameTypeId] / 2) status = "win";
+      if (Trueones >=totalLists[gameTypeId] / 2) status = "win";
       else status = "fail";
       let game3desc = "bạn đã hoàn thành tốt game ";
       navigate("/finish", {

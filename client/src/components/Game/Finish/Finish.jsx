@@ -4,7 +4,7 @@ import Winning from "./Winning";
 import { useLocation, useNavigate } from "react-router-dom";
 import {useSelector } from "react-redux";
 import Fail from "./Fail";
-let storename=[null,"count","puzzle","card","word"]
+let storename=[null,"count","puzzle","card","count"]
 function Finish() {
   const location = useLocation();
    const result = location.state?.result ?? null;

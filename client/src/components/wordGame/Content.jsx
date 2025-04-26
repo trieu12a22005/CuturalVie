@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, progress } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "../quizzGame/Modal";
@@ -113,7 +113,7 @@ function Content() {
     audio.play();
     setSubmitted(true);
   };
-
+  console.log(count,progress.length);
   return (
     <>
       {display ? (

@@ -240,6 +240,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/community"
+          element={
+            <ProtectedRoute>
+              <Community/>
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/detail/:name"
           element={

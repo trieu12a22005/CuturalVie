@@ -29,7 +29,7 @@ export default function VerifyOTP() {
           )
       if (res) {
         toast.success("Xác minh thành công!");
-        navigate("/login");
+        navigate("/");
       } else {
         notifyError("Mã OTP không chính xác hoặc đã hết hạn");
       }

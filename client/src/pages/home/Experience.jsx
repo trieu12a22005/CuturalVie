@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -77,7 +78,7 @@ export default function Experience() {
           transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
           className="bg-[#98D99A] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold"
         >
-          Chơi game
+          <Link to={"/instructions_1"}>Chơi game</Link>
         </motion.button>
       </div>
     </div>

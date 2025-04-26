@@ -6,33 +6,39 @@ import Login from "../../pages/auth/Login";
 import "./style.css";
 import Register from "../../pages/auth/Register";
 import toast from "react-hot-toast";
+import { notifySuccess } from "../../utils/notify";
+import axiosInstance from "../../api/axios";
+
+const items = [
+  { label: "Trang chủ", key: "home", path: "/home" },
+  { label: "Cultural Journey", key: "cultural", path: "/start" },
+  { label: "Cộng đồng", key: "community", path: "/community" },
+  { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
+];
+
 const Header = ({tab}) => {
   const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const loginMode = searchParams.get('login'); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: "", avatar: "" });
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(Boolean(loginMode));
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [token, setToken] = useState("");
   const newToken = localStorage.getItem("accessToken")
   useEffect(() => {
+   
     setToken(localStorage.getItem("accessToken"))
     if (newToken) {
       setIsLoggedIn(true);
-      setUserInfo({
-        name: "Mẫn Nhi",
-        avatar:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
-      });
+      axiosInstance.get("users/profile").then(res=>{
+          setUserInfo(res.data)
+      })
     } else {
       setIsLoggedIn(false);
     }
   }, [token, newToken]);
-  const items = [
-    { label: "Trang chủ", key: "home", path: "/home" },
-    { label: "Cultural Journey", key: "cultural", path: "/start" },
-    { label: "Cộng đồng", key: "community", path: "/community" },
-    { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
-  ];
+ 
   const switchToRegister = () => {
     setShowLoginModal(false);
     setTimeout(() => {
@@ -47,7 +53,7 @@ const Header = ({tab}) => {
     {
       localStorage.removeItem("accessToken");
       setToken(localStorage.getItem("accessToken"))
-      toast.success("Đăng xuất thành công")
+      notifySuccess("Đăng xuất thành công")
     }
   }
   const userMenu = (
@@ -102,8 +108,8 @@ const Header = ({tab}) => {
               <div className="flex items-center gap-2 cursor-pointer">
                 <Avatar
                   size={40}
-                  src={userInfo.avatar || null}
-                  icon={!userInfo.avatar && <UserOutlined />}
+                  src={userInfo.avatar_url || null}
+                  icon={!userInfo. avatar_url && <UserOutlined />}
                   style={{ backgroundColor: "#87d068" }}
                 />
                 <p className="font-semibold ml-[10px]">{userInfo.name}</p>

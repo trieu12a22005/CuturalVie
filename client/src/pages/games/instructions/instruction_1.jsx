@@ -30,8 +30,8 @@ function Instruction_1() {
         className="bg-white rounded-lg shadow-lg w-[664px] h-[640px] relative"
       >
         <motion.button
-          whileHover={{ scale: 1.1, rotate: 10 }}
-          className="absolute top-4 right-4 text-gray-600 hover:text-red-500 bg-[#14AE5C] px-3 py-2 rounded-md"
+          className="absolute z-10 top-4 right-4 bg-[#14AE5C] px-3 py-2 rounded-md"
+          onClick={()=>navigate(-1)}
         >
           <AiOutlineClose size={21} className="text-white" />
         </motion.button>

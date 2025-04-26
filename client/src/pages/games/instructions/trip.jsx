@@ -1,6 +1,7 @@
 import {useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {useSelector } from "react-redux";
+import Backbutton from '../../../components/BackButton'
 function Trip() {
   const {region,game}=useSelector(state=>state.region)
   //let dispatch=useDispatch()
@@ -40,7 +41,8 @@ function Trip() {
         exit={{ opacity: 0, y: -40 }}
         transition={{ duration: 0.5 }}
         className="relative w-[95%] h-[95%] mx-auto"
-      >
+      > 
+         <Backbutton home={true}/>
         {/* Hình ảnh chiếm toàn bộ khung */}
         <motion.img
           src="bg/Frame 2.png"
@@ -61,6 +63,7 @@ function Trip() {
         <motion.div className="absolute top-[7%] left-[48%] translate-x-[-50%] text-[18px] font-bold text-center">
           <p>{name}</p>
         </motion.div>
+       
       </motion.div>
     </>
   );

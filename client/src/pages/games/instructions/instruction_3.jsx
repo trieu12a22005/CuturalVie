@@ -45,7 +45,7 @@ function Instruction_3() {
           </p>
         </div>
         <button
-          className="z-20 absolute top-[80%] left-1/2 transform -translate-x-1/2 mt-[20px] px-[40px] py-[15px]
+          className="z-20 absolute top-[75%] left-1/2 transform -translate-x-1/2 mt-[20px] px-[40px] py-[15px]
              bg-[#6B8E23] hover:bg-[#5c7a1f] text-white text-[20px] font-bold rounded-2xl 
              shadow-md transition duration-300 ease-in-out"
              onClick={handleClick}

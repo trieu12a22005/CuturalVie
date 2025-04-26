@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useAnimation, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const communityData = [
   {
@@ -106,7 +107,7 @@ export default function VietcuturalCommunity() {
       </div>
       <div className="flex justify-center mt-8">
         <button className="bg-[#7CC68D] text-white py-2.5 px-10 rounded-full text-lg font-semibold hover:bg-[#68b07c] transition">
-          Chơi game
+        <Link to={"/instructions_1"}>Chơi game</Link>
         </button>
       </div>
     </motion.div>
