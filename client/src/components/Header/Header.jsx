@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
 import {Avatar, Dropdown, Menu, Modal } from "antd";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "../../pages/auth/Login";
 import "./style.css";
 import Register from "../../pages/auth/Register";
@@ -14,12 +14,13 @@ const Header = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [token, setToken] = useState("");
   const newToken = localStorage.getItem("accessToken")
+  const navigate = useNavigate();
   useEffect(() => {
     setToken(localStorage.getItem("accessToken"))
     if (newToken) {
       setIsLoggedIn(true);
       setUserInfo({
-        name: "Mẫn Nhi",
+        name: localStorage.getItem("name"),
         avatar:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
       });
@@ -48,6 +49,7 @@ const Header = () => {
       localStorage.removeItem("accessToken");
       setToken(localStorage.getItem("accessToken"))
       toast.success("Đăng xuất thành công")
+      navigate("/home")
     }
   }
   const userMenu = (
@@ -99,7 +101,7 @@ const Header = () => {
         <div className="flex items-center justify-center align-center mr-[50px] text-[20px]">
           {isLoggedIn ? (
             <Dropdown overlay={userMenu} trigger={["click"]}>
-              <div className="flex items-center gap-2 cursor-pointer">
+              <div className="flex items-center mr-[20px] gap-2 cursor-pointer">
                 <Avatar
                   size={40}
                   src={userInfo.avatar || null}
