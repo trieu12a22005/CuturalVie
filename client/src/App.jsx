@@ -36,8 +36,9 @@ import DetailMorePage from "./pages/contact/DetailMorePage";
 import Finish from "./components/Game/Finish/Finish";
 import Summary from "./components/Game/Finish/Summary";
 import Community from "./pages/community/Community";
-import CreatePost from "./pages/community/createPost/CreatePost";
-import EditPost from './pages/community/createPost/EditPost';
+import CreatePost from "./pages/community/CreatePost";
+import EditPost from './pages/community/EditPost';
+import PostDetail from "./pages/community/PostDetail";
 import AIProvider from "./components/AI/AIProvider";
 import UserProfilePage from "./pages/profile/post";
 function App() {
@@ -291,6 +292,13 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/community/post/:postId"
+          element={
+            <ProtectedRoute>
+              <PostDetail />
+            </ProtectedRoute>
+          } />
         <Route
           path="/detail-more"
           element={
