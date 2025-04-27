@@ -96,7 +96,7 @@ function Learning() {
           src="/character/dragon.png"
         />
 
-        <div className="flex mt-3 items-center">
+        <div className="flex gap-15 mt-3 items-center">
           <Slider image={info?.link} />
           {info?.slides &&
             Array.isArray(info.slides) &&

@@ -38,10 +38,10 @@ function Hero() {
         <div className="flex flex-col items-center gap-6">
          <ImageSlider/>
           <div className="flex gap-12 mt-4 w-full">
-            <button className="bg-[#7CC68D] text-white py-2.5 rounded-full text-lg font-semibold hover:bg-[#68b07c] transition flex-1">
+            <button className="bg-[#5ECE7D] text-white py-2.5 rounded-full text-lg font-semibold hover:bg-[#68b07c] transition flex-1">
              <Link to={"/instructions_1"}>Chơi game</Link>
             </button>
-            <button className="border border-[#7CC68D] text-[#7CC68D] py-2.5 rounded-full text-lg font-semibold hover:bg-[#7CC68D] hover:text-white transition flex-1">
+            <button className="border border-[#5ECE7D] text-[#5ECE7D] py-2.5 rounded-full text-lg font-semibold hover:bg-[#5ECE7D] hover:text-white transition flex-1">
               <Link to={"/contact"}> Thông tin</Link>
             </button>
           </div>
