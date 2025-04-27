@@ -3,7 +3,9 @@ import { ArrowLeft, ImageIcon, X, Check } from "lucide-react";
 import axiosInstance from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useUploadThing } from "../../../utils/uploadthing";
+import { storage } from "../../../utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
 
 export default function CreatePost() {
     const [title, setTitle] = useState("");
@@ -22,12 +24,6 @@ export default function CreatePost() {
     const tagInputRef = useRef(null);
     const navigate = useNavigate();
 
-    // Create UploadThing client
-    const { startUpload } = useUploadThing("postImage", {
-        onUploadProgress: (progress) => {
-            console.log(`Progress: ${progress}%`);
-        },
-    });
 
     // Existing fetch user profile code...
     useEffect(() => {
@@ -120,17 +116,14 @@ export default function CreatePost() {
             toast.error("Vui lòng nhập tiêu đề bài viết");
             return;
         }
-
         if (!question.trim()) {
             toast.error("Vui lòng nhập nội dung bài viết");
             return;
         }
-
         if (!userId) {
             toast.error("Vui lòng đăng nhập để đăng bài");
             return;
         }
-
         if (selectedTags.length === 0) {
             toast.error("Vui lòng chọn ít nhất một thẻ");
             return;
@@ -144,21 +137,23 @@ export default function CreatePost() {
 
             let imageData = null;
 
-            // Step 1: If we have an image, upload it using UploadThing
+            // Step 1: If we have an image, upload it to Firebase Storage
             if (image) {
                 try {
                     setIsUploading(true);
-                    // Upload to UploadThing
-                    const uploadResult = await startUpload([image]);
+                    // Create a unique file path
+                    const filePath = `posts/${userId}/${Date.now()}_${image.name}`;
+                    const storageRef = ref(storage, filePath);
 
-                    if (!uploadResult || uploadResult.length === 0) {
-                        throw new Error("Failed to upload image");
-                    }
+                    // Upload the file
+                    await uploadBytes(storageRef, image);
 
-                    // Get image data from the first result
+                    // Get the download URL
+                    const downloadURL = await getDownloadURL(storageRef);
+
                     imageData = {
-                        fileUrl: uploadResult[0].url,
-                        fileKey: uploadResult[0].key,
+                        fileUrl: downloadURL,
+                        fileKey: filePath,
                         fileName: image.name,
                         fileSize: image.size,
                         fileType: image.type
@@ -178,7 +173,6 @@ export default function CreatePost() {
                 question,
                 userId: parseInt(userId),
                 tags: tagIds,
-                // Include image data from UploadThing if available
                 ...(imageData ? { image: imageData } : {})
             };
 
@@ -194,7 +188,6 @@ export default function CreatePost() {
             setLoading(false);
         }
     };
-
     return (
         <div className="min-h-screen bg-[url('/bg/bg3.png')] bg-cover bg-center">
             <div className="max-w-3xl mx-auto py-8 px-4">
