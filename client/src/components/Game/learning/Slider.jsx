@@ -20,6 +20,13 @@ const getYoutubeEmbedUrl = (url) => {
 };
 
 export default function ImageSlider({ image }) {
+  image.forEach((item, index) => {
+    if (isYoutubeUrl(item.youtubeLink)) {
+      const tmp = image.splice(index, 1)[0];
+      image.unshift(tmp);
+    }
+  });
+  
   return (
     <div className="relative min-w-[400px] flex-1 ml-10">
       <Swiper
