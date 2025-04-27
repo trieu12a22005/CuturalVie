@@ -3,6 +3,7 @@ import { ArrowLeft, ImageIcon, X, Check } from "lucide-react";
 import axiosInstance from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useUploadThing } from "../../../utils/uploadthing";
 
 export default function CreatePost() {
     const [title, setTitle] = useState("");
@@ -16,11 +17,19 @@ export default function CreatePost() {
     const [loading, setLoading] = useState(false);
     const [loadingTags, setLoadingTags] = useState(true);
     const [userId, setUserId] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef(null);
     const tagInputRef = useRef(null);
     const navigate = useNavigate();
 
-    // Fetch user profile to get userId
+    // Create UploadThing client
+    const { startUpload } = useUploadThing("postImage", {
+        onUploadProgress: (progress) => {
+            console.log(`Progress: ${progress}%`);
+        },
+    });
+
+    // Existing fetch user profile code...
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
@@ -48,7 +57,7 @@ export default function CreatePost() {
         fetchUserProfile();
     }, []);
 
-    // Fetch all available tags from the database
+    // Existing fetch tags code...
     useEffect(() => {
         const fetchTags = async () => {
             try {
@@ -66,6 +75,7 @@ export default function CreatePost() {
         fetchTags();
     }, []);
 
+    // Keep all existing handlers...
     const handleTagSelection = (tag) => {
         if (!selectedTags.some(t => t.id === tag.id)) {
             setSelectedTags([...selectedTags, tag]);
@@ -97,14 +107,15 @@ export default function CreatePost() {
         }, 200);
     };
 
-    const filteredTags = allTags.filter(tag => 
+    const filteredTags = allTags.filter(tag =>
         tag.name.toLowerCase().includes(tagSearchTerm.toLowerCase()) &&
         !selectedTags.some(selected => selected.id === tag.id)
     );
 
+    // Update the submit handler to use UploadThing
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (!title.trim()) {
             toast.error("Vui lòng nhập tiêu đề bài viết");
             return;
@@ -131,34 +142,48 @@ export default function CreatePost() {
             // Extract tag IDs
             const tagIds = selectedTags.map(tag => tag.id);
 
-            // Create post data object
+            let imageData = null;
+
+            // Step 1: If we have an image, upload it using UploadThing
+            if (image) {
+                try {
+                    setIsUploading(true);
+                    // Upload to UploadThing
+                    const uploadResult = await startUpload([image]);
+
+                    if (!uploadResult || uploadResult.length === 0) {
+                        throw new Error("Failed to upload image");
+                    }
+
+                    // Get image data from the first result
+                    imageData = {
+                        fileUrl: uploadResult[0].url,
+                        fileKey: uploadResult[0].key,
+                        fileName: image.name,
+                        fileSize: image.size,
+                        fileType: image.type
+                    };
+                } catch (uploadError) {
+                    console.error("Upload failed:", uploadError);
+                    toast.error("Tải ảnh lên thất bại. Vui lòng thử lại.");
+                    return;
+                } finally {
+                    setIsUploading(false);
+                }
+            }
+
+            // Step 2: Create post data object
             const postData = {
                 title,
                 question,
-                userId: parseInt(userId),  // Will be mapped to user_id_id by the server
-                tags: tagIds              // Array of tag IDs as expected by the server
+                userId: parseInt(userId),
+                tags: tagIds,
+                // Include image data from UploadThing if available
+                ...(imageData ? { image: imageData } : {})
             };
 
-            // If we have an image, add it using FormData
-            if (image) {
-                const formData = new FormData();
-                
-                // Add the image file
-                formData.append('media', image);
-                
-                // Add post data as JSON string in a field
-                formData.append('postData', JSON.stringify(postData));
-                
-                // Call API to upload media first
-                await axiosInstance.post("/post/create-post", formData, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    }
-                });
-            } else {
-                // If no image, just send the post data directly
-                await axiosInstance.post("/post/create-post", postData);
-            }
+            // Step 3: Create the post
+            await axiosInstance.post("/post/create-post", postData);
 
             toast.success("Đăng bài thành công!");
             navigate("/community");
@@ -215,14 +240,14 @@ export default function CreatePost() {
                         <label className="block text-green-700 font-medium mb-2">Chọn thẻ</label>
                         <div className="flex flex-wrap gap-2 mb-2">
                             {selectedTags.map((tag) => (
-                                <span 
-                                    key={tag.id} 
+                                <span
+                                    key={tag.id}
                                     className="bg-green-600 text-white px-3 py-1 rounded-full text-sm flex items-center"
                                 >
                                     {tag.name}
-                                    <button 
+                                    <button
                                         type="button"
-                                        className="ml-1 text-white focus:outline-none" 
+                                        className="ml-1 text-white focus:outline-none"
                                         onClick={() => handleRemoveTag(tag)}
                                     >
                                         <X size={16} />
@@ -247,8 +272,8 @@ export default function CreatePost() {
                                         <div className="p-3 text-center text-gray-500">Đang tải thẻ...</div>
                                     ) : filteredTags.length > 0 ? (
                                         filteredTags.map(tag => (
-                                            <div 
-                                                key={tag.id} 
+                                            <div
+                                                key={tag.id}
                                                 className="p-2 hover:bg-gray-100 cursor-pointer flex items-center"
                                                 onClick={() => handleTagSelection(tag)}
                                             >
@@ -271,10 +296,10 @@ export default function CreatePost() {
                         <label className="block text-green-700 font-medium mb-2">Thêm hình ảnh (tùy chọn)</label>
                         {imagePreview && (
                             <div className="mb-4 relative">
-                                <img 
-                                    src={imagePreview} 
-                                    alt="Preview" 
-                                    className="max-w-full max-h-64 rounded-md" 
+                                <img
+                                    src={imagePreview}
+                                    alt="Preview"
+                                    className="max-w-full max-h-64 rounded-md"
                                 />
                                 <button
                                     type="button"
@@ -288,15 +313,15 @@ export default function CreatePost() {
                                 </button>
                             </div>
                         )}
-                        <div 
+                        <div
                             className="border-2 border-dashed border-gray-300 rounded-md p-8 text-center cursor-pointer"
                             onClick={() => fileInputRef.current?.click()}
                         >
                             <div className="flex flex-col items-center justify-center">
                                 <ImageIcon className="h-12 w-12 text-gray-400 mb-2" />
                                 <p className="text-gray-500 mb-4">Kéo và thả hình ảnh ở đây hoặc nhấp để duyệt</p>
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded"
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -324,12 +349,12 @@ export default function CreatePost() {
                         >
                             Hủy bỏ
                         </button>
-                        <button 
-                            type="submit" 
+                        <button
+                            type="submit"
                             className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded disabled:opacity-70 disabled:cursor-not-allowed"
-                            disabled={loading || !userId || selectedTags.length === 0}
+                            disabled={loading || isUploading || !userId || selectedTags.length === 0}
                         >
-                            {loading ? "Đang đăng..." : "Đăng bài"}
+                            {loading || isUploading ? "Đang đăng..." : "Đăng bài"}
                         </button>
                     </div>
                 </form>

@@ -43,7 +43,10 @@ function Finish() {
     }
   
     if (result === "win") fetchData();
-  }, []);  
+  }, []);
+  const handleSummary = () =>{
+    navigate("/summary")
+  }
   return (
     <>
       <QuizHeader progress={state.progress} isFinish={true} />
@@ -59,10 +62,16 @@ function Finish() {
         </>
       )}
       <button
-        className="fixed rounded-lg font-bold px-3 py-4 bg-[#14ae5c]  inline-block w-fit bottom-[10%] right-[10%] transition-transform duration-300 hover:bg-[#0e8c47] hover:scale-105"
+        className="fixed rounded-lg font-bold px-3 py-4 bg-[#14ae5c]  inline-block  bottom-[14%] w-[150px] right-[10%] transition-transform duration-300 hover:bg-[#0e8c47] hover:scale-105"
         onClick={handleClick}
       >
         Hành trình tiếp
+      </button>
+      <button
+        className="fixed rounded-lg font-bold px-3 py-4 bg-[#14ae5c]  inline-block bottom-[5%] w-[150px] right-[10%] transition-transform duration-300 hover:bg-[#0e8c47] hover:scale-105"
+        onClick={handleSummary}
+      >
+        Tổng kết
       </button>
     </>
   );

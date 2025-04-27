@@ -49,7 +49,7 @@ function Fail({desc}) {
               Chơi lại nhé
             </button>
             <button onClick={handleClick} className="bg-green-600  px-4 py-2 rounded-md font-semibold shadow-md hover:bg-green-700">
-              Hành trình mới
+              Hành trình tiếp
             </button>
           </div>
         </div>
