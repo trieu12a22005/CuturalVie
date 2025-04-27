@@ -1,10 +1,12 @@
 import { useEffect, } from "react";
-import { FaPlay, FaVolumeUp, FaHome} from "react-icons/fa";
+import { FaPlay, FaVolumeUp, FaHome, FaVolumeMute} from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { formatTime } from "../../utils/quizz";
 import { CountDown } from "../../store/Card";
+import { useAudio } from "../../context/AudioContext";
 
 const CardGameHeader = ({ref}) => {
+   let { isPlaying, setIsPlaying } = useAudio();
   let {seconds}=useSelector(state=>state.card)
   let dispatch=useDispatch()
   useEffect(()=>{
@@ -25,10 +27,17 @@ const CardGameHeader = ({ref}) => {
      
 
       {/* Icons */}
-      <div className="flex items-center gap-4 text-[#009951] text-2xl">
-        <FaPlay />
-        <FaVolumeUp />
-        <FaHome />
+      <div className="flex items-center gap-6 text-[#009951] text-2xl mr-5">
+        <Link to={"/home"}>
+          {" "}
+          <FaHome size={30} />
+        </Link>
+        
+        {isPlaying ? (
+          <FaVolumeUp size={30} onClick={() => setIsPlaying(false)} />
+        ) : (
+          <FaVolumeMute size={30} onClick={() => setIsPlaying(true)} />
+        )}
       </div>
     </div>
   );
