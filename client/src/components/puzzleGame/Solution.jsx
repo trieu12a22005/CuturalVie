@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Solution() {
   let { modal, current, puzzles } = useSelector((state) => state.puzzle);
- console.log(puzzles[current].Answer_text);
+ console.log(puzzles[current].answer_text);
   let ans = puzzles[current].imageUrl;
   const navigate = useNavigate();
   const handleClick = () => {
@@ -38,7 +38,7 @@ function Solution() {
             <span className="bg-green-300 text-green-900 font-semibold px-3 py-1 rounded-full">
               Đáp án
             </span>
-            <p className="mt-2 font-medium">{puzzles[current].Answer_text || ""}</p>
+            <p className="mt-2 font-medium">{puzzles[current].answer_text || ""}</p>
           </motion.div>
 
           <div className="relative">
