@@ -61,7 +61,7 @@ export default function CardGame({ ref }) {
         result: modal,
         description:
           modal == "win"
-            ? "bạn đã hoàn thành tốt trờ chơi"
+            ? "bạn đã hoàn thành tốt trò chơi"
             : "Hãy cố gắng những lần sau nhé<3",
       },
     });
