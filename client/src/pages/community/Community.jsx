@@ -6,6 +6,8 @@ import axiosInstance from "../../api/axios";
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Loader2 } from 'lucide-react';
+import Header from '../../components/Header/Header';
+import Footer from '../home/Footer';
 
 // Debounce function to limit how often a function can be called
 const debounce = (func, delay) => {
@@ -444,7 +446,9 @@ const Community = () => {
     });
 
     return (
-        <div className="min-h-screen bg-[url('/bg/bg3.png')] bg-cover bg-center">
+        <>
+        <Header />
+            <div className="min-h-screen bg-[url('/bg/bg3.png')] bg-cover bg-center">
             <div className="container mx-auto py-8 px-4">
                 <div className="bg-white rounded-lg p-6 mb-8 max-w-3xl mx-auto">
                     <div className="flex items-center justify-between mb-4">
@@ -585,6 +589,8 @@ const Community = () => {
                 </div>
             </div>
         </div>
+        <Footer />
+        </>
     )
 }
 
