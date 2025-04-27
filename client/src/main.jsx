@@ -8,7 +8,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { AudioProvider } from "./context/AudioContext.jsx";
 
 import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "./store/store.js"; // dùng named export đúng
+import { store, persistor } from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
   <>

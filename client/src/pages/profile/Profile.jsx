@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../../utils/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Header from "../../components/Header/Header";
 import Footer from "../home/Footer"
 const UserProfile = () => {
@@ -26,10 +28,10 @@ const UserProfile = () => {
             method: "GET",
             credentials: "include",
           }
-        );        
-          const data = await res.json();
-          console.log(data);
-          updateState(data);
+        );
+        const data = await res.json();
+        console.log(data.avatar_url);
+        updateState(data);
       } catch (err) {
         console.error("Lỗi khi fetch profile:", err);
       }
@@ -43,17 +45,33 @@ const UserProfile = () => {
         gender: data.gender || "",
         dob: data.date_of_birth?.split("T")[0] || "",
         avatar:
-          data.avatar ||
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
+          data.avatar_url ||
+          "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
       }));
     }
 
     fetchData();
   }, []);
-  const handleAvatarChange = (e) => {
+  const handleAvatarChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setAvatar(URL.createObjectURL(file));
+      try {
+        // Optional: show loading indicator here
+        const userId = formData.email || "user"; // Use email or another unique id
+        const filePath = `avatars/${userId}_${Date.now()}_${file.name}`;
+        const storageRef = ref(storage, filePath);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+        setFormData((prev) => ({
+          ...prev,
+          avatar: downloadURL,
+        }));
+        setAvatar(downloadURL);
+        toast.success("Tải ảnh đại diện thành công!");
+      } catch (err) {
+        toast.error("Tải ảnh đại diện thất bại!");
+        console.error(err);
+      }
     }
   };
   const handleChange = (e) => {
@@ -65,7 +83,7 @@ const UserProfile = () => {
   };
   const handleClick = async () => {
     const isoDate = new Date(formData.dob).toISOString();
-  
+
     const response = await fetch(
       `${import.meta.env.VITE_API_URL}/users/update-profile`,
       {
@@ -81,18 +99,16 @@ const UserProfile = () => {
         }),
       }
     );
-  
+
     const result = await response.json();
-    if (result)
-    {
+    if (result) {
       toast.success("Cập nhật thông tin thành công")
     }
-    else
-    {
+    else {
       toast.error("Lỗi")
     }
   };
-  const handleUpdate = () =>{
+  const handleUpdate = () => {
     navigate("/updatePassword")
   }
   return (
@@ -180,9 +196,8 @@ const UserProfile = () => {
                 onClick={() => setPasswordVisible(!passwordVisible)}
               >
                 <i
-                  className={`far ${
-                    passwordVisible ? "fa-eye" : "fa-eye-slash"
-                  } text-gray-400`}
+                  className={`far ${passwordVisible ? "fa-eye" : "fa-eye-slash"
+                    } text-gray-400`}
                 />
               </span>
               <button className="bg-[#009951] text-white ml-[20px] w-[150px] rounded font-bold" onClick={handleUpdate}>Update</button>
