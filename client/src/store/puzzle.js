@@ -2,7 +2,7 @@ import { createSlice} from "@reduxjs/toolkit";
 
 let initialState = {
   current: 0,
-  seconds: 10,
+  seconds: 90,
   progress: [],
   puzzles: [],
   modal: "",
