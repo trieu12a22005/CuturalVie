@@ -10,9 +10,9 @@ function Winning({desc}) {
       <img className="block mx-auto" src="/star/win.png" alt="Winning Star" />
 
       <button className="bg-green-300 font-bold px-7 py-1 rounded-full mt-3 ">
-        Kết quả
+        Kết quả 
       </button>
-      <p className="mt-2 font-bold text-gray-700">{desc}</p>
+      <p className="mt-2 font-bold text-gray-700 capitalize">{desc}</p>
       <img className=" absolute bottom-[-10%] right-[100%] translate-x-1/2" src="/character/Character10.png" alt="" />
     </div>
   );
