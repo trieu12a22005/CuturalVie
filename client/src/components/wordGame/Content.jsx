@@ -165,12 +165,12 @@ function Content() {
         </div>
 
         <div className="p-6">
-          <div className="flex text-center w-[800px] ml-[22vw] mt-[-5vh] flex-wrap justify-center gap-1">
+          <div className="flex text-center w-[800px] ml-[22vw]  mt-[1vh] flex-wrap justify-center gap-1">
             {letterChoices.map((letter, index) =>
               letter !== "" ? (
                 <div
                   key={index}
-                  className="w-[50px] h-[50px] mt-[10vh] border-[#14AE5C] bg-[#E2FFDD] border text-center flex items-center justify-center text-xl rounded-[20px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] cursor-pointer"
+                  className="w-[50px] h-[50px] border-[#14AE5C]  bg-[#E2FFDD] border text-center flex items-center justify-center text-xl rounded-[20px] shadow-[inset_2px_2px_5px_rgba(0,0,0,0.1),inset_-2px_-2px_5px_rgba(255,255,255,0.6)] cursor-pointer"
                   onClick={() => handleClick(letter, index)}
                 >
                   {letter}

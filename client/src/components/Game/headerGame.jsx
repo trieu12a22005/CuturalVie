@@ -13,7 +13,6 @@ const QuizHeader = ({ progress = [], count = 0, isFinish }) => {
 
   return (
     <div className="flex items-center justify-between bg-white p-4 rounded-b-2xl shadow-md w-full relative z-50">
-      {/* Progress Circles */}
 
       <div className="flex items-center gap-3">
         {progress.map((status, i) => (

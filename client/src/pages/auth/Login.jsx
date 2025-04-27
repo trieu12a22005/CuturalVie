@@ -74,6 +74,8 @@ export default function Login({ onClose, onSwitchToRegister }) {
       notifySuccess("Đăng nhập thành công");
       localStorage.setItem("accessToken", data.accessToken);
       localStorage.setItem("name", data.full_name);
+      localStorage.setItem("avatar", data?.avatar_url)
+      console.log(data.avatar_url)
       onClose();
     } catch (error) {
       console.log(error);

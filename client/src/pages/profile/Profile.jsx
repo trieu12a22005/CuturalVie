@@ -11,13 +11,10 @@ const UserProfile = () => {
     username: "",
     email: "",
     gender: "",
-    dob: "",
-    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
+    dob: ""
   });
 
-  const [avatar, setAvatar] = useState(
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"
-  );
+  const [avatar, setAvatar] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
@@ -44,10 +41,9 @@ const UserProfile = () => {
         email: data.email || "",
         gender: data.gender || "",
         dob: data.date_of_birth?.split("T")[0] || "",
-        avatar:
-          data.avatar_url ||
-          "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
       }));
+      setAvatar(data.avatar_url ||
+        "https://cdn-icons-png.flaticon.com/512/4140/4140037.png")
     }
 
     fetchData();
@@ -96,6 +92,7 @@ const UserProfile = () => {
           full_name: formData.username,
           date_of_birth: isoDate,
           gender: formData.gender,
+          avatar_url: avatar
         }),
       }
     );
@@ -103,6 +100,7 @@ const UserProfile = () => {
     const result = await response.json();
     if (result) {
       toast.success("Cập nhật thông tin thành công")
+      localStorage.setItem("avartar", avatar)
     }
     else {
       toast.error("Lỗi")
@@ -128,7 +126,7 @@ const UserProfile = () => {
           <div className="relative mb-4" style={{ maxWidth: "150px" }}>
             <div
               className="w-[150px] h-[150px] rounded-full border-4 border-gray-300 bg-cover bg-center transition-all hover:border-green-600 hover:brightness-90"
-              style={{ backgroundImage: `url('${formData.avatar}')` }}
+              style={{ backgroundImage: `url('${avatar}')` }}
             ></div>
             <input
               type="file"

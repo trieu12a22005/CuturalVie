@@ -5,10 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "../../pages/auth/Login";
 import "./style.css";
 import Register from "../../pages/auth/Register";
-import toast from "react-hot-toast";
 import { notifySuccess } from "../../utils/notify";
-import axiosInstance from "../../api/axios";
-
 const items = [
   { label: "Trang chủ", key: "home", path: "/home" },
   { label: "Cultural Journey", key: "cultural", path: "/start" },
@@ -26,10 +23,7 @@ const Header = ({tab}) => {
   const [showLoginModal, setShowLoginModal] = useState(Boolean(loginMode) && !newToken);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [token, setToken] = useState("");
- 
-  const navigate = useNavigate();
   useEffect(() => {
-   
     setToken(localStorage.getItem("accessToken"))
     if (newToken) {
       setIsLoggedIn(true);
@@ -42,7 +36,6 @@ const Header = ({tab}) => {
       setIsLoggedIn(false);
     }
   }, [token, newToken]);
- 
   const switchToRegister = () => {
     setShowLoginModal(false);
     setTimeout(() => {
@@ -112,7 +105,7 @@ const Header = ({tab}) => {
               <div className="flex items-center mr-[20px] gap-2 cursor-pointer">
                 <Avatar
                   size={40}
-                  src={userInfo.avatar || null}
+                  src={localStorage.getItem("avatar") || null}
                   icon={!userInfo. avatar && <UserOutlined />}
                   style={{ backgroundColor: "#87d068" }}
                 />

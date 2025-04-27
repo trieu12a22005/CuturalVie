@@ -56,7 +56,7 @@ const UserProfilePage = () => {
           {userInfo && (
             <div className="flex flex-col items-center mb-10">
               <img
-                src={userInfo.avatar_url || "/avatar-default.png"}
+                src={localStorage.getItem("avatar")}
                 alt="avatar"
                 className="w-32 h-32 rounded-full mb-4 object-cover"
               />

@@ -21,7 +21,7 @@ function FeedbackForm() {
       <div className="w-full max-w-xl  rounded-2xl bg-white shadow-md p-8">
         <div className="flex flex-col items-center mb-6">
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"
+            src={localStorage.getItem("avatar")}
             alt="Avatar"
             className="w-24 h-24 rounded-full border-4 border-white shadow-md mb-2"
           />
