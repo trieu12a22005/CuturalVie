@@ -9,7 +9,7 @@ import { initProgress, updateProgress } from "../../store/countSlice";
 function Content() {
   const [question, setQuestions] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(45);
+  const [second, setSecond] = useState(75);
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const [values, setValues] = useState([]);
