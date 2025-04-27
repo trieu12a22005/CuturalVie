@@ -42,7 +42,7 @@ function Trip() {
         transition={{ duration: 0.5 }}
         className="relative w-[95%] h-[95%] mx-auto"
       > 
-         <Backbutton home={true}/>
+         <Backbutton/>
         {/* Hình ảnh chiếm toàn bộ khung */}
         <motion.img
           src="bg/Frame 2.png"

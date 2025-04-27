@@ -35,7 +35,7 @@ const LearningInfo = ({ text ,setChatdata}) => {
           exit={{ opacity: 0, x: direction * -50 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <h3 className=" mt-[20px] mb-[20px] font-bold text-lg">
+          <h3 className=" mt-[20px]  font-bold text-lg">
             {text[currentIndex].heading}
           </h3>
           <ul className="list-disc pl-6 space-y-2">
