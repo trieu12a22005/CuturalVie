@@ -111,8 +111,8 @@ const Header = ({tab}) => {
               <div className="flex items-center mr-[20px] gap-2 cursor-pointer">
                 <Avatar
                   size={40}
-                  src={userInfo.avatar_url || null}
-                  icon={!userInfo. avatar_url && <UserOutlined />}
+                  src={userInfo.avatar || null}
+                  icon={!userInfo. avatar && <UserOutlined />}
                   style={{ backgroundColor: "#87d068" }}
                 />
                 <p className="font-semibold ml-[10px]">{userInfo.name}</p>

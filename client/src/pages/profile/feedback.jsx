@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
+import Header from "../../components/Header/Header";
 function FeedbackForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
 
   return (
-    <div
+    <>
+      <Header />
+      <div
       className="min-h-screen flex items-center justify-center py-10 px-4"
       style={{
         backgroundImage: "url(bg/bg3.png)",
@@ -18,11 +20,11 @@ function FeedbackForm() {
       <div className="w-full max-w-xl  rounded-2xl bg-white shadow-md p-8">
         <div className="flex flex-col items-center mb-6">
           <img
-            src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"
             alt="Avatar"
             className="w-24 h-24 rounded-full border-4 border-white shadow-md mb-2"
           />
-          <h2 className="text-2xl font-bold">Lê Mẫn Nhi</h2>
+          <h2 className="text-2xl font-bold">{localStorage.getItem("name")}</h2>
           <p className="text-gray-500">Là thành viên kể từ tháng 4 năm 2025</p>
           <h3 className="mt-2 text-[24px] text-green-600 font-bold">
             Ý kiến đóng góp
@@ -68,6 +70,7 @@ function FeedbackForm() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

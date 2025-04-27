@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/Header/Header";
 const UserProfile = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -8,11 +9,11 @@ const UserProfile = () => {
     email: "",
     gender: "",
     dob: "",
-    avatar: "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
+    avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
   });
 
   const [avatar, setAvatar] = useState(
-    "https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"
   );
   const navigate = useNavigate();
   useEffect(() => {
@@ -42,7 +43,7 @@ const UserProfile = () => {
         dob: data.date_of_birth?.split("T")[0] || "",
         avatar:
           data.avatar ||
-          "https://cdn-icons-png.flaticon.com/512/4140/4140037.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s",
       }));
     }
 
@@ -94,10 +95,12 @@ const UserProfile = () => {
     navigate("/updatePassword")
   }
   return (
-    <div
+    <>
+    <Header />
+      <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center pt-[100px] pb-[100px]"
       style={{
-        backgroundImage: "url(bg/bg3.png)",
+        backgroundImage: "url(/bg/bg3.png)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
       }}
@@ -225,6 +228,7 @@ const UserProfile = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
