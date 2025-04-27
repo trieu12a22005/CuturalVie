@@ -46,9 +46,9 @@ const QuizHeader = ({ progress = [], count = 0, isFinish }) => {
         </Link>
         
         {isPlaying ? (
-          <FaVolumeMute size={30} onClick={() => setIsPlaying(false)} />
+          <FaVolumeUp size={30} onClick={() => setIsPlaying(false)} />
         ) : (
-          <FaVolumeUp size={30} onClick={() => setIsPlaying(true)} />
+          <FaVolumeMute size={30} onClick={() => setIsPlaying(true)} />
         )}
       </div>
     </div>

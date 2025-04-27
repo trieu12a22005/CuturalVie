@@ -19,7 +19,7 @@ function PuzzleRule() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <motion.img
-        className="absolute left-1/2 -translate-x-1/2 w-[88%] h-auto -top-10"
+        className="absolute left-[53%] -translate-x-1/2 w-full h-auto -top-8"
         src="/game2/group.png"
         alt="Group Image"
         initial={{ opacity: 0, scale: 0.8 }}
@@ -39,7 +39,7 @@ function PuzzleRule() {
       {/* Button appears after 2 seconds */}
       {showButton && (
         <motion.button
-          className="absolute bottom-[-4%] left-1/2 -translate-x-1/2 px-6 py-2 bg-green-400 text-white font-bold rounded-full hover:bg-green-500 shadow-md transition"
+          className="absolute bottom-2 left-[55%] -translate-x-1/2 px-6 py-2 bg-green-400 text-white font-bold rounded-full hover:bg-green-500 shadow-md transition"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}

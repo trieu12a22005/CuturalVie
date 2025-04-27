@@ -2,7 +2,7 @@ import { generateReactHelpers } from "@uploadthing/react";
 
 const { useUploadThing, uploadFiles } = generateReactHelpers({
   // This tells the client where to find the UploadThing API endpoints
-  url: "http://localhost:5000/api/v1/upload",
+  url: `${import.meta.env.VITE_API_URL}/upload`,
 });
 
 export { useUploadThing, uploadFiles };

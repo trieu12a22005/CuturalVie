@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-  seconds: 20,
+  seconds: 3*60,
   cards: [],
   matched: [],
   modal: "",
