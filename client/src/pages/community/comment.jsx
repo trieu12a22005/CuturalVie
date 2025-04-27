@@ -4,12 +4,12 @@ const Comment = ({ avatar, author, content, likes, onLike, isLiked = false, repl
     return (
         <div className="mb-4">
             <div className="flex items-start gap-3">
-                <img src={avatar || "/placeholder.svg"} alt={author} width={40} height={40} className="rounded-full" />
+                <img src={avatar || "/https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"} alt={author} width={40} height={40} className="rounded-full object-cover aspect-square" />
                 <div className="flex-1">
                     <h4 className="font-medium text-green-600">{author}</h4>
                     <p className="text-gray-700">{content}</p>
                     <div className="flex items-center mt-1 text-sm">
-                        <button 
+                        <button
                             className={`flex items-center mr-3 ${isLiked ? 'text-blue-500' : 'text-gray-500'}`}
                             onClick={onLike}
                         >
@@ -34,7 +34,7 @@ const Comment = ({ avatar, author, content, likes, onLike, isLiked = false, repl
                     {replies.map((reply, index) => (
                         <div key={index} className="flex items-start gap-3 mt-3 ml-6">
                             <img
-                                src={reply.user?.avatar_url || "/placeholder.svg"}
+                                src={reply.user?.avatar_url || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"}
                                 alt={reply.user?.full_name || "Người dùng ẩn danh"}
                                 width={40}
                                 height={40}
