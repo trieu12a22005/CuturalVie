@@ -277,6 +277,7 @@ const Community = () => {
                 userId: parseInt(userId)
             });
             toast.success('Đã thích bài viết');
+            fetchPosts();
         } catch (err) {
             setLikedPostsMap(prev => ({
                 ...prev,
@@ -318,6 +319,7 @@ const Community = () => {
                 userId: parseInt(userId)
             });
             toast.success('Đã bỏ thích bài viết');
+            fetchPosts();
         } catch (err) {
             setLikedPostsMap(prev => ({
                 ...prev,

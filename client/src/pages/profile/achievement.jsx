@@ -30,10 +30,14 @@ function Achievement() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-white flex items-center justify-center py-10 mt-[50px]">
-        <div className="w-full max-w-3xl bg-white rounded-xl shadow-lg p-6 text-center">
+      <div className="min-h-screen flex items-center justify-center py-10 mt-[50px]" style={{
+        backgroundImage: "url(/bg/bg3.png)",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+      }}>
+        <div className="w-full max-w-3xl rounded-xl bg-white shadow-lg p-6 text-center" >
           <img
-            src="https://cdn-icons-png.flaticon.com/512/4140/4140037.png"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeJF7sVh67zp0MmU1w8UaRV9j_vZ0v9-ecYA&s"
             alt="Avatar"
             className="w-28 h-28 mx-auto rounded-full border-4 border-white shadow -mt-16 mb-2"
           />
