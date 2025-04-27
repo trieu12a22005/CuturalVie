@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import Layout from "../../../components/Layout";
 import {
   calculateTextDuration,
   firstParaDuration,
@@ -13,7 +12,7 @@ import {
 import InteractUser from "../../../components/InteractUser";
 import { useAudio } from "../../../context/AudioContext";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import Backbutton from '../../../components/BackButton'
 // ✨ Hiệu ứng chữ từng ký tự
 const letterVariants = {
   hidden: { opacity: 0, y: 10 },
@@ -143,6 +142,7 @@ const Rule = () => {
         }}
       />
       </main>
+      <Backbutton/>
     </>
   );
 };

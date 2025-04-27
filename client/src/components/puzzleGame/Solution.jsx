@@ -42,14 +42,14 @@ function Solution() {
           </motion.div>
 
           <div className="relative">
-            <motion.img
+           <div className=" min-h-[400px]"> <motion.img
               className="mt-8"
               src={ans}
               alt=""
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
-            />
+            /></div>
             <button
               onClick={handleClick}
               className="bg-green-400 hover:bg-green-500 transition-colors duration-300 w-fit block mt-5 text-white font-bold px-4 py-2 rounded-full mx-auto"

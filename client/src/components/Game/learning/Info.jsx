@@ -25,9 +25,9 @@ const LearningInfo = ({ text ,setChatdata}) => {
   };
 
   return (
-    <div className="relative ml-[100px]">
+    <div className="relative mr-4">
       <img src="/information_1/Group_7.png" alt="" />
-      <div className="p-4 text-gray-800 text-[15px] absolute top-3 w-full">
+      <div className="p-4 text-gray-800 text-[15px] absolute top-3 w-full ">
         <motion.div
           key={currentIndex}
           initial={{ opacity: 0, x: direction * 50 }}
@@ -35,7 +35,7 @@ const LearningInfo = ({ text ,setChatdata}) => {
           exit={{ opacity: 0, x: direction * -50 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <h3 className=" mt-[20px] mb-[20px] font-bold text-lg">
+          <h3 className=" mt-[20px]  font-bold text-lg">
             {text[currentIndex].heading}
           </h3>
           <ul className="list-disc pl-6 space-y-2">
@@ -46,7 +46,9 @@ const LearningInfo = ({ text ,setChatdata}) => {
         </motion.div>
 
         {/* Navigation buttons */}
-        <div className="flex justify-center gap-4 mt-4">
+       
+      </div>
+      <div className="flex justify-center gap-4 mt-auto absolute bottom-3 left-1/2 -translate-x-1/2">
           <button
             onClick={prevContent}
             disabled={currentIndex === 0}
@@ -70,7 +72,6 @@ const LearningInfo = ({ text ,setChatdata}) => {
             <ChevronRight size={20} />
           </button>
         </div>
-      </div>
     </div>
   );
 };

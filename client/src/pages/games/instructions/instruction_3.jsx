@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import {useLocation, useNavigate } from "react-router-dom";
+import BackButton from "../../../components/BackButton";
 function Instruction_3() {
   const {region}=useSelector(state=>state.region)
   const Image = `/bgRegion/image${region}.png`;
@@ -53,6 +54,7 @@ function Instruction_3() {
           Start
         </button>
       </motion.div>
+      <BackButton/>
     </>
   );
 }

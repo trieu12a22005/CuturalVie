@@ -61,12 +61,12 @@ function Finish() {
           <Fail desc={desc} />
         </>
       )}
-      <button
+     {result=="win" &&  <button
         className="fixed rounded-lg font-bold px-3 py-4 bg-[#14ae5c]  inline-block  bottom-[14%] w-[150px] right-[10%] transition-transform duration-300 hover:bg-[#0e8c47] hover:scale-105"
         onClick={handleClick}
       >
         Hành trình tiếp
-      </button>
+      </button>}
       <button
         className="fixed rounded-lg font-bold px-3 py-4 bg-[#14ae5c]  inline-block bottom-[5%] w-[150px] right-[10%] transition-transform duration-300 hover:bg-[#0e8c47] hover:scale-105"
         onClick={handleSummary}

@@ -76,7 +76,7 @@ export default function Experience() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6, duration: 0.4, ease: "easeOut" }}
-          className="bg-[#98D99A] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold"
+          className="bg-[#5ECE7D] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold"
         >
           <Link to={"/instructions_1"}>Chơi game</Link>
         </motion.button>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../../../components/BackButton';
 
 function PuzzleRule() {
   const [showButton, setShowButton] = useState(false);
@@ -12,7 +13,8 @@ function PuzzleRule() {
   }, []);
 
   return (
-    <motion.section
+    <>
+        <motion.section
       className="relative w-[95%] h-[95%]"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -49,6 +51,9 @@ function PuzzleRule() {
         </motion.button>
       )}
     </motion.section>
+    <BackButton/>
+    </>
+   
   );
 }
 

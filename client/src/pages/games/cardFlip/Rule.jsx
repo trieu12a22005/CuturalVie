@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import BackButton from '../../../components/BackButton';
 
 function CardRule() {
   const [showButton, setShowButton] = useState(false);
@@ -12,7 +13,8 @@ function CardRule() {
   }, []);
 
   return (
-    <motion.section
+    <>
+        <motion.section
       className="relative h-full"
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -60,6 +62,9 @@ function CardRule() {
         </motion.button>
       )}
     </motion.section>
+    <BackButton/>
+    </>
+    
   );
 }
 

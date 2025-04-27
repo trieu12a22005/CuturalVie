@@ -2,7 +2,7 @@ import React from "react";
 
 function FeedBack() {
   return (
-    <div className="bg-[#f0fbea] py-12 px-4 font-[lora]">
+    <div className="bg-[#EBFFEE] py-12 px-4 font-[lora]">
     <div className="max-w-6xl mx-auto">
       <h2 className="text-4xl font-bold text-green-600 mb-6">
         Đánh giá và đóng góp

@@ -94,7 +94,7 @@ const About = () => {
           ))}
         </div>
 
-        <button className="bg-[#98D99A] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold">
+        <button className="bg-[#5ECE7D] hover:bg-[#87c489] text-white text-lg px-6 py-2 rounded-full transition font-bold">
         <Link to={"/instructions_1"}>Chơi game</Link>
         </button>
       </motion.div>
