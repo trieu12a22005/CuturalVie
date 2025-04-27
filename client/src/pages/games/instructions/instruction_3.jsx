@@ -51,7 +51,7 @@ function Instruction_3() {
              shadow-md transition duration-300 ease-in-out"
              onClick={handleClick}
         >
-          Start
+          Bắt đầu
         </button>
       </motion.div>
       <BackButton/>
