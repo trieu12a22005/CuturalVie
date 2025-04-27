@@ -10,7 +10,7 @@ function Question() {
   const [question, setQuestions] = useState([]);
   const [selected, setSelected] = useState(null);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(10000);
+  const [second, setSecond] = useState(15);
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const navigate = useNavigate();

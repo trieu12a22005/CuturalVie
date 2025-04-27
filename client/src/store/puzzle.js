@@ -1,8 +1,8 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 
 let initialState = {
   current: 0,
-  seconds: 36000,
+  seconds: 60,
   progress: [],
   puzzles: [],
   modal: "",

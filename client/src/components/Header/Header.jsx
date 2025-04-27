@@ -18,14 +18,15 @@ const items = [
 
 const Header = ({tab}) => {
   const location = useLocation();
+  const newToken = localStorage.getItem("accessToken")
   const searchParams = new URLSearchParams(location.search);
   const loginMode = searchParams.get('login'); 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: "", avatar: "" });
-  const [showLoginModal, setShowLoginModal] = useState(Boolean(loginMode));
+  const [showLoginModal, setShowLoginModal] = useState(Boolean(loginMode) && !newToken);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [token, setToken] = useState("");
-  const newToken = localStorage.getItem("accessToken")
+ 
   const navigate = useNavigate();
   useEffect(() => {
    

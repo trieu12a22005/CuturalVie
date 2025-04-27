@@ -9,7 +9,7 @@ import { initProgress, updateProgress } from "../../store/countSlice";
 function Content() {
   const [question, setQuestions] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-  const [second, setSecond] = useState(6000);
+  const [second, setSecond] = useState(10);
   const [modal, setModal] = useState(null);
   const [display, setDisplay] = useState(false);
   const [values, setValues] = useState([]);
@@ -20,7 +20,7 @@ function Content() {
   let {region}= useSelector((state) => state.region);
   useEffect(() => {
     fetch(
-      `https://viet-cultural-be.vercel.app/api/v1/game/get-gamedata?regionId=${region}&gameType=word`,
+      `${import.meta.env.VITE_API_URL}/game/get-gamedata?regionId=${region}&gameType=word`,
       {
         method: "GET",
         credentials: "include",
@@ -51,6 +51,7 @@ function Content() {
       const isEqual =
         JSON.stringify(values) === JSON.stringify(currentQues?.correct_letters);
       setModal(isEqual ? "correct" : "wrong");
+      dispatch(updateProgress(isEqual ? true : false))
       setDisplay(true);
       const audio = new Audio(`sound/${isEqual ? "correct" : "wrong"}.mp3`);
       audio.play();
@@ -153,7 +154,7 @@ function Content() {
       <div className="bg-white min-h-[282px] rounded-t-2xl overflow-hidden shadow-md mt-auto">
         <div className="bg-[#009951] text-white p-3 flex">
           {submitted ? (
-            <span className="bg-green-300 text-black px-4 py-1 rounded-full font-bold ml-[680px] mr-[600px]">
+            <span className="bg-green-300 text-black px-4 py-1 rounded-full font-bold ml-[680px] mr-[600px] text-center">
               {currentQues?.answer}
             </span>
           ) : (
@@ -184,7 +185,7 @@ function Content() {
               className="mt-[2vh] ml-[85vw] block disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span
-                className="px-[35px] py-[15px] font-bold rounded-md"
+                className="px-[35px] py-[15px] font-bold rounded-md text-center"
                 style={{ backgroundColor: "#14AE5C" }}
               >
                 Tiếp tục
