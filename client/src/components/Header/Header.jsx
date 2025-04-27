@@ -68,7 +68,7 @@ const Header = ({tab}) => {
         <Link to="/achievement">Thành tích</Link>
       </Menu.Item>
       <Menu.Item key="3" className="hover:!bg-[#02542D] hover:!text-white">
-        <Link to="/posts">Bài đã đăng</Link>
+        <Link to="/profile/post">Bài đã đăng</Link>
       </Menu.Item>
       <Menu.Item key="4" className="hover:!bg-[#02542D] hover:!text-white">
         <Link to="/feedback">Ý kiến đóng góp</Link>

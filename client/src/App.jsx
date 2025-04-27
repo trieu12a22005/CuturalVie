@@ -38,6 +38,7 @@ import Summary from "./components/Game/Finish/Summary";
 import Community from "./pages/community/Community";
 import CreatePost from "./pages/community/createPost/CreatePost";
 import AIProvider from "./components/AI/AIProvider";
+import UserProfilePage from "./pages/profile/post";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -220,6 +221,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Achievement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile/post"
+          element={
+            <ProtectedRoute>
+              <UserProfilePage />
             </ProtectedRoute>
           }
         />
