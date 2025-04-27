@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const regions = [
   { name: "Tây Bắc", image: "/home/regions/tay-bac.png" },
@@ -23,21 +24,22 @@ function VietnamRegions() {
         className="grid grid-cols-6 gap-6"
       >
         {regions.map((region, index) => (
-          <div
-            key={region.name}
-            className={`relative h-[500px] overflow-hidden rounded-[36px] shadow-lg transition-transform duration-300 group ${
-              index % 2 === 1 ? "translate-y-10" : ""
-            }`}
-          >
-            <img
-              src={region.image}
-              alt={region.name}
-              className="w-full h-full object-cover rounded-[36px]"
-            />
-            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-center p-4 rounded-[36px] transition duration-300">
-              <span className="text-lg font-semibold">{region.name}</span>
+          <Link to="/contact" key={region.name} className="block">
+            <div
+              className={`relative h-[500px] overflow-hidden rounded-[36px] shadow-lg transition-transform duration-300 group ${
+                index % 2 === 1 ? "translate-y-10" : ""
+              }`}
+            >
+              <img
+                src={region.image}
+                alt={region.name}
+                className="w-full h-full object-cover rounded-[36px]"
+              />
+              <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center text-center p-4 rounded-[36px] transition duration-300">
+                <span className="text-lg font-semibold">{region.name}</span>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </motion.div>
     </section>

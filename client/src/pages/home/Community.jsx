@@ -107,7 +107,7 @@ export default function VietcuturalCommunity() {
       </div>
       <div className="flex justify-center mt-8">
         <button className="bg-[#5ECE7D] text-white py-2.5 px-10 rounded-full text-lg font-semibold hover:bg-[#68b07c] transition">
-        <Link to={"/instructions_1"}>Chơi game</Link>
+        <Link to={"/community"}>Tham gia ngay</Link>
         </button>
       </div>
     </motion.div>
