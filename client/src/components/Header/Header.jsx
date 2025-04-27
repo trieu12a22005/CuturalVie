@@ -12,9 +12,9 @@ const items = [
   { label: "Cộng đồng", key: "community", path: "/community" },
   { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
 ];
-const navigate  = useNavigate();
 const Header = ({tab}) => {
   const location = useLocation();
+  const navigate  = useNavigate();
   const newToken = localStorage.getItem("accessToken")
   const searchParams = new URLSearchParams(location.search);
   const loginMode = searchParams.get('login'); 
