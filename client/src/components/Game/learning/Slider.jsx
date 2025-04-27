@@ -20,9 +20,17 @@ const getYoutubeEmbedUrl = (url) => {
 };
 
 export default function ImageSlider({ image }) {
+  image.forEach((item, index) => {
+    if (isYoutubeUrl(item.youtubeLink)) {
+      const tmp = image.splice(index, 1)[0];
+      image.unshift(tmp);
+    }
+  });
+  
   return (
-    <div className="relative flex-1 min-w-[400px] p-6 ml-10">
+    <div className="relative min-w-[400px] flex-1 ml-10">
       <Swiper
+       
         modules={[Navigation]}
         navigation={{
           nextEl: ".next",
@@ -41,13 +49,13 @@ export default function ImageSlider({ image }) {
             <SwiperSlide key={index}>
               <div className="text-center">
                 {isYoutubeUrl(youtube) ? (
-                  <div className="w-full aspect-video">
+                  <div className="w-full">
                     <iframe
                       src={getYoutubeEmbedUrl(youtube)}
                       title="YouTube video"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
-                      className="w-full h-full rounded-xl"
+                      className="w-full h-[250px] rounded-xl"
                     ></iframe>
                   </div>
                 ) : images.length > 0 ? (
@@ -60,7 +68,7 @@ export default function ImageSlider({ image }) {
 
                 {/* Only show alt text if it exists */}
                 {alt && (
-                  <p className="mt-2 text-sm font-semibold text-gray-700">
+                  <p className="text-sm font-semibold text-gray-700 py-2">
                     {alt}
                   </p>
                 )}
@@ -70,7 +78,7 @@ export default function ImageSlider({ image }) {
         })}
       </Swiper>
 
-      <div className="flex gap-12 mt-5 justify-center">
+      <div className="flex gap-12 justify-center">
         <button className="prev flex items-center justify-center w-10 h-10 border-2 border-black text-black rounded-full bg-transparent hover:bg-black hover:text-white transition">
           <FaChevronLeft />
         </button>
