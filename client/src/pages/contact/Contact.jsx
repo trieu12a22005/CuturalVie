@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../../components/Header/Header";
 import Section from "./Section";
+import Footer from '../home/Footer'
 
 const Contact = () => {
   const sections = [
@@ -58,6 +59,7 @@ const Contact = () => {
           <Section key={index} title={section.title} items={section.items}/>
         ))}
       </section>
+      <Footer />
     </div>
   );
 };

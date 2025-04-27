@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Pagination, Tag, Spin } from "antd";
 import { LikeOutlined, CommentOutlined } from "@ant-design/icons";
 import Header from "../../components/Header/Header";
-
+import Footer from "../home/Footer"
 const UserProfilePage = () => {
   const [posts, setPosts] = useState([]);
   const [userInfo, setUserInfo] = useState(null);
@@ -145,6 +145,7 @@ const UserProfilePage = () => {
           )}
         </div>
       </div>
+      <Footer />
     </>
   );
 };

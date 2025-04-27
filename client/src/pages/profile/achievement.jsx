@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
-
+import Footer from "../home/Footer"
 function Achievement() {
   const [achiev, setAchiev] = useState([]);
   useEffect(() => {
@@ -96,6 +96,7 @@ function Achievement() {
             </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 }

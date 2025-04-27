@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import Footer from "../home/Footer"
 function FeedbackForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -70,6 +71,7 @@ function FeedbackForm() {
         </div>
       </div>
     </div>
+    <Footer />
     </>
   );
 }

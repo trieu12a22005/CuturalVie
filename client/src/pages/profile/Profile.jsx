@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
+import Footer from "../home/Footer"
 const UserProfile = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -228,6 +229,7 @@ const UserProfile = () => {
         </div>
       </div>
     </div>
+    <Footer />
     </>
   );
 };

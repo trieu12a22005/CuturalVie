@@ -49,7 +49,7 @@ function InstructionTrip() {
           className="mt-[20px] flex ml-[44%] bg-[#009951] p-[15px] pl-[40px] pr-[40px] rounded-2xl text-[20px] text-white font-bold"
           onClick={handleClick}
         >
-          Start now
+          Bắt đầu ngay
         </button>
         <BackButton/>
       </div>
