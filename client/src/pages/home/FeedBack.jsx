@@ -4,7 +4,7 @@ import { notifyError, notifySuccess } from "../../utils/notify";
 function FeedBack() {
   let [text,setText]=useState("")
   let handleClick=()=>{
-      if (!text) return notifyError("vui lòng nhập thông tin")
+      if (!text) return notifyError("Vui lòng nhập feedback của bạn")
       notifySuccess("Cảm ơn những feedback của bạn <3")
   }
   return (
