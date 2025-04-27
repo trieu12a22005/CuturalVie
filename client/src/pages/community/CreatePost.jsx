@@ -151,10 +151,12 @@ export default function CreatePost() {
                     // Get the download URL
                     const downloadURL = await getDownloadURL(storageRef);
 
+                    const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+
                     imageData = {
                         fileUrl: downloadURL,
                         fileKey: filePath,
-                        fileName: image.name,
+                        fileName: `${date}_${image.name}`,
                         fileSize: image.size,
                         fileType: image.type
                     };
