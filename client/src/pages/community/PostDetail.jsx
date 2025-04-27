@@ -8,6 +8,7 @@ import Header from "../../components/Header/Header";
 export default function PostDetail() {
     const { postId } = useParams();
     const [post, setPost] = useState(null);
+    const [comments, setComments] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -16,9 +17,9 @@ export default function PostDetail() {
         const fetchPost = async () => {
             try {
                 setLoading(true);
-                const response = await axiosInstance.get(`/post/get-post`,
-                    { params: { postId } }
-                );
+                const response = await axiosInstance.get(`/post/get-post`, {
+                    params: { postId }
+                });
                 setPost(response.data);
             } catch (err) {
                 setError("Không thể tải bài viết. Vui lòng thử lại sau.");
@@ -27,6 +28,18 @@ export default function PostDetail() {
             }
         };
         fetchPost();
+    }, [postId]);
+
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const res = await axiosInstance.get(`/comment/post/${postId}`);
+                setComments(res.data);
+            } catch (err) {
+                toast.error("Không thể tải bình luận.");
+            }
+        };
+        if (postId) fetchComments();
     }, [postId]);
 
     if (loading) {
@@ -83,7 +96,7 @@ export default function PostDetail() {
                         </div>
                         <div className="flex items-center gap-6 text-gray-600 text-sm mb-2">
                             <span>❤️ {post.likeCount || 0} yêu thích</span>
-                            <span>💬 {post.comments?.length || 0} bình luận</span>
+                            <span>💬 {comments.length} bình luận</span>
                             <span>🕒 {new Date(post.created_at).toLocaleString('vi-VN')}</span>
                         </div>
                     </div>
