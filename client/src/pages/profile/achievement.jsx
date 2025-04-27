@@ -37,7 +37,7 @@ function Achievement() {
       }}>
         <div className="w-full max-w-3xl rounded-xl bg-white shadow-lg p-6 text-center" >
           <img
-            src= {localStorage.getItem("avatar")}
+            src={localStorage.getItem("avatar")}
             alt="Avatar"
             className="w-28 h-28 mx-auto rounded-full border-4 border-white shadow -mt-16 mb-2"
           />

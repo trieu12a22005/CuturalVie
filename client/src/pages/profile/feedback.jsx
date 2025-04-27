@@ -1,12 +1,44 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import Footer from "../home/Footer"
+import toast from "react-hot-toast"
 function FeedbackForm() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
-
+  const navigate = useNavigate()
+  const handleClick = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/feedback`, {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: title,
+          content: content,
+        }),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        toast.success("Gửi phản hồi thành công!");
+        setTitle("");
+        setContent("");
+        navigate("/home")
+        // Optionally redirect
+        // navigate("/home");
+      } else {
+        toast.error(data.message || "Gửi phản hồi thất bại!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Đã có lỗi xảy ra khi gửi phản hồi!");
+    }
+  };
+  
   return (
     <>
       <Header />
@@ -62,7 +94,7 @@ function FeedbackForm() {
 
         {/* Buttons */}
         <div className="flex justify-center gap-4">
-          <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md">
+          <button className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-md" onClick={handleClick}>
             Gửi thư
           </button>
           <button className="bg-gray-200 text-gray-600 font-semibold px-6 py-2 rounded-md">
