@@ -46,7 +46,7 @@ function Learning() {
        if (data) setInfo(data?.topic);
        else throw new Error()
       } catch (error) {
-        navigate(-1);
+        handleClick();
         notifyError("Hiện chưa có thông tin về phần này!")
       
       } finally {
