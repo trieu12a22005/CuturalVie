@@ -47,7 +47,7 @@ function Question() {
       setSubmitted(true);
       setModal("wrong");
       setDisplay(true);
-
+      dispatch(updateProgress(false))
       const audio = new Audio(`sound/wrong.mp3`);
       audio.play();
       return;
