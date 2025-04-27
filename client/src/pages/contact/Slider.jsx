@@ -26,7 +26,7 @@ const ImageSlider = ({items}) => {
           <SwiperSlide key={index}>
             <div className='relative rounded-lg overflow-hidden group'>
                 <img
-                src={item.image}
+                src={item.imageUrl}
                 alt={item.name}
                 className="w-full h-48 object-cover transition duration-300 group-hover:brightness-50"
                 />
