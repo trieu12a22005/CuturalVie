@@ -9,7 +9,6 @@ const CardGameHeader = ({ref}) => {
    let { isPlaying, setIsPlaying } = useAudio();
   let {seconds}=useSelector(state=>state.card)
   let dispatch=useDispatch()
-  console.log(ref.current);
   useEffect(()=>{
     ref.current=setInterval(()=>{
       dispatch(CountDown(ref.current))

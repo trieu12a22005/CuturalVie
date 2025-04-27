@@ -26,7 +26,6 @@ const refreshAccessToken = async () => {
   try {
   
     const response = await axios.post(`${baseURL}/auth/refresh-token`,{});
-    console.log(response);
     const { accessToken } = response.data;
     localStorage.setItem('accessToken', accessToken);
     return accessToken;
@@ -41,7 +40,6 @@ const refreshAccessToken = async () => {
 axiosInstance.interceptors.request.use(
   async (config) => {
     let accessToken = localStorage.getItem('accessToken');
-    console.log(accessToken);
     if (accessToken && isTokenExpired(accessToken)) {
       try {
         

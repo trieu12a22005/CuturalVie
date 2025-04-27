@@ -4,7 +4,6 @@ let winText="Giỏi quá! Bạn đã trả lời đúng rồi"
 let loseText="Tiếc quá! sai mất rồi"
 let timeoutText="Tiếc quá! hết thời gian mất rồi"
 function Congra({type}) {
-  console.log(type);
   let isWin=type=="win"
   return (
   

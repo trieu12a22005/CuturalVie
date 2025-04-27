@@ -32,7 +32,6 @@ function Trip() {
       },
     });
   }
-  console.log(region,game);
   return (
     <>
       <motion.div

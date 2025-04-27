@@ -12,8 +12,6 @@ function InstructionTrip() {
   const index = location.state?.index;
   const image = `/trip/trip${index + 1}.png`;
   const { region, game} = useSelector((state) => state.region);
-  console.log(region)
-  console.log(game)
   const navigate = useNavigate();
   const paths = {
     1: "/quizz/rule",
@@ -30,7 +28,6 @@ function InstructionTrip() {
     if (path) {
       navigate(path);
     } else {
-      console.log(game[index])
       notifyError("Không tìm thấy game phù hợp");
     }
   };

@@ -27,7 +27,6 @@ export const questions = [
 export function getTotalists() {
    const state = store.getState();
    let arr=[null,state.count.progress.length,state.puzzle.puzzles.length,null,state.count.progress.length];
-   console.log(arr);
    return arr;
 }
 //format time

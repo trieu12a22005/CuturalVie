@@ -9,7 +9,6 @@ const TooltipText = ({ text, setModal }) => {
     const startElement =startNode instanceof Element ? startNode : startNode.parentElement;
     const endNode = range.endContainer;
     const endElement = endNode instanceof Element ? endNode : endNode.parentElement;
-    console.log(startNode,endNode);
     let selectedText = "";
     let stop = false;
     document.querySelectorAll(".tooltip-text").forEach((item) => {
@@ -19,7 +18,6 @@ const TooltipText = ({ text, setModal }) => {
       }
       if (item == endElement) stop = true;
     });
-    console.log(selectedText);
    setModal(selectedText.trim());
     selection.removeAllRanges();
   };

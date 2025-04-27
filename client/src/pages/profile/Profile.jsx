@@ -27,7 +27,6 @@ const UserProfile = () => {
           }
         );
         const data = await res.json();
-        console.log(data.avatar_url);
         updateState(data);
       } catch (err) {
         console.error("Lỗi khi fetch profile:", err);

@@ -115,7 +115,10 @@ const UserProfilePage = () => {
                         <div className="flex space-x-6 text-gray-600 text-sm items-center">
                           <div><LikeOutlined /> {post.likeCount} yêu thích</div>
                           <div><CommentOutlined /> {post.commentCount} bình luận</div>
-                          <a href="#" className="text-green-700 hover:underline ml-auto">
+                          <a
+                            href={`/community/post/${post.id}`}
+                            className="text-green-700 hover:underline ml-auto"
+                          >
                             Đọc thêm
                           </a>
                         </div>

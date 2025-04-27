@@ -12,7 +12,6 @@ function Finish() {
   const navigate = useNavigate();
   const nametrip = localStorage.getItem("trip");
   let {currentGame}=useSelector(state=>state.region)
-  console.log(currentGame);
    let state=useSelector(state=>state[storename[currentGame]])
   const {region}=useSelector(state=>state.region)
   const handleClick = () => {
@@ -36,7 +35,6 @@ function Finish() {
         );
   
         const data = await response.json();
-        console.log(data)
       } catch (error) {
         console.error("Lỗi khi fetch:", error);
       }

@@ -23,7 +23,6 @@ function Summary() {
         );
 
         const data = await response.json();
-        console.log(data);
         setAchiev(data);
       } catch (error) {
         console.error("Lỗi khi fetch:", error);

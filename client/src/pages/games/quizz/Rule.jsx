@@ -50,7 +50,6 @@ const Rule = () => {
   const navigate = useNavigate();
 
   const { region } = location.state || {};
-  console.log(region)
   const handleClick = () => {
     navigate("/game_1", {
       state: {

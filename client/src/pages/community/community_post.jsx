@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
+import { MoreVertical } from 'lucide-react'
 
 // Hàm để định dạng thời gian
 const formatTimeAgo = (dateString) => {
@@ -31,8 +32,28 @@ const formatTimeAgo = (dateString) => {
     }
 };
 
-const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, shares, image, onLike, isLiked, created_at }) => {
+const CommunityPost = ({
+    avatar, author, title, content, tags, likes, comments, shares, image, onLike, isLiked, created_at,
+    postId, userId, ownerId, onEdit, onDelete
+}) => {
     const timeAgo = formatTimeAgo(created_at);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef(null);
+
+    // Close menu if clicked outside
+    React.useEffect(() => {
+        function handleClickOutside(event) {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                setMenuOpen(false);
+            }
+        }
+        if (menuOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, [menuOpen]);
 
     // Generate a color class for each tag based on its index for diversity
     const tagColors = [
@@ -49,24 +70,53 @@ const CommunityPost = ({ avatar, author, title, content, tags, likes, comments, 
     ];
 
     return (
-        <div className="mb-6 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors">
-            <div className="flex items-start gap-3 mb-2">
-                <img src={avatar || "/placeholder.svg"} alt={author} width={50} height={50} className="rounded-full" />
-                <div>
-                    <h2 className="font-bold text-lg">{title}</h2>
-                    <p className="text-sm text-gray-600">
-                        Viết bởi: <span className="text-green-600">{author}</span>
-                    </p>
-                </div>
-                {image ? (
-                    <div className="ml-auto">
-                        <div className="text-xs text-gray-500 text-right mb-1">{timeAgo}</div>
-                        <img src={image || "/placeholder.svg"} alt={title} width={150} height={100} className="rounded-lg" />
+        <div className="mb-6 cursor-pointer hover:bg-gray-50 rounded-lg p-3 transition-colors relative">
+            <div className='flex flex-row justify-between gap-2'>
+                <div className="flex items-start gap-3 mb-2">
+                    <img src={avatar || "/placeholder.svg"} alt={author} width={50} height={50} className="rounded-full object-cover aspect-square" />
+                    <div>
+                        <h2 className="font-bold text-lg">{title}</h2>
+                        <p className="text-sm text-gray-600">
+                            Viết bởi: <span className="text-green-600">{author}</span>
+                        </p>
                     </div>
-                ) : (
-                    <div className="ml-auto text-xs text-gray-500">{timeAgo}</div>
-                )}
+                </div>
+                <div className='flex flex-row gap-8'>
+                    {image ? (
+                        <div className="ml-auto">
+                            <div className="text-xs text-gray-500 text-right mb-1">{timeAgo}</div>
+                            <img src={image || "/placeholder.svg"} alt={title} width={150} height={100} className="rounded-lg" />
+                        </div>
+                    ) : (
+                        <div className="ml-auto text-xs text-gray-500">{timeAgo}</div>
+                    )}
+                    {/* Three-dot menu for owner */}
+                    {userId && ownerId && userId === ownerId && (
+                        <div className="ml-auto relative" ref={menuRef}>
+                            <button
+                                className="p-2 rounded-full hover:bg-gray-200"
+                                onClick={e => { e.stopPropagation(); setMenuOpen(v => !v); }}
+                            >
+                                <MoreVertical size={20} />
+                            </button>
+                            {menuOpen && (
+                                <div className="absolute right-0 mt-2 w-32 bg-white border rounded shadow z-20">
+                                    <button
+                                        className="block w-full text-left px-4 py-2 hover:bg-gray-100"
+                                        onClick={e => { e.stopPropagation(); setMenuOpen(false); onEdit && onEdit(postId); }}
+                                    >Sửa bài</button>
+                                    <button
+                                        className="block w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                                        onClick={e => { e.stopPropagation(); setMenuOpen(false); onDelete && onDelete(postId); }}
+                                    >Xóa bài</button>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
+
             </div>
+
 
             <p className="text-gray-700 mb-3">{content}</p>
 

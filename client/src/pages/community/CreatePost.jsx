@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, ImageIcon, X, Check } from "lucide-react";
-import axiosInstance from "../../../api/axios";
+import axiosInstance from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { storage } from "../../../utils/firebase";
+import { storage } from "../../utils/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 

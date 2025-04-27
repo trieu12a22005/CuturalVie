@@ -70,7 +70,6 @@ export default function Register({ onClose, onSwitchToLogin }) {
         "https://viet-cultural-be.vercel.app/api/v1/auth/send-verification-email",
         { email: formData.email }
       );
-      console.log("OTP đã gửi:", res.data);
     } catch (err) {
       console.error("Lỗi gửi OTP:", err.response?.data || err.message);
     }
@@ -93,7 +92,6 @@ export default function Register({ onClose, onSwitchToLogin }) {
 
       if (response) {
         toast.success("Đăng kí thành công!");
-        console.log("Đăng kí thành công:", response.data);
         await fetchApi();
         navigate("/verify-otp")
       }

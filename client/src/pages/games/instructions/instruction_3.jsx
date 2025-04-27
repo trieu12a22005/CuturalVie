@@ -7,7 +7,6 @@ function Instruction_3() {
   const Image = `/bgRegion/image${region}.png`;
   const location = useLocation();
   const description = location.state.description;
-  console.log(description)
   const navigate = useNavigate();
   const text1 = description.text1;
   const subject = description.subject;
