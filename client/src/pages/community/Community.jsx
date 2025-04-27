@@ -59,7 +59,6 @@ const Community = () => {
             const { posts: fetchedPosts, pagination } = response.data || { posts: [], pagination: {} };
 
             setPosts(fetchedPosts);
-            console.log(fetchedPosts);
             setTotalPages(pagination.totalPages || 1);
 
             // Fetch comments for all posts

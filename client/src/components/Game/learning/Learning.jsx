@@ -43,7 +43,6 @@ function Learning() {
           }
         );
         const data = await res.json();
-        console.log(data);
         setInfo(data.topic);
       } catch (error) {
         console.error("Lỗi khi fetch:", error);

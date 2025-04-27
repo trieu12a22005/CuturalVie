@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 function Solution() {
   let { modal, current, puzzles } = useSelector((state) => state.puzzle);
- console.log(puzzles[current].answer_text);
+
   let ans = puzzles[current].imageUrl;
   const navigate = useNavigate();
   const handleClick = () => {

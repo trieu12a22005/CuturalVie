@@ -12,7 +12,6 @@ export default function VerifyOTP() {
   const navigate = useNavigate();
   const email = location.state?.email;
   const handleVerify = async () => {
-    console.log(otp)
     if (!otp.trim()) {
       notifyError("Vui lòng nhập mã OTP");
       return;

@@ -14,7 +14,6 @@ function Information() {
  
   const handleClick = () =>{
     dispatch(increase());
-    console.log(count)
     navigate("/"+`${game_type}`)
   }
   return (

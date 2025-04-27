@@ -33,7 +33,6 @@ const DetailPage = () => {
           `${import.meta.env.VITE_API_URL}/knowledge-post/get-post?subject=${subject}&page=${currentPage}`
         );
         const result = await response.json();
-        console.log(result);
         setData(result.posts);
         setTotalPages(result.totalPages);
       } catch (error) {
@@ -49,7 +48,6 @@ const DetailPage = () => {
 
   const handleReadMore = (item) => {
     const relatedPosts = data.filter((post) => post.id  !== item.id)
-    console.log(relatedPosts);
     
     navigate(`/detail-more`, { state: {item, relatedPosts} })
   }

@@ -38,7 +38,6 @@ function Question() {
   }, []);
   const count = useSelector((state) => state.count.value);
   const currentQues = question[count];
-  console.log(count);
   useEffect(() => {
     if (submitted) return;
     if (second <= 0) {

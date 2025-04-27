@@ -66,7 +66,6 @@ export default function ResetPassword() {
 
     if (Object.values(newErrors).some((error) => error)) return;
     toast.success("Mật khẩu đã được thay đổi thành công!");
-    console.log("Form Submitted:", formData);
   };
 
   return (

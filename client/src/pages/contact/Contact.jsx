@@ -14,7 +14,6 @@ const Contact = () => {
         const result = await response.json()
         if (Array.isArray(result)) {
           setSections(result);
-          console.log(result);
           
         } else {
           console.error("API trả về dữ liệu không phải là mảng:", result);

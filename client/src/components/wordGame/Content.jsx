@@ -28,7 +28,6 @@ function Content() {
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setQuestions(data);
         dispatch(initProgress(data))
       })
@@ -114,7 +113,6 @@ function Content() {
     audio.play();
     setSubmitted(true);
   };
-  console.log(count,progress.length);
   return (
     <>
       {display ? (

@@ -10,7 +10,6 @@ function Title() {
   let timer=useRef()
  useEffect(()=>{
      timer.current=setInterval(()=>{
-       console.log('object');
        dispatch(CountDown(timer.current))
      },1000)
       return ()=>clearInterval(timer.current)

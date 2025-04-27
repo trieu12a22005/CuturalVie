@@ -46,12 +46,11 @@ function PuzzleGame() {
   };
 
   const checkAnswer = () => {
-    console.log(slots);
-    console.log(puzzleData.answers);
+
     const isCorrect = slots.every(
       (piece, i) => piece?.piece_index == puzzleData.answers[i].index
     );
-    console.log(isCorrect);
+
    isCorrect ? dispatch(handleWin("win")) : dispatch(handleWin("lose"));
   };
  

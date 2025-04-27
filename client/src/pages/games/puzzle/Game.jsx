@@ -24,7 +24,6 @@ export default function PuzzleQuiz() {
              regionId: region
           }
         })
-        console.log(response.data);
         dispatch(getPuzzle(response.data));
       } catch (err) {
         setError(true);

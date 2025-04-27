@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 const QuizGame = () => {
   const { setIsPlaying } = useAudio();
   const {progress ,value}= useSelector((state) => state.count);
-  console.log(progress,value);
   return (
     <>
           <InteractUser setIsPlaying={setIsPlaying} />

@@ -12,7 +12,7 @@ const items = [
   { label: "Cộng đồng", key: "community", path: "/community" },
   { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
 ];
-
+const navigate  = useNavigate();
 const Header = ({tab}) => {
   const location = useLocation();
   const newToken = localStorage.getItem("accessToken")
@@ -51,6 +51,7 @@ const Header = ({tab}) => {
       localStorage.removeItem("accessToken");
       setToken(localStorage.getItem("accessToken"))
       notifySuccess("Đăng xuất thành công")
+      navigate("/home")
     }
   }
   const userMenu = (

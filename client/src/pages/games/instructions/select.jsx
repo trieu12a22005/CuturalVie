@@ -24,7 +24,6 @@ function Select() {
    let dispatch=useDispatch()
   const navigate = useNavigate();
   const handleClickImg = async (index) =>{
-    console.log(index);
     if (index<3)
     {
       index = index+1;
@@ -46,8 +45,6 @@ function Select() {
       dispatch(resetCard())
       const result = await res.json();
       const parsedDescription = JSON.parse(result.description);
-      console.log(parsedDescription)
-      console.log(parsedDescription);
       dispatch(setGame(result.game))
       navigate("/instructions_3",{
         state: {
@@ -59,7 +56,6 @@ function Select() {
 
   useEffect(()=>{
      axiosInstance.get("/users/profile").then(res=>{
-        console.log(res.data);
      }).catch(err=>console.log(err))
   },[])
   return (
