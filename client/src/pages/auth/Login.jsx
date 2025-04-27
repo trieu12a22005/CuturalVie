@@ -77,9 +77,13 @@ export default function Login({ onClose, onSwitchToRegister }) {
       localStorage.setItem("avatar", data?.avatar_url)
       onClose();
     } catch (error) {
-      console.log(error);
-      notifyError(error);
+      if (error.response && error.response.data && error.response.data.message) {
+        notifyError("sai email hoặc mật khẩu");
+      } else {
+        notifyError("Đã xảy ra lỗi không xác định khi đăng nhập");
+      }
     }
+    
   };
 
   return (
