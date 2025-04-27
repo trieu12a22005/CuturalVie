@@ -10,7 +10,7 @@ import { increase } from "../../../store/countSlice";
 import { increasePuzzle } from "../../../store/puzzle";
 import AIProvider from "../../AI/AIProvider";
 import { Spin } from "antd";
-
+import {notifyError} from '../../../utils/notify'
 import { getTotalists } from "../../../utils/quizz";
 
 let lists = [null, "game_1", "game2/play", "game3/play", "game_4"];
@@ -43,9 +43,12 @@ function Learning() {
           }
         );
         const data = await res.json();
-        setInfo(data.topic);
+       if (data) setInfo(data?.topic);
+       else throw new Error()
       } catch (error) {
-        console.error("Lỗi khi fetch:", error);
+        navigate(-1);
+        notifyError("Hiện chưa có thông tin về phần này!")
+      
       } finally {
         setLoading(false); // ✅ Luôn tắt loading dù thành công hay lỗi
       }

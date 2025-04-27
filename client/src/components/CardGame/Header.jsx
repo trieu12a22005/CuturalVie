@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { formatTime } from "../../utils/quizz";
 import { CountDown } from "../../store/Card";
 import { useAudio } from "../../context/AudioContext";
+import { Link } from "react-router-dom";
 
 const CardGameHeader = ({ref}) => {
    let { isPlaying, setIsPlaying } = useAudio();

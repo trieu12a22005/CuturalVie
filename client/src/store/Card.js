@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 let initialState = {
-  seconds: 3*60,
+  seconds: 10,
   cards: [],
   matched: [],
   modal: "",
@@ -25,10 +25,10 @@ const cardSlice = createSlice({
       state.matched=[...state.cards.keys()];
    },
    CountDown(state,action) {
+    let timer=action.payload;
     if (state.modal) {
       clearInterval(timer)
     }
-    let timer=action.payload;
      if (state.seconds==1) {
       state.modal="lose";
       state.matched=[...state.cards.keys()];
