@@ -126,7 +126,7 @@ const Rule = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: totalDuration + 0.5 }}
         >
-          Start
+          Bắt đầu
         </motion.button>
       </div>
 
