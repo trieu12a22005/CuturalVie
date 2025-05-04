@@ -1,0 +1,39 @@
+[33me251891[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to HEAD~1
+[33me20eb1a[m HEAD@{1}: reset: moving to HEAD~1
+[33m2691637[m HEAD@{2}: commit (amend): final
+[33m08a61e1[m HEAD@{3}: commit (amend): final
+[33m95ff3b3[m HEAD@{4}: commit: final
+[33me20eb1a[m HEAD@{5}: pull: Fast-forward
+[33mcf7e69c[m HEAD@{6}: pull: Fast-forward
+[33m9bde444[m HEAD@{7}: pull: Merge made by the 'ort' strategy.
+[33m40d1c46[m HEAD@{8}: commit: update
+[33m4586503[m HEAD@{9}: pull: Fast-forward
+[33m02cffaa[m HEAD@{10}: commit: update
+[33m83082bc[m HEAD@{11}: commit: update console
+[33mc710ae1[m[33m ([m[1;31morigin/community[m[33m)[m HEAD@{12}: pull: Fast-forward
+[33m5da57a3[m HEAD@{13}: commit: update then
+[33m7a4d592[m HEAD@{14}: pull: Fast-forward
+[33m411b579[m HEAD@{15}: pull: Fast-forward
+[33m13549c5[m HEAD@{16}: pull: Merge made by the 'ort' strategy.
+[33ma6ba55f[m HEAD@{17}: commit: update
+[33m3a49b0f[m HEAD@{18}: pull: Fast-forward
+[33m9f696aa[m HEAD@{19}: commit: update ten
+[33mb654ea2[m HEAD@{20}: pull: Merge made by the 'ort' strategy.
+[33mfb8acb2[m HEAD@{21}: commit (merge): update ten
+[33mca51416[m HEAD@{22}: commit (merge): update next
+[33m3758f3c[m HEAD@{23}: commit: update next
+[33m1e4cdee[m HEAD@{24}: pull: Merge made by the 'ort' strategy.
+[33md18c6da[m HEAD@{25}: commit: update 9
+[33m3194b43[m HEAD@{26}: pull: Merge made by the 'ort' strategy.
+[33md0b6240[m HEAD@{27}: commit: new update
+[33mfcbf382[m HEAD@{28}: commit (merge): test
+[33m1618bb0[m HEAD@{29}: commit (merge): update 6
+[33m2b338a3[m HEAD@{30}: pull: Merge made by the 'ort' strategy.
+[33m0a9f993[m HEAD@{31}: commit (merge): update 5
+[33m26a8a4a[m HEAD@{32}: commit: updated 4
+[33m8b4f385[m HEAD@{33}: commit: updated 3
+[33mc0d10bf[m HEAD@{34}: commit: updated 2
+[33mea8c08f[m HEAD@{35}: pull origin main: Merge made by the 'ort' strategy.
+[33m33ba913[m HEAD@{36}: commit: update two
+[33ma3a8955[m HEAD@{37}: commit: update
+[33m08bda4f[m HEAD@{38}: clone: from https://github.com/trieu12a22005/CuturalVie.git
