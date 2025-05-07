@@ -99,7 +99,7 @@ const UserProfile = () => {
     const result = await response.json();
     if (result) {
       toast.success("Cập nhật thông tin thành công")
-      localStorage.setItem("avartar", avatar)
+      localStorage.setItem("avatar", avatar)
     }
     else {
       toast.error("Lỗi")
