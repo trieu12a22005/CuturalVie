@@ -151,12 +151,13 @@ export default function CreatePost() {
                     // Get the download URL
                     const downloadURL = await getDownloadURL(storageRef);
 
-                    const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+                    // Generate a more unique identifier using ISO string with time and random suffix
+                    const dateTime = new Date().toISOString().replace(/[:.]/g, '-'); // e.g., 2024-06-09T12-34-56-789Z
 
                     imageData = {
                         fileUrl: downloadURL,
                         fileKey: filePath,
-                        fileName: `${date}_${image.name}`,
+                        fileName: `${dateTime}_${image.name}`,
                         fileSize: image.size,
                         fileType: image.type
                     };
