@@ -36,6 +36,7 @@ const Contact = () => {
       <div className="bg-cover bg-center bg-[url('/bg/bgHome.jpg')] text-white">
         <Header/>
         <Loader/>
+        <Footer />
       </div>
   )
   }
