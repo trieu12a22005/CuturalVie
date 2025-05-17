@@ -42,6 +42,7 @@ import PostDetail from "./pages/community/PostDetail";
 import AIProvider from "./components/AI/AIProvider";
 import UserProfilePage from "./pages/profile/post";
 import History from "./pages/history/History";
+import Report from "./pages/report/Report";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -91,6 +92,7 @@ function App() {
         {/* phần này riêng */}
         <Route path="/select" element={<Select />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/report" element={<Report />} />
         <Route element={<QuizzLayout />}>
           <Route
             path="/quizz/rule"
