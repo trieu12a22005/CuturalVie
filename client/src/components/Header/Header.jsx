@@ -10,7 +10,7 @@ const items = [
   { label: "Trang chủ", key: "home", path: "/home" },
   { label: "Cultural Journey", key: "cultural", path: "/start" },
   { label: "Cộng đồng", key: "community", path: "/community" },
-  { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
+  { label: "Khơi nguồn tri thức", key: "contact", path: "/contact",otherPath: "/detail" },
 ];
 const Header = ({tab}) => {
   const location = useLocation();
@@ -89,7 +89,7 @@ const Header = ({tab}) => {
             <div
               key={item.key}
               className={`relative pb-2 border-b-2 transition-all ${
-                location.pathname === item.path || tab===item.path
+                location.pathname.includes(item.path) || location.pathname.includes(item.otherPath)  || tab===item.path
                   ? "border-[#02542D] text-[#02542D]"
                   : "border-transparent hover:border-[#02542D] hover:text-[#02542D]"
               }`}
