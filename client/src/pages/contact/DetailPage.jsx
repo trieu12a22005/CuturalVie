@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import { ChevronLeft, ChevronRight} from "lucide-react";
 import Loader from "../../components/loading";
 import Unavaible from "./Unavaible";
+import axiosInstance from "../../api/axios";
 
 const paragraphStyles = {
   WebkitLineClamp: 3,
@@ -48,7 +49,10 @@ const DetailPage = () => {
 
   const handleReadMore = (item) => {
     const relatedPosts = data.filter((post) => post.id  !== item.id)
-    
+    axiosInstance.post('/history',{
+      description: "tìm hiểu về "+item.title,
+      completed: false
+   })
     navigate(`/detail-more`, { state: {item, relatedPosts} })
   }
   const handlePageChange = (page) => {

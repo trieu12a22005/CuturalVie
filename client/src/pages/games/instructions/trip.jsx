@@ -1,31 +1,49 @@
 import {useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {useSelector } from "react-redux";
+import {useDispatch, useSelector } from "react-redux";
 import Backbutton from '../../../components/BackButton'
+import axiosInstance from '../../../api/axios'
+import { setText } from "../../../store/Region";
 function Trip() {
-  const {region,game}=useSelector(state=>state.region)
+  const {region,currentGame}=useSelector(state=>state.region)
   //let dispatch=useDispatch()
   const images = [
     { src: "trip/history.png", alt: "History" },
     { src: "trip/cultural_1.png", alt: "Cultural 1" },
     { src: "trip/cultural_2.png", alt: "Cultural 2" },
   ];
+  let dispatch=useDispatch()
   const name = localStorage.getItem("nameRegion");
   const navigate = useNavigate();
-  function handleImageClick(index) {
-    if (index==1)
+  async function handleImageClick(index) {
+    let text="";
+    console.log(index);
+    if (index==0)
     {
 
       localStorage.setItem("trip", "history");
-    }
-    else if (index==3)
-    {
-      localStorage.setItem("trip","intangible_heritage")
+      text="lịch sử của "+name;
     }
     else if (index==2)
     {
-      localStorage.setItem("trip","tangible_heritage")
+      localStorage.setItem("trip","intangible_heritage")
+      text="Di sản văn hóa vật thể của "+name;
     }
+    else if (index==1)
+    {
+      localStorage.setItem("trip","tangible_heritage")
+      text="Di sản văn hóa phi vật thể của "+name;
+    }
+   text=text.toLocaleLowerCase();
+   text=text[0].toLocaleUpperCase()+text.slice(1);
+   console.log(text);
+   dispatch(setText(text))
+   await axiosInstance.post("/history",{
+        description: text,
+        gameTypeId: index,
+        regionId: region,
+        completed: false
+    })
     navigate("/trip/instruction", {
       state: {
         index: index

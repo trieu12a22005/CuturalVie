@@ -5,12 +5,14 @@ const countSlice = createSlice({
   initialState: {
     value: 0,
     progress: [],
+    startTime: null,
   },
   reducers: {
     increase: (state) => {
       state.value += 1;
     },
     initProgress(state, action) {
+     state.startTime=new Date();
       if (state.value==0) {
         state.progress = state.progress = Array.from(
           { length: action.payload.length },

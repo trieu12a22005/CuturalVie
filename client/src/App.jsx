@@ -37,12 +37,18 @@ import Finish from "./components/Game/Finish/Finish";
 import Summary from "./components/Game/Finish/Summary";
 import Community from "./pages/community/Community";
 import CreatePost from "./pages/community/CreatePost";
-import EditPost from './pages/community/EditPost';
+import EditPost from "./pages/community/EditPost";
 import PostDetail from "./pages/community/PostDetail";
 import AIProvider from "./components/AI/AIProvider";
 import UserProfilePage from "./pages/profile/post";
 import History from "./pages/history/History";
+
 import Report from "./pages/report/Report";
+
+import TestLayout from "./pages/tests/TestLayout";
+import Input from "./pages/tests/Input";
+import Output from "./pages/tests/Output";
+
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -213,14 +219,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/history"
-          element={
-            <ProtectedRoute>
-              <History/>
-            </ProtectedRoute>
-          }
-        />
+
         <Route
           path="/updatePassword"
           element={
@@ -309,13 +308,43 @@ function App() {
             <ProtectedRoute>
               <PostDetail />
             </ProtectedRoute>
-          } />
+          }
+        />
         <Route
           path="/detail-more"
           element={
             <AIProvider>
               <DetailMorePage />
             </AIProvider>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <History />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/input"
+          element={
+            <ProtectedRoute>
+              <TestLayout>
+                <Input />
+              </TestLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/output"
+          element={
+            <ProtectedRoute>
+              <TestLayout>
+                <Output />
+              </TestLayout>
+            </ProtectedRoute>
           }
         />
       </Routes>
