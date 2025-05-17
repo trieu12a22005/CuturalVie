@@ -68,6 +68,9 @@ const Header = ({tab}) => {
       <Menu.Item key="4" className="hover:!bg-[#02542D] hover:!text-white">
         <Link to="/feedback">Ý kiến đóng góp</Link>
       </Menu.Item>
+      <Menu.Item key="4" className="hover:!bg-[#02542D] hover:!text-white">
+        <Link to="/history">Lịch sử</Link>
+      </Menu.Item>
       <Menu.Item key="5" className="hover:!bg-red-600 hover:!text-white">
         <div onClick={handleClick}>Đăng xuất</div>
       </Menu.Item>

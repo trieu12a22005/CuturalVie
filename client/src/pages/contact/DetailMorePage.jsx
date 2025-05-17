@@ -4,6 +4,8 @@ import Header from "../../components/Header/Header";
 import AIAssistantModal from "../../components/AI/Assistance";
 import TooltipText from "../../components/Game/Tooltiptext";
 import { MessageSquare } from "lucide-react";
+import axiosInstance from "../../api/axios";
+import axios from "axios";
 function getToolTiptext(paragraph, setChatdata) {
   let words = paragraph.split(" ");
   return words.map((word, idx) => (
@@ -24,9 +26,18 @@ const DetailMorePage = () => {
   }
   useEffect(()=>{
     window.scrollTo({ top: 0, behavior: "smooth" });
+    return ()=>{
+       axiosInstance.post('/history',{
+          description: "tìm hiểu về "+item.title,
+          completed: true
+       })
+    }
   },[])
-  const handleReadMore = (post) => {
+  const handleReadMore = async (post) => {
     const updatedPosts = relatedPosts ? [...relatedPosts.filter((related) => related.id !== post.id), item] : [item]
+    // await axiosInstance.post("/",{
+         
+    // })
     navigate(`/detail-more`, { state: { item: post, relatedPosts: updatedPosts } }); 
     window.scrollTo({ top: 0, behavior: "smooth" });
   };

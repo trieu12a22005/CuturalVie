@@ -3,6 +3,7 @@ const initialState = {
   region: 1,
   game: [],
   currentGame: null,
+  text: ""
 };
 const regionSlice = createSlice({
   name: "region",
@@ -10,6 +11,9 @@ const regionSlice = createSlice({
   reducers: {
     setRegion: (state, action) => {
       state.region = action.payload;
+    },
+    setText: (state, action) => {
+      state.text = action.payload;
     },
     setCurrentGame(state,action) {
       state.currentGame=action.payload;
@@ -20,5 +24,5 @@ const regionSlice = createSlice({
   },
 });
 
-export const { setGame,setRegion,setCurrentGame} = regionSlice.actions;
+export const { setGame,setRegion,setCurrentGame,setText} = regionSlice.actions;
 export default regionSlice.reducer;

@@ -7,6 +7,7 @@ import Loader from "../../../components/loading";
 import Solution from "../../../components/puzzleGame/Solution";
 import { motion } from "framer-motion";
 import axiosInstance from "../../../api/axios";
+import { data } from "react-router-dom";
 
 export default function PuzzleQuiz() {
   const { progress, current, modal } = useSelector((state) => state.puzzle);
@@ -24,6 +25,7 @@ export default function PuzzleQuiz() {
              regionId: region
           }
         })
+        console.log(response.data);
         dispatch(getPuzzle(response.data));
       } catch (err) {
         setError(true);

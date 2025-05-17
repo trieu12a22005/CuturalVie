@@ -27,6 +27,7 @@ function Question() {
       )
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setQuestions(data.question);
           dispatch(initProgress(data.question))
         })

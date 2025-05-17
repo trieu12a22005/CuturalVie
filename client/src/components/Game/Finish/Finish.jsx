@@ -4,6 +4,7 @@ import Winning from "./Winning";
 import { useLocation, useNavigate } from "react-router-dom";
 import {useSelector } from "react-redux";
 import Fail from "./Fail";
+import axiosInstance from "../../../api/axios";
 let storename=[null,"count","puzzle","card","count"]
 function Finish() {
   const location = useLocation();
@@ -13,10 +14,11 @@ function Finish() {
   const nametrip = localStorage.getItem("trip");
   let {currentGame}=useSelector(state=>state.region)
    let state=useSelector(state=>state[storename[currentGame]])
-  const {region}=useSelector(state=>state.region)
+  const {region,text}=useSelector(state=>state.region)
   const handleClick = () => {
     navigate("/trip");
   };
+  
   useEffect(() => {
     async function fetchData() {
       try {
@@ -33,7 +35,12 @@ function Finish() {
             }),
           }
         );
-  
+        await axiosInstance.post("/history",{
+          description: text,
+          gameTypeId: currentGame,
+          regionId: region,
+          completed: true
+      })
         const data = await response.json();
       } catch (error) {
         console.error("Lỗi khi fetch:", error);
