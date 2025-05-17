@@ -78,6 +78,7 @@ export default function Login({ onClose, onSwitchToRegister }) {
       onClose();
     } catch (error) {
       if (error.response && error.response.data && error.response.data.message) {
+        console.log(error);
         notifyError("sai email hoặc mật khẩu");
       } else {
         notifyError("Đã xảy ra lỗi không xác định khi đăng nhập");

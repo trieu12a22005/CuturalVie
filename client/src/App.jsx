@@ -41,6 +41,7 @@ import EditPost from './pages/community/EditPost';
 import PostDetail from "./pages/community/PostDetail";
 import AIProvider from "./components/AI/AIProvider";
 import UserProfilePage from "./pages/profile/post";
+import History from "./pages/history/History";
 function App() {
   const backgroundImage = "/bg/bg1.png";
   useEffect(() => {
@@ -207,6 +208,14 @@ function App() {
           element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <History/>
             </ProtectedRoute>
           }
         />
