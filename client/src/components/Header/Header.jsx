@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserOutlined } from "@ant-design/icons";
-import {Avatar, Dropdown, Menu, Modal } from "antd";
+import { Avatar, Dropdown, Menu, Modal } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Login from "../../pages/auth/Login";
 import "./style.css";
@@ -12,12 +12,12 @@ const items = [
   { label: "Cộng đồng", key: "community", path: "/community" },
   { label: "Khơi nguồn tri thức", key: "contact", path: "/contact" },
 ];
-const Header = ({tab}) => {
+const Header = ({ tab }) => {
   const location = useLocation();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const newToken = localStorage.getItem("accessToken")
   const searchParams = new URLSearchParams(location.search);
-  const loginMode = searchParams.get('login'); 
+  const loginMode = searchParams.get('login');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userInfo, setUserInfo] = useState({ name: "", avatar: "" });
   const [showLoginModal, setShowLoginModal] = useState(Boolean(loginMode) && !newToken);
@@ -42,12 +42,11 @@ const Header = ({tab}) => {
       setShowRegisterModal(true);
     }, 300);
   };
-  const handleClick = async() =>{
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`,{
+  const handleClick = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
       credentials: "include"
     })
-    if (response)
-    {
+    if (response) {
       localStorage.removeItem("accessToken");
       setToken(localStorage.getItem("accessToken"))
       notifySuccess("Đăng xuất thành công")
@@ -88,11 +87,10 @@ const Header = ({tab}) => {
           {items.map((item) => (
             <div
               key={item.key}
-              className={`relative pb-2 border-b-2 transition-all ${
-                location.pathname === item.path || tab===item.path
-                  ? "border-[#02542D] text-[#02542D]"
-                  : "border-transparent hover:border-[#02542D] hover:text-[#02542D]"
-              }`}
+              className={`relative pb-2 border-b-2 transition-all ${location.pathname === item.path || tab === item.path
+                ? "border-[#02542D] text-[#02542D]"
+                : "border-transparent hover:border-[#02542D] hover:text-[#02542D]"
+                }`}
             >
               <Link to={item.path || "#"}>{item.label}</Link>
             </div>
@@ -107,7 +105,7 @@ const Header = ({tab}) => {
                 <Avatar
                   size={40}
                   src={localStorage.getItem("avatar") || null}
-                  icon={!userInfo. avatar && <UserOutlined />}
+                  icon={!userInfo.avatar && <UserOutlined />}
                   style={{ backgroundColor: "#87d068" }}
                 />
                 <p className="font-semibold ml-[10px]">{userInfo.name}</p>
