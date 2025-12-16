@@ -87,6 +87,8 @@ export default function Register({ onClose, onSwitchToLogin }) {
           email: formData.email,
           full_name: formData.name,
           password: formData.password,
+          age_range: "student",
+          nationality: "vietnamese",
         }
       );
 
@@ -98,6 +100,10 @@ export default function Register({ onClose, onSwitchToLogin }) {
     } catch (err) {
       console.error("❌ Lỗi:", err.response?.data || err.message);
       notifyError("Đăng kí thất bại!");
+      console.log("message:", err?.message);
+      console.log("status:", err?.response?.status);
+      console.log("response data:", err?.response?.data);
+      console.log("request payload:", err?.config?.data);
     }
   };
 
