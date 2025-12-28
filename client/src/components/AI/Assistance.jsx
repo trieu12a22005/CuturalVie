@@ -43,6 +43,7 @@ const AIAssistantModal = ({ chatData, open, setOpen }) => {
             : msg
         )
       );
+      console.log(res)
     } catch (error) {
       console.error(error);
     } finally {
