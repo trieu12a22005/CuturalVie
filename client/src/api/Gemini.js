@@ -1,38 +1,45 @@
 import axios from "axios";
-let controller
-let apiKey=import.meta.env.VITE_API_KEY
-let context=import.meta.env.VITE_CONTEXT
-export async function generateContent(prompt) {
-    if (controller) {
-        controller.abort(); 
-      }
-    
-      controller = new AbortController(); 
-      try {
-        const response = await axios.post(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+
+const apitest = import.meta.env.VITE_API_KEY;
+const systemContext = import.meta.env.VITE_CONTEXT;
+
+export async function generateContent(prompt, abortSignal) {
+  try {
+    const response = await axios.post(
+      "https://api.openai.com/v1/chat/completions",
+      {
+        model: "gpt-4o-mini",
+        messages: [
           {
-            contents: [
-              {
-                parts: [{ text: context+prompt }],
-              },
-            ],
+            role: "system",
+            content: systemContext,
           },
           {
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            signal: controller.signal, 
-          }
-        );
-    
-        return response.data;
-      } catch (error) {
-        if (axios.isCancel(error)) {
-          console.warn('Request cancelled');
-        } else {
-          console.error('Error generating content:', error);
-        }
-        return null;
+            role: "user",
+            content: prompt,
+          },
+        ],
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apitest}`,
+        },
+        signal: abortSignal,
       }
+    );
+
+    return response.data;
+  } catch (error) {
+    if (axios.isCancel(error)) {
+      console.warn("Request cancelled");
+      return null;
+    }
+
+    console.error(
+      "Error generating content:",
+      error.response?.data || error.message
+    );
+    throw error;
+  }
 }
